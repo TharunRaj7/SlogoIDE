@@ -1,5 +1,7 @@
 # SLOGO_APIs.md
 
+Thomas Owens (to57), Vineet Alaparthi (va68), Andrew Krier (ak513), Tharun Mani Raj (tm272) 
+
 ## CRC Summary
 
 ### Front End

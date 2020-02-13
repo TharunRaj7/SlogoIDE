@@ -1,5 +1,7 @@
 # SIMULATION_API.md
 
+Thomas Owens (to57), Vineet Alaparthi (va68), Andrew Krier (ak513), Tharun Mani Raj (tm272) 
+
 ### API Exploration
 
 public class VisualizationView { 

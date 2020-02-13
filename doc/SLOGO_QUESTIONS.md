@@ -1,5 +1,7 @@
 # SLOGO_QUESTIONS.md
 
+Thomas Owens (to57), Vineet Alaparthi (va68), Andrew Krier (ak513), Tharun Mani Raj (tm272) 
+
 ## High Level Overview
 
 #### Front-end:

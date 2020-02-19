@@ -22,6 +22,12 @@ public interface IVisualize {
   void setPenColor(Color c);
 
   /**
+   * Updates the turtle visual on the display to set the angle of the new heading of the turtle.
+   * @param angle of the rotation
+   */
+  void setHeading(int angle);
+
+  /**
    * Sets the thickness of the turtle's pen.
    *
    * Changes the thickness of future (not past) paths that are drawn by the turtle's movement.

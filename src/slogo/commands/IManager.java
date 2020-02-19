@@ -23,4 +23,13 @@ public interface IManager {
      * @param value
      */
     void addVariable(String name, double value);
+
+    /**
+     * Runs the command with the arguments, and returns a double to
+     * be used as another argument or to be passed to a variable
+     * @param command
+     * @param args
+     * @return val for argument or variable
+     */
+    double runCommand(ICommand command, double ... args);
 }

@@ -1,4 +1,4 @@
-package slogo.frontend;
+package slogo.controller;
 
 import slogo.utility.Location;
 

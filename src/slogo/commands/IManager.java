@@ -15,4 +15,12 @@ public interface IManager {
      * @param arg
      */
     void addArg(double arg);
+
+    /**
+     * Adds a variable to the map held in the manager
+     * Able to be recalled as an argument for command calls later
+     * @param name
+     * @param value
+     */
+    void addVariable(String name, double value);
 }

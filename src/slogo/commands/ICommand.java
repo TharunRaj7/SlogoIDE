@@ -5,15 +5,6 @@ import slogo.controller.Turtle;
 public interface ICommand {
 
     /**
-     * Initializes the command class, gives it a turtle to modify
-     * Should be called by the command manager given the proper arguments
-     * @param turtle
-     * @param args
-     * @return
-     */
-    ICommand command(Turtle turtle, double ... args);
-
-    /**
      * Checks to see if the number of arguments available are sufficient
      * to run the command
      * @param numArgs

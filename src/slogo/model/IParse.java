@@ -9,6 +9,8 @@ public interface IParse {
    * Sets input to a private local string to be able to manage regex and
    * other aspects from there
    * @param input
+   * @throws syntaxException
+   * @throws parserException
    */
   void parse(String input);
 

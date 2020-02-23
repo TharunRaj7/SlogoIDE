@@ -12,7 +12,7 @@ public interface ITurtle {
    * accordingly.
    * @param distance the distance to move forward, or backwards if negative
    */
-  void moveForward(int distance);
+  void moveForward(double distance);
 
   /**
    * Moves the turtle to an absolute location.

@@ -10,7 +10,7 @@ public interface ICommand {
      * @param numArgs
      * @return
      */
-    boolean enoughArgs (int numArgs);
+    boolean enoughArgs ();
 
     /**
      * Gives the command an argument

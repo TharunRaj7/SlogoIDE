@@ -1,11 +1,14 @@
 package slogo.view;
 
 import javafx.geometry.Bounds;
+import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
@@ -24,11 +27,14 @@ public class TurtleCanvas extends Pane implements IVisualize {
   private static final Color DEFAULT_PEN_COLOR = Color.WHITE;
   private static final int DEFAULT_PEN_THICKNESS = 1;
   private static final Color DEFAULT_BACKGROUND_COLOR = Color.BLACK;
+  private static final double PADDING = 5;
+  private static final double GAP = 2;
 
   private Turtle myTurtle;
 
   private GridPane myLayoutPane;
   private Canvas myCanvas;
+  private Pane myCanvasHolder;
   private GraphicsContext myGraphicsContext;
 
   private double[] myTurtleLocation;
@@ -36,14 +42,15 @@ public class TurtleCanvas extends Pane implements IVisualize {
   TurtleCanvas() {
     initializeCanvas();
     initializeDefaults();
-    //initializeLayoutPane();
+    initializeLayoutPane();
 
     myTurtleLocation = new double[]{0, 0};
   }
 
   private void initializeCanvas() {
+    myCanvasHolder = new Pane();
     myCanvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
-    this.getChildren().add(myCanvas);
+    myCanvasHolder.getChildren().add(myCanvas);
 
     myGraphicsContext = myCanvas.getGraphicsContext2D();
   }
@@ -55,11 +62,31 @@ public class TurtleCanvas extends Pane implements IVisualize {
   }
 
   private void initializeLayoutPane() {
-    //myLayoutPane = new GridPane();
-    //myCanvas = new Canvas();
+    myLayoutPane = new GridPane();
 
+    Pane menuBar = makeMenuBar();
+    myLayoutPane.add(menuBar, 0, 0);
+    myLayoutPane.add(myCanvasHolder, 0, 1);
 
-    //myLayoutPane.add(myCanvas, 0, 0);
+    myLayoutPane.setPadding(new Insets(PADDING));
+    myLayoutPane.setHgap(GAP);
+    myLayoutPane.setVgap(GAP);
+
+    this.getChildren().add(myLayoutPane);
+  }
+
+  private Pane makeMenuBar() {
+    HBox menu = new HBox();
+
+    ColorPicker colorPicker = new ColorPicker();
+    colorPicker.setOnAction(e -> {
+        Color c = colorPicker.getValue();
+        setBackgroundColor(c);
+    });
+
+    menu.getChildren().add(colorPicker);
+
+    return menu;
   }
 
   @Override
@@ -114,7 +141,7 @@ public class TurtleCanvas extends Pane implements IVisualize {
   public void setBackgroundColor(Color c) {
     BackgroundFill backgroundFill = new BackgroundFill(c, null, null);
     Background background = new Background(backgroundFill);
-    this.setBackground(background);
+    myCanvasHolder.setBackground(background);
   }
 
   @Override

@@ -18,6 +18,8 @@ public class Parser implements IParse {
         // TODO: Make the necessary commands
         // TODO: This is the hard part
         // TODO: Make sure to not let this method get out of control
+        String[] lines = input.split("\n");
+
     }
 
     /**

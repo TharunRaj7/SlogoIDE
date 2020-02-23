@@ -1,13 +1,11 @@
 package slogo.view;
 
 import javafx.geometry.Insets;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.geometry.Orientation;
+import javafx.scene.control.SplitPane;
 import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
-import slogo.controller.Turtle;
 import slogo.model.Parser;
 
 public class SLogoFrameFactory {
@@ -15,20 +13,23 @@ public class SLogoFrameFactory {
   private static final int PADDING = 5;
   private static final int GAP = 2;
 
-  static Pane newSLogoFramePane() {
-    GridPane layoutPane = new GridPane();
+  static SplitPane newSLogoFramePane() {
+    SplitPane topRow = new SplitPane();
+    SplitPane botRow = new SplitPane();
 
     TurtleCanvas tc = new TurtleCanvas();
     testPathDrawing(tc);
 
-    layoutPane.add(tc, 0, 0);
-    layoutPane.add(new Console(new Parser()), 1, 0);
+    topRow.getItems().add(tc);
+    botRow.getItems().add(new Console(new Parser()));
+    topRow.getItems().add(new ScriptEditor(new Parser()));
 
-    layoutPane.setPadding(new Insets(PADDING));
-    layoutPane.setHgap(GAP);
-    layoutPane.setVgap(GAP);
+    SplitPane sp = new SplitPane();
+    sp.setOrientation(Orientation.VERTICAL);
+    sp.setPadding(new Insets(PADDING));
+    sp.getItems().addAll(topRow, botRow);
 
-    return layoutPane;
+    return sp;
   }
 
   private static void testPathDrawing(TurtleCanvas tc) {

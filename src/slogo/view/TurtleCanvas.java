@@ -2,14 +2,21 @@ package slogo.view;
 
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -17,7 +24,7 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import slogo.controller.Turtle;
 
-public class TurtleCanvas extends Pane implements IVisualize {
+public class TurtleCanvas extends GridPane implements IVisualize {
 
   private static final double CANVAS_WIDTH = 300;
   private static final double CANVAS_HEIGHT = 300;
@@ -61,17 +68,19 @@ public class TurtleCanvas extends Pane implements IVisualize {
   }
 
   private void initializeLayoutPane() {
-    GridPane myLayoutPane = new GridPane();
-
     Pane menuBar = makeMenuBar();
-    myLayoutPane.add(menuBar, 0, 0);
-    myLayoutPane.add(myCanvasHolder, 0, 1);
+    this.add(menuBar, 0, 0);
+    this.add(myCanvasHolder, 0, 1);
+    setGrowPriority(myCanvasHolder);
 
-    myLayoutPane.setPadding(new Insets(PADDING));
-    myLayoutPane.setHgap(GAP);
-    myLayoutPane.setVgap(GAP);
+    this.setPadding(new Insets(PADDING));
+    this.setHgap(GAP);
+    this.setVgap(GAP);
 
-    this.getChildren().add(myLayoutPane);
+    this.setBorder(new Border(new BorderStroke(Color.GREEN,
+        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+
+    setGrowPriority(this);
   }
 
   private Pane makeMenuBar() {
@@ -84,6 +93,8 @@ public class TurtleCanvas extends Pane implements IVisualize {
     });
 
     menu.getChildren().add(colorPicker);
+
+    menu.setMinHeight(25);
 
     return menu;
   }
@@ -151,5 +162,10 @@ public class TurtleCanvas extends Pane implements IVisualize {
   @Override
   public Bounds getBounds() {
     return this.getLayoutBounds();
+  }
+
+  private void setGrowPriority(Node node) {
+    GridPane.setHgrow(node, Priority.ALWAYS);
+    GridPane.setVgrow(node, Priority.ALWAYS);
   }
 }

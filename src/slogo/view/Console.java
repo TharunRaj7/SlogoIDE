@@ -1,19 +1,24 @@
 package slogo.view;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
 import slogo.model.Parser;
 
-public class Console extends Pane {
+public class Console extends GridPane {
 
   private static final double DEFAULT_WIDTH = 300;
   private static final double DEFAULT_HEIGHT = 600;
@@ -36,16 +41,28 @@ public class Console extends Pane {
   }
 
   private void initializeLayoutPane() {
-    GridPane myLayoutPane = new GridPane();
+    this.setPadding(new Insets(PADDING));
+    this.setVgap(GAP);
+    this.setHgap(GAP);
 
-    myLayoutPane.setPadding(new Insets(PADDING));
-    myLayoutPane.setVgap(GAP);
-    myLayoutPane.setHgap(GAP);
+    this.add(myHistoryArea, 0, 0);
+    setGrowPriority(myHistoryArea);
 
-    myLayoutPane.add(myHistoryArea, 0, 0);
-    myLayoutPane.add(myTextField, 0, 1);
+    this.add(myTextField, 0, 1);
+    setGrowPriority(myTextField);
+    GridPane.setVgrow(myTextField, Priority.NEVER);
 
-    this.getChildren().add(myLayoutPane);
+    setGrowPriority(this);
+
+    this.setBorder(new Border(new BorderStroke(Color.BLUE,
+        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+
+    this.setGridLinesVisible(true);
+  }
+
+  private void setGrowPriority(Node node) {
+    GridPane.setHgrow(node, Priority.ALWAYS);
+    GridPane.setVgrow(node, Priority.ALWAYS);
   }
 
   private void initializeHistory() {
@@ -111,9 +128,4 @@ public class Console extends Pane {
     myHistoryArea.appendText("> " + text + "\n");
   }
 
-  @Override
-  public void requestFocus() {
-    super.requestFocus();
-    this.myTextField.requestFocus();
-  }
 }

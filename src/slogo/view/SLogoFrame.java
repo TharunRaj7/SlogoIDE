@@ -2,6 +2,7 @@ package slogo.view;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Control;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -9,7 +10,7 @@ public class SLogoFrame extends Application implements IFrame {
 
   private static final double WINDOW_WIDTH = 800;
   private static final double WINDOW_HEIGHT = 600;
-  private Pane myLayoutPane;
+  private Control myLayoutPane;
 
   public SLogoFrame() {
     super();

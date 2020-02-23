@@ -14,12 +14,12 @@ public class Turtle implements ITurtle {
     }
 
     @Override
-    public void rotate(int angle) {
+    public void rotate(double angle) {
 
     }
 
     @Override
-    public void setHeading(int angle) {
+    public void setHeading(double angle) {
 
     }
 

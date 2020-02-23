@@ -8,14 +8,20 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.shape.PathElement;
 import slogo.controller.Turtle;
 
 public class TurtleCanvas extends Pane implements IVisualize {
 
   private static final double CANVAS_WIDTH = 300;
   private static final double CANVAS_HEIGHT = 300;
-  private static final Color DEFAULT_PEN_COLOR = Color.BLACK;
+  private static final double TRANSLATE_X = CANVAS_WIDTH / 2.0;
+  private static final double TRANSLATE_Y = CANVAS_HEIGHT / 2.0;
+
+  private static final Color DEFAULT_PEN_COLOR = Color.WHITE;
   private static final int DEFAULT_PEN_THICKNESS = 1;
   private static final Color DEFAULT_BACKGROUND_COLOR = Color.BLACK;
 
@@ -25,10 +31,14 @@ public class TurtleCanvas extends Pane implements IVisualize {
   private Canvas myCanvas;
   private GraphicsContext myGraphicsContext;
 
+  private double[] myTurtleLocation;
+
   TurtleCanvas() {
     initializeCanvas();
     initializeDefaults();
-    initializeLayoutPane();
+    //initializeLayoutPane();
+
+    myTurtleLocation = new double[]{0, 0};
   }
 
   private void initializeCanvas() {
@@ -45,15 +55,44 @@ public class TurtleCanvas extends Pane implements IVisualize {
   }
 
   private void initializeLayoutPane() {
-    myLayoutPane = new GridPane();
-    myCanvas = new Canvas();
-    myLayoutPane.add(myCanvas, 0, 0);
-  }
+    //myLayoutPane = new GridPane();
+    //myCanvas = new Canvas();
 
+
+    //myLayoutPane.add(myCanvas, 0, 0);
+  }
 
   @Override
   public void drawPath(Path p) {
-    // TODO: Draw new paths
+    for (PathElement pe : p.getElements()) {
+      if (pe instanceof LineTo) {
+        drawLine(pe.isAbsolute(),
+            ((LineTo) pe).getX(), ((LineTo) pe).getY());
+      }
+      else if (pe instanceof MoveTo) {
+        moveTo(((MoveTo) pe).getX(), ((MoveTo) pe).getY());
+      }
+    }
+  }
+
+  private void drawLine(boolean absolute, double x, double y) {
+    double[] destination;
+    if (absolute) {
+      destination = new double[]{x, y};
+    } else {
+      destination = new double[]{myTurtleLocation[0] + x, myTurtleLocation[1] + y};
+    }
+
+    myGraphicsContext.strokeLine(
+        myTurtleLocation[0] + TRANSLATE_X, myTurtleLocation[1] + TRANSLATE_Y,
+        destination[0] + TRANSLATE_X, destination[1] + TRANSLATE_Y
+    );
+
+    myTurtleLocation = destination;
+  }
+
+  private void moveTo(double x, double y) {
+    myTurtleLocation = new double[]{x, y};
   }
 
   @Override

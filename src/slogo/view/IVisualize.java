@@ -1,5 +1,6 @@
 package slogo.view;
 
+import javafx.geometry.Bounds;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 
@@ -50,6 +51,6 @@ public interface IVisualize {
   /**
    * Gets the bounds of this visualization.
    */
-  void getBounds();
+  Bounds getBounds();
 
 }

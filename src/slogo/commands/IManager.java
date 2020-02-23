@@ -31,5 +31,5 @@ public interface IManager {
      * @param args
      * @return val for argument or variable
      */
-    double runCommand(ICommand command, double ... args);
+    double runCommand(ICommand command);
 }

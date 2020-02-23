@@ -7,7 +7,6 @@ public interface ICommand {
     /**
      * Checks to see if the number of arguments available are sufficient
      * to run the command
-     * @param numArgs
      * @return
      */
     boolean enoughArgs ();

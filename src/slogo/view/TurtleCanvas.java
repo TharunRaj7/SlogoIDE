@@ -32,7 +32,6 @@ public class TurtleCanvas extends Pane implements IVisualize {
 
   private Turtle myTurtle;
 
-  private GridPane myLayoutPane;
   private Canvas myCanvas;
   private Pane myCanvasHolder;
   private GraphicsContext myGraphicsContext;
@@ -62,7 +61,7 @@ public class TurtleCanvas extends Pane implements IVisualize {
   }
 
   private void initializeLayoutPane() {
-    myLayoutPane = new GridPane();
+    GridPane myLayoutPane = new GridPane();
 
     Pane menuBar = makeMenuBar();
     myLayoutPane.add(menuBar, 0, 0);

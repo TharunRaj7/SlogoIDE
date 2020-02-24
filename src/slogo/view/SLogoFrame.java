@@ -25,24 +25,29 @@ public class SLogoFrame extends Application implements IFrame {
   private static final double PADDING = 5;
   private Control myLayout;
   private Turtle myTurtle;
+  private TurtleCanvas tc;
 
   public SLogoFrame() {
     super();
-    myTurtle = new Turtle(new Location(0,0), 0.0, "");
   }
 
   @Override
   public void start(Stage primaryStage) {
+    initializeComponents();
     initializeLayoutPane();
     initializeStage(primaryStage);
     primaryStage.show();
+  }
+
+  private void initializeComponents() {
+    tc = new TurtleCanvas();
+    myTurtle = new Turtle(tc, new Location(0,0), 0.0, "");
   }
 
   private void initializeLayoutPane() {
     SplitPane topRow = new SplitPane();
     SplitPane botRow = new SplitPane();
 
-    TurtleCanvas tc = new TurtleCanvas();
     //TurtleTesting.testPathDrawing(tc);
 
     topRow.getItems().add(tc);

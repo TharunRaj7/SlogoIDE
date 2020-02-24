@@ -32,7 +32,7 @@ public interface ITurtle {
    * left, or counter-clockwise. The turtle will visually change heading upon update.
    * @param angle the rotation from the current heading
    */
-  void rotate(int angle);
+  void rotate(double angle);
 
   /**
    * Sets the turtle's heading to a given angle.

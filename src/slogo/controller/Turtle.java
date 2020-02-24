@@ -1,15 +1,21 @@
 package slogo.controller;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.PathElement;
 import slogo.utility.Location;
 import slogo.utility.MathOps;
+import slogo.view.element.TurtleCanvas;
 
 public class Turtle implements ITurtle {
+    TurtleCanvas tc;
     Location location;
     private double currentAngle;
     ImageView image;
 
-    public Turtle (Location location, double orientationAngle, String imageFilePath){
+    public Turtle (TurtleCanvas tc, Location location, double orientationAngle, String imageFilePath){
+        this.tc = tc;
         this.location = location;
         this.currentAngle = orientationAngle;
         //this.image = image;
@@ -17,13 +23,30 @@ public class Turtle implements ITurtle {
     @Override
     public void moveForward(double distance) {
         QuadrantHelper quadrant = findQuadrant();
-        double normalizedAngle = referenceAngle(quadrant);
-        System.out.println(normalizedAngle);
-        double xTranslate = MathOps.sin(normalizedAngle) * distance;
-        double yTranslate = MathOps.cos(normalizedAngle) * distance;
+        double referenceAngle = referenceAngle(quadrant);
+        //System.out.println(normalizedAngle);
+        double xTranslate = MathOps.sin(referenceAngle) * distance;
+        double yTranslate = MathOps.cos(referenceAngle) * distance;
 
-        System.out.println(""+ xTranslate + "  " +  yTranslate);
+        //System.out.println(""+ xTranslate + "  " +  yTranslate);
+        // modifying the signs of the translations based on the quadrant the turtle is on.
+        if (quadrant == QuadrantHelper.QUADRANT1){
+            yTranslate = -yTranslate;
+        }else if (quadrant == QuadrantHelper.QUADRANT3){
+            xTranslate = -xTranslate;
+        }else if (quadrant == QuadrantHelper.QUADRANT4){
+            xTranslate = -xTranslate;
+            yTranslate = -yTranslate;
+        }
 
+
+        //call to internal API drawPath
+        Path p = new Path();
+        PathElement line;
+        line = new LineTo(xTranslate, yTranslate);
+        line.setAbsolute(false);
+        p.getElements().add(line);
+        tc.drawPath(p);
 
 
         //change angle of the turtle as well
@@ -59,8 +82,9 @@ public class Turtle implements ITurtle {
     }
 
     @Override
-    public void rotate(int angle) {
-
+    public void rotate(double angle) {
+        // TODO: implement this function to inlcude all the different input cases
+        currentAngle += angle;
     }
 
     @Override
@@ -115,7 +139,7 @@ public class Turtle implements ITurtle {
 
     //testing
     public static void main(String[] args) {
-        Turtle test = new Turtle(new Location(0,0), 45, "");
+        Turtle test = new Turtle(new TurtleCanvas(), new Location(0,0), 45, "");
         test.moveForward(50);
 
     }

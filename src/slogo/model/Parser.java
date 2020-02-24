@@ -18,6 +18,8 @@ public class Parser implements IParse {
         // TODO: Make the necessary commands
         // TODO: This is the hard part
         // TODO: Make sure to not let this method get out of control
+        String[] lines = input.split("\n");
+
     }
 
     /**
@@ -31,9 +33,8 @@ public class Parser implements IParse {
     /**
      * Instantiates command to send to send to the manager
      * @param turtle
-     * @param args
      */
-    public ICommand makeCommand(Turtle turtle, double ... args) {
+    public ICommand makeCommand(Turtle turtle) {
         // TODO: Make a command that can be passed to the manager
         // TODO: Should be able to handle zero arguments
         return null;

@@ -23,8 +23,7 @@ public interface IParse {
   /**
    * Instantiates command to send to send to the manager
    * @param turtle
-   * @param args
    */
-  ICommand makeCommand(Turtle turtle, double ... args);
+  ICommand makeCommand(Turtle turtle);
 
 }

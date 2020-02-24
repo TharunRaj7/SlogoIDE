@@ -11,14 +11,11 @@ public class Argument implements ICommand {
     /**
      * Checks to see if the number of arguments available are sufficient
      * to run the command
-     * @param numArgs
      * @return
      */
-    public boolean enoughArgs (int numArgs) { return true; }
-
     @Override
     public boolean enoughArgs() {
-        return false;
+        return true;
     }
 
     /**

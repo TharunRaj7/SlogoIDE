@@ -151,6 +151,11 @@ public class Turtle implements ITurtle {
     }
 
     @Override
+    public void setLocation(Location l) {
+        this.location = l;
+    }
+
+    @Override
     public double getHeading() {
         return currentAngle;
     }

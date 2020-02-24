@@ -25,16 +25,16 @@ public class Parser implements IParse {
 //        for (String s : lines){
 //            System.out.println(s);
 //        }
-        if (lines[0].equals("fd")){
-            myTurtle.moveRelative(Integer.parseInt(lines[1]));
-        }
-        if (lines[0].equals("rt")){
-            myTurtle.rotate(Double.parseDouble(lines[1]));
-        }
-
-        if (lines[0].equals("setxy")){
-            myTurtle.moveTo(new Location(Double.parseDouble(lines[1]), Double.parseDouble(lines[2])));
-        }
+//        if (lines[0].equals("fd")){
+//            myTurtle.moveRelative(Integer.parseInt(lines[1]));
+//        }
+//        if (lines[0].equals("rt")){
+//            myTurtle.rotate(Double.parseDouble(lines[1]));
+//        }
+//
+//        if (lines[0].equals("setxy")){
+//            myTurtle.moveTo(new Location(Double.parseDouble(lines[1]), Double.parseDouble(lines[2])));
+//        }
     }
 
     /**

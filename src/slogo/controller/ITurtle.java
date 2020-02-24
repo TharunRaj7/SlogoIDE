@@ -79,6 +79,13 @@ public interface ITurtle {
   Location getLocation();
 
   /**
+   * Sets the new location of the turtle.
+   *
+   * @return the turtle's Location
+   */
+  void setLocation(Location l);
+
+  /**
    * Gets the current heading of the turtle.
    *
    * @return an int, the current heading

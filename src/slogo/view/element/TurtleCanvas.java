@@ -32,7 +32,6 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   private static final int DEFAULT_PEN_THICKNESS = 1;
   private static final Color DEFAULT_BACKGROUND_COLOR = Color.BLACK;
 
-  private Turtle myTurtle;
 
   private Canvas myCanvas;
   private Pane myCanvasHolder;
@@ -124,6 +123,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     );
 
     myTurtleLocation = destination;
+    //System.out.println("" + myTurtleLocation[0] + "  " + myTurtleLocation[1]);
   }
 
   private void moveTo(double x, double y) {

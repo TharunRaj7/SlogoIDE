@@ -5,15 +5,14 @@ import slogo.utility.Location;
 public interface ITurtle {
 
   /**
-   * Moves the turtle forward in the direction of its heading by a given distance.
+   * Moves the turtle forward or backward in the direction of its heading by a given distance.
    *
    * This is 'relative movement', in that the turtle's final location is given relative to its
    * current location. Upon calling this method, the turtle will move and update the Canvas
    * accordingly.
-   * @param distance the distance to move forward, or backwards if negative
+   * @param distance the distance to move. Positive distance is forward and negative distance is backward
    */
-  void moveForward(double distance);
-
+  void moveRelative(double distance);
   /**
    * Moves the turtle to an absolute location.
    *
@@ -32,7 +31,7 @@ public interface ITurtle {
    * left, or counter-clockwise. The turtle will visually change heading upon update.
    * @param angle the rotation from the current heading
    */
-  void rotate(int angle);
+  void rotate(double angle);
 
   /**
    * Sets the turtle's heading to a given angle.
@@ -41,7 +40,7 @@ public interface ITurtle {
    * measured from the positive x axis, moving counter-clockwise.
    * @param angle the new heading
    */
-  void setHeading(int angle);
+  void setHeading(double angle);
 
   /**
    * Picks up the turtle's 'pen', so that movement is no longer marked on the canvas.
@@ -80,11 +79,18 @@ public interface ITurtle {
   Location getLocation();
 
   /**
+   * Sets the new location of the turtle.
+   *
+   * @return the turtle's Location
+   */
+  void setLocation(Location l);
+
+  /**
    * Gets the current heading of the turtle.
    *
    * @return an int, the current heading
    */
-  int getHeading();
+  double getHeading();
 
   /**
    * Gets the pen's current position.

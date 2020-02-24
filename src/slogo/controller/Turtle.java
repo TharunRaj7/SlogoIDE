@@ -22,6 +22,8 @@ public class Turtle implements ITurtle {
     }
     @Override
     public void moveRelative(double distance) {
+        boolean backward = false;
+        if (distance < 0){backward = true; distance *= -1;}
         QuadrantHelper quadrant = findQuadrant();
         double referenceAngle = referenceAngle(quadrant);
         //System.out.println(normalizedAngle);
@@ -38,6 +40,8 @@ public class Turtle implements ITurtle {
             xTranslate = -xTranslate;
             yTranslate = -yTranslate;
         }
+
+        if (backward){xTranslate *= -1; yTranslate*=-1;}
 
 
         //call to internal API drawPath

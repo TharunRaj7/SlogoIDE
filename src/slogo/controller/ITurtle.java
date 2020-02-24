@@ -5,15 +5,14 @@ import slogo.utility.Location;
 public interface ITurtle {
 
   /**
-   * Moves the turtle forward in the direction of its heading by a given distance.
+   * Moves the turtle forward or backward in the direction of its heading by a given distance.
    *
    * This is 'relative movement', in that the turtle's final location is given relative to its
    * current location. Upon calling this method, the turtle will move and update the Canvas
    * accordingly.
-   * @param distance the distance to move forward, or backwards if negative
+   * @param distance the distance to move. Positive distance is forward and negative distance is backward
    */
-  void moveForward(double distance);
-
+  void moveRelative(double distance);
   /**
    * Moves the turtle to an absolute location.
    *

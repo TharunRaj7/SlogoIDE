@@ -25,7 +25,7 @@ public class Parser implements IParse {
 //            System.out.println(s);
 //        }
         if (lines[0].equals("fd")){
-            myTurtle.moveForward(Integer.parseInt(lines[1]));
+            myTurtle.moveRelative(Integer.parseInt(lines[1]));
         }
         if (lines[0].equals("rt")){
             myTurtle.rotate(Double.parseDouble(lines[1]));

@@ -21,7 +21,7 @@ public class Turtle implements ITurtle {
         //this.image = image;
     }
     @Override
-    public void moveForward(double distance) {
+    public void moveRelative(double distance) {
         QuadrantHelper quadrant = findQuadrant();
         double referenceAngle = referenceAngle(quadrant);
         //System.out.println(normalizedAngle);
@@ -78,6 +78,10 @@ public class Turtle implements ITurtle {
 
     @Override
     public void moveTo(Location l) {
+        int x = l.getxValue();
+        int y = l.getyValue();
+
+
 
     }
 
@@ -155,7 +159,7 @@ public class Turtle implements ITurtle {
     //testing
     public static void main(String[] args) {
         Turtle test = new Turtle(new TurtleCanvas(), new Location(0,0), 45, "");
-        test.moveForward(50);
+        test.moveRelative(50);
 
     }
 }

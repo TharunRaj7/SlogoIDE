@@ -9,7 +9,9 @@ import javafx.scene.control.Control;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import slogo.controller.Turtle;
 import slogo.model.Parser;
+import slogo.utility.Location;
 import slogo.utility.TurtleTesting;
 import slogo.view.element.Console;
 import slogo.view.element.GuiElement;
@@ -22,9 +24,11 @@ public class SLogoFrame extends Application implements IFrame {
   private static final double WINDOW_HEIGHT = 600;
   private static final double PADDING = 5;
   private Control myLayout;
+  private Turtle myTurtle;
 
   public SLogoFrame() {
     super();
+    myTurtle = new Turtle(new Location(0,0), 0.0, "");
   }
 
   @Override
@@ -39,13 +43,15 @@ public class SLogoFrame extends Application implements IFrame {
     SplitPane botRow = new SplitPane();
 
     TurtleCanvas tc = new TurtleCanvas();
-    TurtleTesting.testPathDrawing(tc);
+    //TurtleTesting.testPathDrawing(tc);
 
     topRow.getItems().add(tc);
-    topRow.getItems().add(new ScriptEditor(new Parser()));
+    Parser parser = new Parser();
+    parser.giveTurtle(myTurtle);
+    topRow.getItems().add(new ScriptEditor(parser));
     topRow.setDividerPositions(0.5f);
 
-    botRow.getItems().add(new Console(new Parser()));
+    botRow.getItems().add(new Console(parser));
 
     SplitPane sp = new SplitPane();
     sp.setOrientation(Orientation.VERTICAL);

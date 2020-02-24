@@ -12,8 +12,11 @@ public class TurtleTesting {
     PathElement line;
     line = new LineTo(-50, 50);
     p.getElements().add(line);
-    line = new LineTo(100, 50);
+    line = new LineTo(50, 50);
     line.setAbsolute(false);
+    p.getElements().add(line);
+    line = new LineTo(50,50);
+    line.setAbsolute(true);
     p.getElements().add(line);
     tc.drawPath(p);
   }

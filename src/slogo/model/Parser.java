@@ -1,5 +1,6 @@
 package slogo.model;
 
+import slogo.commands.Forward;
 import slogo.commands.ICommand;
 import slogo.controller.Turtle;
 
@@ -18,8 +19,14 @@ public class Parser implements IParse {
         // TODO: Make the necessary commands
         // TODO: This is the hard part
         // TODO: Make sure to not let this method get out of control
-        String[] lines = input.split("\n");
+        //String[] lines = input.split("\n");
+        String[] lines = input.split(" ");
+        if (lines[0].equals("fd")){
+            myTurtle.moveForward(Integer.parseInt(lines[1]));
+        }
+        if (lines[0].equals("rt")){
 
+        }
     }
 
     /**

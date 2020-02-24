@@ -5,8 +5,22 @@ import slogo.commands.ICommand;
 import slogo.controller.Turtle;
 import slogo.utility.Location;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Parser implements IParse {
+    public static final String WHITESPACE = "\\s+";
     Turtle myTurtle;
+
+    public Parser(Turtle turtle) {
+        myTurtle = turtle;
+    }
+
     /**
      * Sets input to a private local string to be able to manage regex and
      * other aspects from there
@@ -20,21 +34,15 @@ public class Parser implements IParse {
         // TODO: Make the necessary commands
         // TODO: This is the hard part
         // TODO: Make sure to not let this method get out of control
-        //String[] lines = input.split("\n");
-        String[] lines = input.split(" ");
-//        for (String s : lines){
-//            System.out.println(s);
-//        }
-//        if (lines[0].equals("fd")){
-//            myTurtle.moveRelative(Integer.parseInt(lines[1]));
-//        }
-//        if (lines[0].equals("rt")){
-//            myTurtle.rotate(Double.parseDouble(lines[1]));
-//        }
-//
-//        if (lines[0].equals("setxy")){
-//            myTurtle.moveTo(new Location(Double.parseDouble(lines[1]), Double.parseDouble(lines[2])));
-//        }
+        ArrayList<String> instructions = new ArrayList<>();
+        String[] lines = input.split("\n");
+        for(String line : lines) {
+            String[] comm = line.split(" ");
+            for(String command : comm) {
+                instructions.add(command);
+            }
+        }
+
     }
 
     /**

@@ -26,7 +26,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   private double TRANSLATE_X = MAX_CANVAS_WIDTH / 2.0;
   private double TRANSLATE_Y = MAX_CANVAS_HEIGHT / 2.0;
 
-  private static final double MIN_MENU_HEIGHT = 25;
+  private static final double MENU_HEIGHT = 25;
 
   private static final Color DEFAULT_PEN_COLOR = Color.WHITE;
   private static final int DEFAULT_PEN_THICKNESS = 1;
@@ -72,9 +72,6 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     this.add(menuBar, 0, 0);
     this.add(myCanvasHolder, 0, 1);
     setGrowPriorityAlways(myCanvasHolder);
-
-//    this.setBorder(new Border(new BorderStroke(Color.GREEN,
-//        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
   }
 
   private Pane makeMenuBar() {
@@ -88,7 +85,8 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
     menu.getChildren().add(colorPicker);
 
-    menu.setMinHeight(MIN_MENU_HEIGHT);
+    menu.setMinHeight(MENU_HEIGHT);
+    menu.setMaxHeight(MENU_HEIGHT);
 
     return menu;
   }
@@ -171,8 +169,8 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
   @Override
   public void resize(double width, double height) {
-    TRANSLATE_X = width / 2.0;
-    TRANSLATE_Y = height / 2.0;
+    TRANSLATE_X = width / 2.0 - PADDING;
+    TRANSLATE_Y = (height - MENU_HEIGHT - GAP) / 2.0 - PADDING;
 
     redrawPaths();
 

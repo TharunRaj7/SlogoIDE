@@ -39,11 +39,6 @@ public class Console extends GuiElement {
     this.add(myTextField, 0, 1);
     setGrowPriorityAlways(myTextField);
     GridPane.setVgrow(myTextField, Priority.NEVER);
-
-//    this.setBorder(new Border(new BorderStroke(Color.BLUE,
-//        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-
-//    this.setGridLinesVisible(true);
   }
 
   private void initializeHistory() {
@@ -92,6 +87,7 @@ public class Console extends GuiElement {
       }
       if (!myHistory.isEmpty()) {
         myTextField.setText(myHistory.get(myHistoryPointer));
+        myTextField.positionCaret(myTextField.getLength());
       }
     }
   }

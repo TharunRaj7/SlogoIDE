@@ -13,6 +13,8 @@ import slogo.model.Parser;
 
 public class ScriptEditor extends GuiElement {
 
+  private static final double MIN_WIDTH = 200;
+
   private Parser myParser;
   private TextArea input;
   private HBox myButtons;
@@ -43,11 +45,9 @@ public class ScriptEditor extends GuiElement {
     this.add(input, 0, 1);
     setGrowPriorityAlways(input);
 
-    this.add(myButtons, 0, 0);
-//
-//    this.setBorder(new Border(new BorderStroke(Color.RED,
-//        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    this.setMinWidth(MIN_WIDTH);
 
+    this.add(myButtons, 0, 0);
   }
 
 }

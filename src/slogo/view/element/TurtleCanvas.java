@@ -1,22 +1,15 @@
-package slogo.view;
+package slogo.view.element;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -24,18 +17,20 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import slogo.controller.Turtle;
 
-public class TurtleCanvas extends GridPane implements IVisualize {
+public class TurtleCanvas extends GuiElement implements IVisualize {
 
-  private static final double CANVAS_WIDTH = 300;
-  private static final double CANVAS_HEIGHT = 300;
-  private static final double TRANSLATE_X = CANVAS_WIDTH / 2.0;
-  private static final double TRANSLATE_Y = CANVAS_HEIGHT / 2.0;
+  private static final double MIN_CANVAS_WIDTH = 200;
+  private static final double MIN_CANVAS_HEIGHT = 200;
+  private static final double MAX_CANVAS_WIDTH = 1600;
+  private static final double MAX_CANVAS_HEIGHT = 1600;
+  private double TRANSLATE_X = MAX_CANVAS_WIDTH / 2.0;
+  private double TRANSLATE_Y = MAX_CANVAS_HEIGHT / 2.0;
+
+  private static final double MIN_MENU_HEIGHT = 25;
 
   private static final Color DEFAULT_PEN_COLOR = Color.WHITE;
   private static final int DEFAULT_PEN_THICKNESS = 1;
   private static final Color DEFAULT_BACKGROUND_COLOR = Color.BLACK;
-  private static final double PADDING = 5;
-  private static final double GAP = 2;
 
   private Turtle myTurtle;
 
@@ -43,9 +38,11 @@ public class TurtleCanvas extends GridPane implements IVisualize {
   private Pane myCanvasHolder;
   private GraphicsContext myGraphicsContext;
 
+  private List<Path> myPaths;
+
   private double[] myTurtleLocation;
 
-  TurtleCanvas() {
+  public TurtleCanvas() {
     initializeCanvas();
     initializeDefaults();
     initializeLayoutPane();
@@ -55,10 +52,14 @@ public class TurtleCanvas extends GridPane implements IVisualize {
 
   private void initializeCanvas() {
     myCanvasHolder = new Pane();
-    myCanvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+    myCanvas = new Canvas(MAX_CANVAS_WIDTH, MAX_CANVAS_HEIGHT);
     myCanvasHolder.getChildren().add(myCanvas);
+    myCanvasHolder.setMinWidth(MIN_CANVAS_WIDTH);
+    myCanvasHolder.setMinHeight(MIN_CANVAS_HEIGHT);
 
     myGraphicsContext = myCanvas.getGraphicsContext2D();
+
+    myPaths = new ArrayList<>();
   }
 
   private void initializeDefaults() {
@@ -71,16 +72,10 @@ public class TurtleCanvas extends GridPane implements IVisualize {
     Pane menuBar = makeMenuBar();
     this.add(menuBar, 0, 0);
     this.add(myCanvasHolder, 0, 1);
-    setGrowPriority(myCanvasHolder);
+    setGrowPriorityAlways(myCanvasHolder);
 
-    this.setPadding(new Insets(PADDING));
-    this.setHgap(GAP);
-    this.setVgap(GAP);
-
-    this.setBorder(new Border(new BorderStroke(Color.GREEN,
-        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-
-    setGrowPriority(this);
+//    this.setBorder(new Border(new BorderStroke(Color.GREEN,
+//        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
   }
 
   private Pane makeMenuBar() {
@@ -94,13 +89,18 @@ public class TurtleCanvas extends GridPane implements IVisualize {
 
     menu.getChildren().add(colorPicker);
 
-    menu.setMinHeight(25);
+    menu.setMinHeight(MIN_MENU_HEIGHT);
 
     return menu;
   }
 
   @Override
   public void drawPath(Path p) {
+    handlePathDrawing(p);
+    myPaths.add(p);
+  }
+
+  private void handlePathDrawing(Path p) {
     for (PathElement pe : p.getElements()) {
       if (pe instanceof LineTo) {
         drawLine(pe.isAbsolute(),
@@ -156,6 +156,11 @@ public class TurtleCanvas extends GridPane implements IVisualize {
 
   @Override
   public void clear() {
+    clearCanvas();
+    myPaths.clear();
+  }
+
+  private void clearCanvas() {
     myGraphicsContext.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
   }
 
@@ -164,8 +169,25 @@ public class TurtleCanvas extends GridPane implements IVisualize {
     return this.getLayoutBounds();
   }
 
-  private void setGrowPriority(Node node) {
-    GridPane.setHgrow(node, Priority.ALWAYS);
-    GridPane.setVgrow(node, Priority.ALWAYS);
+  @Override
+  public void resize(double width, double height) {
+    TRANSLATE_X = width / 2.0;
+    TRANSLATE_Y = height / 2.0;
+
+    redrawPaths();
+
+    super.resize(width, height);
   }
+
+  private void redrawPaths() {
+    clearCanvas();
+    initializeDefaults();
+    myTurtleLocation = new double[]{0, 0};
+    if (!myPaths.isEmpty()) {
+      for (Path p : myPaths) {
+        handlePathDrawing(p);
+      }
+    }
+  }
+
 }

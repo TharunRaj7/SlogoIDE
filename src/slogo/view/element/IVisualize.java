@@ -1,4 +1,4 @@
-package slogo.view;
+package slogo.view.element;
 
 import javafx.geometry.Bounds;
 import javafx.scene.paint.Color;

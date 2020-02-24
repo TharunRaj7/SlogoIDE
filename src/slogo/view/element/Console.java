@@ -1,9 +1,7 @@
-package slogo.view;
+package slogo.view.element;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -18,13 +16,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import slogo.model.Parser;
 
-public class Console extends GridPane {
-
-  private static final double DEFAULT_WIDTH = 300;
-  private static final double DEFAULT_HEIGHT = 600;
-
-  private static final double PADDING = 5;
-  private static final double GAP = 2;
+public class Console extends GuiElement {
 
   private Parser myParser;
   private List<String> myHistory;
@@ -33,36 +25,25 @@ public class Console extends GridPane {
 
   private TextField myTextField;
 
-  Console(Parser parser) {
+  public Console(Parser parser) {
     myParser = parser;
     initializeHistory();
     initializeTextField();
-    initializeLayoutPane();
+    initializeLayout();
   }
 
-  private void initializeLayoutPane() {
-    this.setPadding(new Insets(PADDING));
-    this.setVgap(GAP);
-    this.setHgap(GAP);
-
+  private void initializeLayout() {
     this.add(myHistoryArea, 0, 0);
-    setGrowPriority(myHistoryArea);
+    setGrowPriorityAlways(myHistoryArea);
 
     this.add(myTextField, 0, 1);
-    setGrowPriority(myTextField);
+    setGrowPriorityAlways(myTextField);
     GridPane.setVgrow(myTextField, Priority.NEVER);
 
-    setGrowPriority(this);
+//    this.setBorder(new Border(new BorderStroke(Color.BLUE,
+//        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
-    this.setBorder(new Border(new BorderStroke(Color.BLUE,
-        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-
-    this.setGridLinesVisible(true);
-  }
-
-  private void setGrowPriority(Node node) {
-    GridPane.setHgrow(node, Priority.ALWAYS);
-    GridPane.setVgrow(node, Priority.ALWAYS);
+//    this.setGridLinesVisible(true);
   }
 
   private void initializeHistory() {

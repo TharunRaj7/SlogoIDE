@@ -1,7 +1,5 @@
-package slogo.view;
+package slogo.view.element;
 
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Border;
@@ -9,17 +7,11 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import slogo.model.Parser;
 
-public class ScriptEditor extends GridPane {
-
-  private static final double PADDING = 5;
-  private static final double GAP = 2;
+public class ScriptEditor extends GuiElement {
 
   private Parser myParser;
   private TextArea input;
@@ -29,7 +21,7 @@ public class ScriptEditor extends GridPane {
     myParser = parser;
     initializeInput();
     initializeButtons();
-    initializeLayoutPane();
+    initializeLayout();
   }
 
   private void initializeInput() {
@@ -47,26 +39,15 @@ public class ScriptEditor extends GridPane {
     myButtons.getChildren().add(runButton);
   }
 
-  private void initializeLayoutPane() {
-    this.setPadding(new Insets(PADDING));
-    this.setVgap(GAP);
-    this.setHgap(GAP);
-
+  private void initializeLayout() {
     this.add(input, 0, 1);
-    setGrowPriority(input);
+    setGrowPriorityAlways(input);
 
     this.add(myButtons, 0, 0);
+//
+//    this.setBorder(new Border(new BorderStroke(Color.RED,
+//        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
-    setGrowPriority(this);
-
-    this.setBorder(new Border(new BorderStroke(Color.RED,
-        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-
-  }
-
-  private void setGrowPriority(Node node) {
-    GridPane.setHgrow(node, Priority.ALWAYS);
-    GridPane.setVgrow(node, Priority.ALWAYS);
   }
 
 }

@@ -16,6 +16,11 @@ public class Argument implements ICommand {
      */
     public boolean enoughArgs (int numArgs) { return true; }
 
+    @Override
+    public boolean enoughArgs() {
+        return false;
+    }
+
     /**
      * Gives the command an argument
      * Manager will check if sufficient and run if needed

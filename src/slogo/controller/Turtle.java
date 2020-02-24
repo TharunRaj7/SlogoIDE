@@ -84,7 +84,21 @@ public class Turtle implements ITurtle {
     @Override
     public void rotate(double angle) {
         // TODO: implement this function to inlcude all the different input cases
-        currentAngle += angle;
+        if (angle > 0){
+            if (currentAngle + angle >= 360){
+                double temp = 360 - currentAngle;
+                currentAngle = angle - temp;
+            }else{
+                currentAngle += angle;
+            }
+        }else{
+            if (currentAngle + angle < 0){
+                double temp = currentAngle + angle;
+                currentAngle = 360 + temp;
+            }else{
+                currentAngle += angle;
+            }
+        }
     }
 
     @Override

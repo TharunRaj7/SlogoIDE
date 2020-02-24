@@ -51,8 +51,8 @@ public class SLogoFrame extends Application implements IFrame {
     //TurtleTesting.testPathDrawing(tc);
 
     topRow.getItems().add(tc);
-    Parser parser = new Parser();
-    parser.giveTurtle(myTurtle);
+    Parser parser = new Parser(myTurtle);
+
     topRow.getItems().add(new ScriptEditor(parser));
     topRow.setDividerPositions(0.5f);
 

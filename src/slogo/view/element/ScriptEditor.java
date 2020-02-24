@@ -2,14 +2,9 @@ package slogo.view.element;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import slogo.model.Parser;
+import slogo.view.utility.ButtonFactory;
 
 public class ScriptEditor extends GuiElement {
 
@@ -34,11 +29,16 @@ public class ScriptEditor extends GuiElement {
     myButtons = new HBox();
     myButtons.setSpacing(GAP);
 
-    Button runButton = new Button();
-    runButton.setText("Run");
-    runButton.setOnAction(e -> myParser.parse(input.getText()));
+    Button runButton = ButtonFactory.button(
+        "Run", e -> myParser.parse(input.getText())
+    );
+
+    Button openButton = ButtonFactory.button(
+        "Open", e -> System.out.println("open")
+    );
 
     myButtons.getChildren().add(runButton);
+    myButtons.getChildren().add(openButton);
   }
 
   private void initializeLayout() {

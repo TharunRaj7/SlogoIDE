@@ -4,26 +4,26 @@ package slogo.utility;
  * TODO: Implement a utility class that holds a location.
  */
 public class Location {
-    private int xValue;
-    private int yValue;
+    private double xValue;
+    private double yValue;
 
-    public Location(int x, int y){
+    public Location(double x, double y){
         xValue = x;
         yValue = y;
     }
-    public void setxValue(int xValue) {
+    public void setxValue(double xValue) {
         this.xValue = xValue;
     }
 
-    public void setyValue(int yValue) {
+    public void setyValue(double yValue) {
         this.yValue = yValue;
     }
 
-    public int getxValue(){
+    public double getxValue(){
         return xValue;
     }
 
-    public int getyValue(){
+    public double getyValue(){
         return yValue;
     }
 }

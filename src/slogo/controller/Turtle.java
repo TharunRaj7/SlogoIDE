@@ -2,6 +2,7 @@ package slogo.controller;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import slogo.utility.Location;
@@ -12,6 +13,8 @@ public class Turtle implements ITurtle {
     TurtleCanvas tc;
     Location location;
     private double currentAngle;
+    private boolean penDown;
+    private boolean show;
     ImageView image;
 
     public Turtle (TurtleCanvas tc, Location location, double orientationAngle, String imageFilePath){
@@ -51,9 +54,6 @@ public class Turtle implements ITurtle {
         line.setAbsolute(false);
         p.getElements().add(line);
         tc.drawPath(p);
-
-
-        //change angle of the turtle as well
     }
 
     // Provides the reference angle given the current angle
@@ -82,11 +82,15 @@ public class Turtle implements ITurtle {
 
     @Override
     public void moveTo(Location l) {
-        int x = l.getxValue();
-        int y = l.getyValue();
+        double x = l.getxValue();
+        double y = l.getyValue();
 
-
-
+        // TODO: refactor this chunk of code.
+        Path p = new Path();
+        PathElement move;
+        move = new MoveTo(x, y);
+        p.getElements().add(move);
+        tc.drawPath(p);
     }
 
     @Override
@@ -111,8 +115,9 @@ public class Turtle implements ITurtle {
     }
 
     @Override
-    public void setHeading(int angle) {
-
+    public void setHeading(double angle) {
+        //add angle normalization
+        currentAngle = angle;
     }
 
     @Override
@@ -142,22 +147,22 @@ public class Turtle implements ITurtle {
 
     @Override
     public Location getLocation() {
-        return null;
+        return location;
     }
 
     @Override
-    public int getHeading() {
-        return 0;
+    public double getHeading() {
+        return currentAngle;
     }
 
     @Override
     public boolean getPenDown() {
-        return false;
+        return penDown;
     }
 
     @Override
     public boolean getShowing() {
-        return false;
+        return show;
     }
 
     //testing

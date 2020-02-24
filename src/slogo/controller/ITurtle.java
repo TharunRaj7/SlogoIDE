@@ -40,7 +40,7 @@ public interface ITurtle {
    * measured from the positive x axis, moving counter-clockwise.
    * @param angle the new heading
    */
-  void setHeading(int angle);
+  void setHeading(double angle);
 
   /**
    * Picks up the turtle's 'pen', so that movement is no longer marked on the canvas.
@@ -83,7 +83,7 @@ public interface ITurtle {
    *
    * @return an int, the current heading
    */
-  int getHeading();
+  double getHeading();
 
   /**
    * Gets the pen's current position.

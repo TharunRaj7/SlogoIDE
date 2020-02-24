@@ -3,6 +3,7 @@ package slogo.model;
 import slogo.commands.Forward;
 import slogo.commands.ICommand;
 import slogo.controller.Turtle;
+import slogo.utility.Location;
 
 public class Parser implements IParse {
     Turtle myTurtle;
@@ -29,6 +30,10 @@ public class Parser implements IParse {
         }
         if (lines[0].equals("rt")){
             myTurtle.rotate(Double.parseDouble(lines[1]));
+        }
+
+        if (lines[0].equals("setxy")){
+            myTurtle.moveTo(new Location(Double.parseDouble(lines[1]), Double.parseDouble(lines[2])));
         }
     }
 

@@ -8,19 +8,17 @@ import java.util.Arrays;
 public class SetHeading implements ICommand{
 
     Turtle myTurtle;
-    int myArgs = 2;
-    Double myX = null;
-    Double myY = null;
+    int myArgs = 1;
+    double myAngle;
     private ArrayList<Double> arguments = new ArrayList<Double>();
 
     public SetHeading (Turtle turtle) {
         myTurtle = turtle;
     }
 
-    public SetHeading (Turtle turtle, double x, double y) {
+    public SetHeading (Turtle turtle, double angle) {
         this(turtle);
-        myX = x;
-        myY = y;
+        myAngle = angle;
     }
 
     /**
@@ -38,14 +36,8 @@ public class SetHeading implements ICommand{
      * @param arg
      */
     public void setArgument (double arg) {
-        if (myX.equals(null)){
-            myX = arg;
-            add_arg(arg);
-        }
-        else{
-            myY = arg;
-            add_arg(arg);
-        }
+        myAngle = arg;
+        add_arg(arg);
     }
 
     /**
@@ -73,3 +65,4 @@ public class SetHeading implements ICommand{
         return arguments.size();
     }
 }
+

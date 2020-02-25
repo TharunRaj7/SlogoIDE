@@ -5,22 +5,19 @@ import slogo.controller.Turtle;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Towards implements ICommand{
+public class Make implements ICommand{
 
     Turtle myTurtle;
-    int myArgs = 2;
-    Double myX = null;
-    Double myY = null;
+    int myArgs = 1;
+    double myDist;
+    private double arg1;
     private ArrayList<Double> arguments = new ArrayList<Double>();
 
-    public Towards (Turtle turtle) {
+    public Make (Turtle turtle) {
         myTurtle = turtle;
     }
 
-    public Towards (Turtle turtle, double x, double y) {
-        this(turtle);
-        myX = x;
-        myY = y;
+    public Make () {
     }
 
     /**
@@ -38,14 +35,8 @@ public class Towards implements ICommand{
      * @param arg
      */
     public void setArgument (double arg) {
-        if (myX.equals(null)){
-            myX = arg;
-            add_arg(arg);
-        }
-        else{
-            myY = arg;
-            add_arg(arg);
-        }
+        myDist = arg;
+        add_arg(arg);
     }
 
     /**
@@ -54,7 +45,7 @@ public class Towards implements ICommand{
      */
     public void execute () {
         // TODO: Call on turtle to move it forward the given distance
-
+        myTurtle.moveForward(arguments.get(0));
     }
 
     /**
@@ -62,8 +53,7 @@ public class Towards implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        return 0.0;
-
+        return myDist;
     }
 
     public void add_arg(double arg){
@@ -74,3 +64,4 @@ public class Towards implements ICommand{
         return arguments.size();
     }
 }
+

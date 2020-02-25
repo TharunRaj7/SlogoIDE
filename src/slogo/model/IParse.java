@@ -10,7 +10,7 @@ public interface IParse {
    * other aspects from there
    * @param input
    * @throws syntaxException
-   * @throws parserException
+   * @throws ParserException
    */
   void parse(String input);
 
@@ -24,6 +24,6 @@ public interface IParse {
    * Instantiates command to send to send to the manager
    * @param turtle
    */
-  ICommand makeCommand(Turtle turtle);
+  ICommand makeCommand(Turtle turtle, String commandType);
 
 }

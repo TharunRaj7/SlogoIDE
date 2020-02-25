@@ -10,8 +10,8 @@ import slogo.utility.MathOps;
 import slogo.view.element.TurtleCanvas;
 
 public class Turtle implements ITurtle {
-    TurtleCanvas tc;
-    Location location;
+    private TurtleCanvas tc;
+    private Location location;
     private double currentAngle;
     private boolean penDown;
     private boolean show;

@@ -1,8 +1,10 @@
 package slogo.model;
 
+import slogo.commands.Forward;
 import slogo.commands.ICommand;
 import slogo.commands.Manager;
 import slogo.controller.Turtle;
+import slogo.utility.Location;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;

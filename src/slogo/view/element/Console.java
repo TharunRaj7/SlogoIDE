@@ -1,25 +1,22 @@
-package slogo.view;
+package slogo.view.element;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
-import javafx.geometry.Insets;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
 import slogo.model.Parser;
 
-public class Console extends Pane {
-
-  private static final double DEFAULT_WIDTH = 300;
-  private static final double DEFAULT_HEIGHT = 600;
-
-  private static final double PADDING = 5;
-  private static final double GAP = 2;
+public class Console extends GuiElement {
 
   private Parser myParser;
   private List<String> myHistory;
@@ -28,24 +25,20 @@ public class Console extends Pane {
 
   private TextField myTextField;
 
-  Console(Parser parser) {
+  public Console(Parser parser) {
     myParser = parser;
     initializeHistory();
     initializeTextField();
-    initializeLayoutPane();
+    initializeLayout();
   }
 
-  private void initializeLayoutPane() {
-    GridPane myLayoutPane = new GridPane();
+  private void initializeLayout() {
+    this.add(myHistoryArea, 0, 0);
+    setGrowPriorityAlways(myHistoryArea);
 
-    myLayoutPane.setPadding(new Insets(PADDING));
-    myLayoutPane.setVgap(GAP);
-    myLayoutPane.setHgap(GAP);
-
-    myLayoutPane.add(myHistoryArea, 0, 0);
-    myLayoutPane.add(myTextField, 0, 1);
-
-    this.getChildren().add(myLayoutPane);
+    this.add(myTextField, 0, 1);
+    setGrowPriorityAlways(myTextField);
+    GridPane.setVgrow(myTextField, Priority.NEVER);
   }
 
   private void initializeHistory() {
@@ -94,6 +87,7 @@ public class Console extends Pane {
       }
       if (!myHistory.isEmpty()) {
         myTextField.setText(myHistory.get(myHistoryPointer));
+        myTextField.positionCaret(myTextField.getLength());
       }
     }
   }
@@ -111,9 +105,4 @@ public class Console extends Pane {
     myHistoryArea.appendText("> " + text + "\n");
   }
 
-  @Override
-  public void requestFocus() {
-    super.requestFocus();
-    this.myTextField.requestFocus();
-  }
 }

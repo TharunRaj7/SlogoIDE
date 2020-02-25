@@ -1,10 +1,12 @@
 package slogo.commands;
 
+import slogo.controller.Turtle;
+
 import javax.swing.tree.TreeNode;
 import java.util.HashMap;
 
 public class Manager implements IManager{
-    private Node recent_node;
+    private Node recent_node = null;
     private HashMap<String,Double> variables = new HashMap<>();
 
     public Manager () {
@@ -19,8 +21,13 @@ public class Manager implements IManager{
         // TODO: Add a command to the most recent node on the TreeList, check if the command has enough args to run
         // TODO: Set that command to the current node
         Node command_node = new Node(command);
-        recent_node.addChild(command_node);
-        recent_node = command_node;
+        if (recent_node == null){
+            recent_node = command_node;
+        }
+        else {
+            recent_node.addChild(command_node);
+            recent_node = command_node;
+        }
     }
 
     /**
@@ -41,6 +48,7 @@ public class Manager implements IManager{
 
         if (recent_node.getData().enoughArgs() && recent_node.getParent() == null){
             double return_val = runCommand(recent_node.getData());
+            recent_node = null;
         }
 
         else{
@@ -55,9 +63,11 @@ public class Manager implements IManager{
      * @param name
      * @param value
      */
-    public void addVariable(String name, double value) {
+    public void addVariable(String name) {
         // TODO: Add the variable given the string name and value to the map of variables
-        variables.put(name,value);
+        if (recent_node.getData().getClass().isInstance(new Make())){
+
+        }
     }
 
     /**

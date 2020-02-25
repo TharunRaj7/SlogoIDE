@@ -16,10 +16,9 @@ public class Node {
         this.data = data;
     }
 
-    public Node addChild(Node child) {
+    public void addChild(Node child) {
         child.setParent(this);
         this.children.add(child);
-        return child;
     }
 
     public void addChildren(List<Node> children) {

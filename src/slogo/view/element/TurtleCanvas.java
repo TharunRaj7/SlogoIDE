@@ -5,6 +5,7 @@ import java.util.List;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -17,6 +18,7 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import slogo.controller.Turtle;
 import slogo.utility.Location;
+import slogo.view.utility.ButtonFactory;
 
 public class TurtleCanvas extends GuiElement implements IVisualize {
 
@@ -84,8 +86,17 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
     menu.getChildren().add(colorPicker);
 
+    Button clearButton = ButtonFactory.button("Clear", e -> {
+      clear();
+      myTurtle.setLocation(Location.ORIGIN);
+      myTurtle.setHeading(0);
+    });
+    menu.getChildren().add(clearButton);
+
     menu.setMinHeight(MENU_HEIGHT);
     menu.setMaxHeight(MENU_HEIGHT);
+
+    menu.setSpacing(GAP);
 
     return menu;
   }
@@ -133,11 +144,6 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   }
 
   @Override
-  public void setHeading(int angle) {
-    // TODO: set turtle heading
-  }
-
-  @Override
   public void setPenThickness(int thickness) {
     myGraphicsContext.setLineWidth(thickness);
   }
@@ -176,7 +182,6 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
   private void redrawPaths() {
     clearCanvas();
-    initializeDefaults();
     myTurtle.setLocation(Location.ORIGIN);
     if (!myPaths.isEmpty()) {
       for (Path p : myPaths) {

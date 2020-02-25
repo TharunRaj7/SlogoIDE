@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
  */
 public class ProgramParser {
     // where to find resources specifically for this class
+    // TODO: Fix file navigation to find the dictionaries
     private static final String RESOURCES_PACKAGE = ProgramParser.class.getPackageName() + ".resources.languages.";
     // "types" and the regular expression patterns that recognize those types
     // note, it is a list because order matters (some patterns may be more generic)

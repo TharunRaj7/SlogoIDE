@@ -1,19 +1,11 @@
 package slogo.model;
 
-import slogo.commands.Forward;
 import slogo.commands.ICommand;
 import slogo.commands.Manager;
 import slogo.controller.Turtle;
-import slogo.utility.Location;
 
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -75,6 +67,7 @@ public class Parser implements IParse {
             Constructor constructor = cls.getConstructor(Turtle.class);
             command = constructor.newInstance(turtle);
             ICommand returnCommand = (ICommand) command;
+            manager.addCommand(returnCommand);
             return returnCommand;
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new ParserException(e);
@@ -85,9 +78,12 @@ public class Parser implements IParse {
     private void parseText (ProgramParser lang, List<String> lines) {
         for (String line : lines) {
             if (line.trim().length() > 0) {
-                if (lang.getSymbol(line) == "Constant") { giveArgument(Float.parseFloat(line)); }
-                else if (lang.getSymbol(line) == "Variable") { giveVariable(line, 0); }
-                else { makeCommand(myTurtle, lang.getSymbol(line)); }
+                if (lang.getSymbol(line).equals("Constant")) { giveArgument(Float.parseFloat(line)); }
+                else if (lang.getSymbol(line).equals("Variable")) { giveVariable(line, 0); }
+                else {
+                    System.out.println(lang.getSymbol(line));
+                    makeCommand(myTurtle, "slogo.commands." + lang.getSymbol(line));
+                }
             }
         }
         System.out.println();

@@ -16,6 +16,7 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import slogo.controller.Turtle;
+import slogo.utility.Location;
 
 public class TurtleCanvas extends GuiElement implements IVisualize {
 
@@ -28,25 +29,22 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
   private static final double MENU_HEIGHT = 25;
 
-  private static final Color DEFAULT_PEN_COLOR = Color.WHITE;
+  private static final Color DEFAULT_PEN_COLOR = Color.BLACK;
   private static final int DEFAULT_PEN_THICKNESS = 1;
-  private static final Color DEFAULT_BACKGROUND_COLOR = Color.BLACK;
-
+  private static final Color DEFAULT_BACKGROUND_COLOR = Color.WHITE;
 
   private Canvas myCanvas;
   private Pane myCanvasHolder;
   private GraphicsContext myGraphicsContext;
+  private Turtle myTurtle;
 
   private List<Path> myPaths;
 
-  private double[] myTurtleLocation;
-
-  public TurtleCanvas() {
+  public TurtleCanvas(Turtle turtle) {
+    myTurtle = turtle;
     initializeCanvas();
     initializeDefaults();
     initializeLayoutPane();
-
-    myTurtleLocation = new double[]{0, 0};
   }
 
   private void initializeCanvas() {
@@ -82,6 +80,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
         Color c = colorPicker.getValue();
         setBackgroundColor(c);
     });
+    colorPicker.setValue(DEFAULT_BACKGROUND_COLOR);
 
     menu.getChildren().add(colorPicker);
 
@@ -110,24 +109,22 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   }
 
   private void drawLine(boolean absolute, double x, double y) {
-    double[] destination;
-    if (absolute) {
-      destination = new double[]{x, y};
-    } else {
-      destination = new double[]{myTurtleLocation[0] + x, myTurtleLocation[1] + y};
+    Location source = myTurtle.getLocation();
+    Location destination = new Location(x, y);
+    if (!absolute) {
+      destination = destination.add(myTurtle.getLocation());
     }
 
     myGraphicsContext.strokeLine(
-        myTurtleLocation[0] + TRANSLATE_X, myTurtleLocation[1] + TRANSLATE_Y,
-        destination[0] + TRANSLATE_X, destination[1] + TRANSLATE_Y
+        source.getX()      + TRANSLATE_X, source.getY()      + TRANSLATE_Y,
+        destination.getX() + TRANSLATE_X, destination.getY() + TRANSLATE_Y
     );
 
-    myTurtleLocation = destination;
-    //System.out.println("" + myTurtleLocation[0] + "  " + myTurtleLocation[1]);
+    myTurtle.setLocation(destination);
   }
 
   private void moveTo(double x, double y) {
-    myTurtleLocation = new double[]{x, y};
+    myTurtle.setLocation(new Location(x, y));
   }
 
   @Override
@@ -180,7 +177,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   private void redrawPaths() {
     clearCanvas();
     initializeDefaults();
-    myTurtleLocation = new double[]{0, 0};
+    myTurtle.setLocation(Location.ORIGIN);
     if (!myPaths.isEmpty()) {
       for (Path p : myPaths) {
         handlePathDrawing(p);

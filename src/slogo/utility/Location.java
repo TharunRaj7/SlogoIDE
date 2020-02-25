@@ -4,6 +4,9 @@ package slogo.utility;
  * TODO: Implement a utility class that holds a location.
  */
 public class Location {
+
+    public static final Location ORIGIN = new Location(0, 0);
+
     private double xValue;
     private double yValue;
 
@@ -11,19 +14,24 @@ public class Location {
         xValue = x;
         yValue = y;
     }
-    public void setxValue(double xValue) {
+
+    public Location add(Location other) {
+        return new Location(xValue + other.xValue, yValue + other.yValue);
+    }
+
+    public void setX(double xValue) {
         this.xValue = xValue;
     }
 
-    public void setyValue(double yValue) {
+    public void setY(double yValue) {
         this.yValue = yValue;
     }
 
-    public double getxValue(){
+    public double getX(){
         return xValue;
     }
 
-    public double getyValue(){
+    public double getY(){
         return yValue;
     }
 }

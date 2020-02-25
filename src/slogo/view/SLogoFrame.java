@@ -40,8 +40,9 @@ public class SLogoFrame extends Application implements IFrame {
   }
 
   private void initializeComponents() {
-    tc = new TurtleCanvas();
-    myTurtle = new Turtle(tc, new Location(0,0), 0.0, "");
+    myTurtle = new Turtle(new Location(0,0), 0.0, "");
+    tc = new TurtleCanvas(myTurtle);
+    myTurtle.giveTurtleCanvas(tc);
   }
 
   private void initializeLayoutPane() {

@@ -17,12 +17,16 @@ public class Turtle implements ITurtle {
     private boolean show;
     ImageView image;
 
-    public Turtle (TurtleCanvas tc, Location location, double orientationAngle, String imageFilePath){
-        this.tc = tc;
+    public Turtle (Location location, double orientationAngle, String imageFilePath){
         this.location = location;
         this.currentAngle = orientationAngle;
         //this.image = image;
     }
+
+    public void giveTurtleCanvas(TurtleCanvas tc) {
+        this.tc = tc;
+    }
+
     @Override
     public void moveRelative(double distance) {
         boolean backward = false;
@@ -53,7 +57,9 @@ public class Turtle implements ITurtle {
         line = new LineTo(xTranslate, yTranslate);
         line.setAbsolute(false);
         p.getElements().add(line);
-        tc.drawPath(p);
+        if (tc != null) {
+            tc.drawPath(p);
+        }
     }
 
     // Provides the reference angle given the current angle
@@ -82,15 +88,17 @@ public class Turtle implements ITurtle {
 
     @Override
     public void moveTo(Location l) {
-        double x = l.getxValue();
-        double y = l.getyValue();
+        double x = l.getX();
+        double y = l.getY();
 
         // TODO: refactor this chunk of code.
         Path p = new Path();
         PathElement move;
         move = new MoveTo(x, y);
         p.getElements().add(move);
-        tc.drawPath(p);
+        if (tc != null) {
+            tc.drawPath(p);
+        }
     }
 
     @Override
@@ -172,7 +180,8 @@ public class Turtle implements ITurtle {
 
     //testing
     public static void main(String[] args) {
-        Turtle test = new Turtle(new TurtleCanvas(), new Location(0,0), 45, "");
+        Turtle test = new Turtle(new Location(0,0), 45, "");
+        test.giveTurtleCanvas(new TurtleCanvas(test));
         test.moveRelative(50);
 
     }

@@ -22,7 +22,7 @@ public interface IManager {
      * @param name
      * @param value
      */
-    void addVariable(String name, double value);
+    void addVariable(String name);
 
     /**
      * Runs the command with the arguments, and returns a double to

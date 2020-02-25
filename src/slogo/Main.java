@@ -1,5 +1,6 @@
 package slogo;
 
+
 import javafx.application.Application;
 import slogo.view.SLogoFrame;
 

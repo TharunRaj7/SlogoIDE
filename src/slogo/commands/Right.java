@@ -48,6 +48,7 @@ public class Right implements ICommand{
     public void execute () {
         // TODO: Call on turtle to move it forward the given distance
         arguments.get(0).execute();
+        System.out.println("Executed Right");
         myTurtle.rotate(arguments.get(0).returnVal());
     }
 
@@ -55,8 +56,11 @@ public class Right implements ICommand{
      * Is the output value that has to be present for every command
      * @return value designated by type of command
      */
-    public double returnVal () {
-        return myAngle;
+    public double returnVal () { return arguments.get(0).returnVal(); }
+
+    @Override
+    public void clearArgs() {
+        arguments.clear();
     }
 
     public void add_arg(ICommand arg){

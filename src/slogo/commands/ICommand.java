@@ -29,4 +29,9 @@ public interface ICommand {
      * @return value designated by type of command
      */
     double returnVal ();
+
+    /**
+     * Remove all the commands from arguments list
+     */
+    void clearArgs ();
 }

@@ -54,6 +54,10 @@ public class HideTurtle implements ICommand{
         return 0.0;
     }
 
+    @Override
+    public void clearArgs() {
+        // Should do nothing
+    }
 
 
     public int check_arg(){

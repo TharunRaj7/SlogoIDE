@@ -54,6 +54,11 @@ public class ShowTurtle implements ICommand{
         return 1.0;
     }
 
+    @Override
+    public void clearArgs() {
+        arguments.clear();
+    }
+
     private int check_arg(){
         return arguments.size();
     }

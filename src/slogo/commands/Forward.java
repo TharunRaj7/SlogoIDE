@@ -51,6 +51,7 @@ public class Forward implements ICommand{
     public void execute () {
         // TODO: Call on turtle to move it forward the given distance
         arguments.get(0).execute();
+        System.out.println("Executed Forward");
         //System.out.println(arguments.get(0).returnVal());
         myTurtle.moveRelative(arguments.get(0).returnVal());
     }
@@ -62,6 +63,9 @@ public class Forward implements ICommand{
     public double returnVal () {
         return arguments.get(0).returnVal();
     }
+
+    @Override
+    public void clearArgs() { arguments.clear(); }
 
     private void add_arg(ICommand arg){
         arguments.add(arg);

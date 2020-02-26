@@ -51,6 +51,10 @@ public class PenDown implements ICommand{
         return 1.0;
     }
 
+    @Override
+    public void clearArgs() {
+        arguments.clear();
+    }
 
 
     public int check_arg(){

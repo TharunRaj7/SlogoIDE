@@ -51,6 +51,10 @@ public class PenUp implements ICommand{
         return 0.0;
     }
 
+    @Override
+    public void clearArgs() {
+        arguments.clear();
+    }
 
 
     public int check_arg(){

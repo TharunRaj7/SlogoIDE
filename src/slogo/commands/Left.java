@@ -45,6 +45,7 @@ public class Left implements ICommand{
     public void execute () {
         // TODO: Call on turtle to move it forward the given distance
         arguments.get(0).execute();
+        System.out.println("Executed Left");
         myTurtle.rotate(-arguments.get(0).returnVal());
     }
 
@@ -53,6 +54,11 @@ public class Left implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () { return arguments.get(0).returnVal(); }
+
+    @Override
+    public void clearArgs() {
+        arguments.clear();
+    }
 
     public void add_arg(ICommand arg){
         arguments.add(arg);

@@ -3,6 +3,8 @@ package slogo.commands;
 import slogo.controller.Turtle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class BlockCommand implements ICommand {
@@ -29,15 +31,26 @@ public class BlockCommand implements ICommand {
 
     @Override
     public void execute() {
+        //ArrayList<ICommand> copyCommands = new ArrayList<>();
         Manager blockManager = new Manager();
         for (ICommand command : myCommands) {
             blockManager.addCommand(command);
         }
-        returnValue = blockManager.retCommand(myCommands.get(0));
+        System.out.println(myCommands.toString());
+        //System.out.println(copyCommands.toString());
+        returnValue = myCommands.get(0).returnVal();
+        for (ICommand command : myCommands) {
+            command.clearArgs();
+        }
     }
 
     @Override
     public double returnVal() {
-        return returnValue;
+        return 0.0;
+    }
+
+    @Override
+    public void clearArgs() {
+        // Should be empty
     }
 }

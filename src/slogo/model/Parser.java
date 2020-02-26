@@ -12,9 +12,11 @@ import java.util.List;
 public class Parser implements IParse {
     public static final String WHITESPACE = "\\s+";
     private Turtle myTurtle;
+    private String myLanguage;
     private Manager manager = new Manager();
 
-    public Parser(Turtle turtle) {
+    public Parser(Turtle turtle, String language) {
+        myLanguage = language;
         myTurtle = turtle;
     }
 
@@ -26,27 +28,13 @@ public class Parser implements IParse {
      * @throws ParserException
      */
     public void parse(String input) {
-        // TODO: Get the important information from the input String
-        // TODO: Assign the necessary values
-        // TODO: Make the necessary commands
-        // TODO: This is the hard part
-        // TODO: Make sure to not let this method get out of control
 
         ProgramParser lang = new ProgramParser();
 
-        lang.addPatterns("English");
-        lang.addPatterns("Chinese");
-        lang.addPatterns("French");
-        lang.addPatterns("German");
-        lang.addPatterns("Italian");
-        lang.addPatterns("Portuguese");
-        lang.addPatterns("Russian");
-        lang.addPatterns("Spanish");
-        lang.addPatterns("Urdu");
+        lang.addPatterns(myLanguage);
         lang.addPatterns("Syntax");
 
         parseText(lang, Arrays.asList(input.split(WHITESPACE)));
-
 
     }
 
@@ -91,5 +79,5 @@ public class Parser implements IParse {
 
     private void giveArgument(double arg) { manager.addArg(arg); }
 
-    private void giveVariable(String varName, double arg) { manager.addVariable(varName, arg); }
+    private void giveVariable(String varName, double arg) { manager.addVariable(varName); }
 }

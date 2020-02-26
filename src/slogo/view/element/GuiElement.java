@@ -1,5 +1,6 @@
 package slogo.view.element;
 
+import java.util.ResourceBundle;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
@@ -7,8 +8,8 @@ import javafx.scene.layout.Priority;
 
 public abstract class GuiElement extends GridPane {
 
-  protected static final double PADDING = 5;
-  protected static final double GAP = 2;
+  static final double PADDING = 5;
+  static final double GAP = 2;
 
   GuiElement() {
     initializeLayout();
@@ -22,9 +23,13 @@ public abstract class GuiElement extends GridPane {
     setGrowPriorityAlways(this);
   }
 
-  protected void setGrowPriorityAlways(Node node) {
+  void setGrowPriorityAlways(Node node) {
     GridPane.setHgrow(node, Priority.ALWAYS);
     GridPane.setVgrow(node, Priority.ALWAYS);
+  }
+
+  public void updateResources(ResourceBundle resources) {
+    // do nothing by default
   }
 
 }

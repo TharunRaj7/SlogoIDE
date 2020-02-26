@@ -80,4 +80,8 @@ public class Parser implements IParse {
     private void giveArgument(double arg) { manager.addArg(arg); }
 
     private void giveVariable(String varName, double arg) { manager.addVariable(varName); }
+
+    public void updateLanguage(String language) {
+        myLanguage = language;
+    }
 }

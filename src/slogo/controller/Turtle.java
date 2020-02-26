@@ -139,6 +139,7 @@ public class Turtle implements ITurtle {
     public void setHeading(double angle) {
         //add angle normalization
         currentAngle = angle;
+        image.setRotate(currentAngle);
     }
 
     @Override

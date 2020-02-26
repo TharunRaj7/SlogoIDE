@@ -37,7 +37,8 @@ public interface ITurtle {
    * Sets the turtle's heading to a given angle.
    *
    * This is 'absolute rotation', which sets the turtle's heading to a given angle. Angles are
-   * measured from the positive x axis, moving counter-clockwise.
+   * measured from 'North', moving clockwise.
+   * // TODO : Document this API change, from counter-clockwise to clockwise.
    * @param angle the new heading
    */
   void setHeading(double angle);

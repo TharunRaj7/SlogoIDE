@@ -3,15 +3,19 @@ package slogo.model;
 import slogo.commands.Argument;
 import slogo.commands.ICommand;
 import slogo.commands.Manager;
+import slogo.commands.Variables;
 import slogo.controller.Turtle;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Parser implements IParse {
     public static final String WHITESPACE = "\\s+";
+    private Map<String, Double> varList = new HashMap<>();
     private Turtle myTurtle;
     private String myLanguage;
     private Manager manager = new Manager();
@@ -71,7 +75,7 @@ public class Parser implements IParse {
                     System.out.println(line);
                     manager.addCommand(new Argument(Float.parseFloat(line)));
                 }
-                else if (lang.getSymbol(line).equals("Variable")) { giveVariable(line, 0); }
+                else if (lang.getSymbol(line).equals("Variable")) { giveVariable(line); }
                 else {
                     System.out.println(lang.getSymbol(line));
                     makeCommand(myTurtle, "slogo.commands." + lang.getSymbol(line));
@@ -83,5 +87,5 @@ public class Parser implements IParse {
 
     private void giveArgument(double arg) { manager.addArg(arg); }
 
-    private void giveVariable(String varName, double arg) { manager.addVariable(varName); }
+    private void giveVariable(String varName) { manager.addCommand(new Variables(varName, varList)); }
 }

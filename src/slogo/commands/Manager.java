@@ -1,8 +1,5 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
-
-import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -87,7 +84,7 @@ public class Manager implements IManager{
      */
     public void addVariable(String name) {
         // TODO: Add the variable given the string name and value to the map of variables
-        if (recent_node.getData().getClass().isInstance(new Make())){
+        if (recent_node.getData().getClass().isInstance(new MakeVariable())){
             current_variables.add(name);
             variables.putIfAbsent(name,0.0);
         }

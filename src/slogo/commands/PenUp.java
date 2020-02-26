@@ -40,7 +40,7 @@ public class PenUp implements ICommand{
      */
     public void execute () {
         // TODO: Call on turtle to move it forward the given distance
-        myTurtle.penDown();
+        myTurtle.penUp();
     }
 
     /**

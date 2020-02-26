@@ -35,7 +35,7 @@ public class Towards implements ICommand{
     /**
      * Gives the command an argument
      * Manager will check if sufficient and run if needed
-     * @param arg
+     * @param command
      */
     public void setArgument (ICommand command) {
         arguments.add(command);
@@ -46,7 +46,7 @@ public class Towards implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-        // TODO: Call on turtle to move it forward the given distance
+        myTurtle.towards(arguments.get(0).returnVal(), arguments.get(1).returnVal());
 
     }
 

@@ -5,7 +5,6 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
-import javafx.scene.shape.SVGPath;
 import slogo.utility.Location;
 import slogo.utility.MathOps;
 import slogo.view.element.TurtleCanvas;
@@ -21,11 +20,14 @@ public class Turtle implements ITurtle {
     public Turtle (Location location, double orientationAngle, String imageFilePath){
         this.location = location;
         this.currentAngle = orientationAngle;
-        //this.image = image;
+        this.penDown = true;
+        image = new ImageView(imageFilePath);
+        image.setFitHeight(15); image.setFitWidth(15);
     }
 
     public void giveTurtleCanvas(TurtleCanvas tc) {
         this.tc = tc;
+        image.setX(location.getX() + tc.getTRANSLATE_X() ); image.setY(location.getY() + tc.getTRANSLATE_Y());
     }
 
     @Override
@@ -53,15 +55,8 @@ public class Turtle implements ITurtle {
 
 
         //call to internal API drawPath
-        Path p = new Path();
-        PathElement move = new MoveTo(location.getX(), location.getY());
-        p.getElements().add(move);
-        PathElement line= new LineTo(xTranslate, yTranslate);
-        line.setAbsolute(false);
-        p.getElements().add(line);
-        if (tc != null) {
-            tc.drawPath(p);
-        }
+        image.setX(50); image.setY(50);
+        drawOnCanvas(false, xTranslate, yTranslate);
     }
 
     // Provides the reference angle given the current angle
@@ -94,13 +89,28 @@ public class Turtle implements ITurtle {
         double y = l.getY();
 
         // TODO: refactor this chunk of code.
+        drawOnCanvas(true, x, y);
+    }
+
+    private void drawOnCanvas(boolean absolute, double x, double y){
         Path p = new Path();
-        PathElement move;
-        move = new MoveTo(x, y);
+        PathElement move = new MoveTo(location.getX(), location.getY());
         p.getElements().add(move);
+
+        if (getPenDown()){
+            PathElement line;
+            line = new LineTo(x, y);
+            line.setAbsolute(absolute);
+            p.getElements().add(line);
+        }else{
+            move = new MoveTo(x, y);
+            move.setAbsolute(absolute);
+            p.getElements().add(move);
+        }
         if (tc != null) {
             tc.drawPath(p);
         }
+
     }
 
     @Override
@@ -122,6 +132,7 @@ public class Turtle implements ITurtle {
                 currentAngle += angle;
             }
         }
+        image.setRotate(currentAngle);
     }
 
     @Override
@@ -131,28 +142,33 @@ public class Turtle implements ITurtle {
     }
 
     @Override
-    public void penUp() {
+    public void towards(double x, double y) {
 
+    }
+
+    @Override
+    public void penUp() {
+        penDown = false;
     }
 
     @Override
     public void penDown() {
-
+        penDown = true;
     }
 
     @Override
     public void show() {
-
+        image.setFitWidth(15);image.setFitHeight(15);
     }
 
     @Override
     public void hide() {
-
+        image.setFitWidth(0.1);image.setFitHeight(0.1);
     }
 
     @Override
     public void clear() {
-
+        tc.clear();
     }
 
     @Override
@@ -161,8 +177,16 @@ public class Turtle implements ITurtle {
     }
 
     @Override
+    public ImageView getImage() {
+        return image;
+    }
+
+    @Override
     public void setLocation(Location l) {
         this.location = l;
+        double xOffset = -image.getBoundsInLocal().getWidth()/2;
+        double yOffset = -image.getBoundsInLocal().getHeight()/2;
+        image.setX(location.getX() + tc.getTRANSLATE_X() + xOffset); image.setY(location.getY() + tc.getTRANSLATE_Y() + yOffset);
     }
 
     @Override

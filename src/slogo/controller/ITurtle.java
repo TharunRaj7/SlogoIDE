@@ -1,5 +1,6 @@
 package slogo.controller;
 
+import javafx.scene.image.ImageView;
 import slogo.utility.Location;
 
 public interface ITurtle {
@@ -44,6 +45,13 @@ public interface ITurtle {
   void setHeading(double angle);
 
   /**
+   * Sets the angle of the turtle such that it is heading towards the specified location on the canvas
+   * @param x x-component of the point at which the turtle is supposed to head towards
+   * @param y y-component of the point at which the turtle is supposed to head towards
+   */
+  void towards(double x, double y);
+
+  /**
    * Picks up the turtle's 'pen', so that movement is no longer marked on the canvas.
    *
    * If the pen is already up, there is no change.
@@ -78,6 +86,12 @@ public interface ITurtle {
    * @return the turtle's Location
    */
   Location getLocation();
+
+  /**
+   * returns the imageView object of the turtle to be displayed on the canvas.
+   * @return the imageView object of the turtle
+   */
+  ImageView getImage();
 
   /**
    * Sets the new location of the turtle.

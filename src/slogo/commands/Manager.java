@@ -87,7 +87,7 @@ public class Manager implements IManager{
      */
     public void addVariable(String name) {
         // TODO: Add the variable given the string name and value to the map of variables
-        if (recent_node.getData().getClass().isInstance(new MakeVariable())){
+        if (recent_node.getData() instanceof MakeVariable){
             current_variables.add(name);
             variables.putIfAbsent(name,0.0);
         }

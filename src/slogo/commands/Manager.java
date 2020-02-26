@@ -77,6 +77,9 @@ public class Manager implements IManager{
 
     }
 
+    // TODO: Check if the addVariable method is actually used, and in turn if
+    // TODO: the variable objects above are necessary anymore
+
     /**
      * Adds a variable to the map held in the manager
      * Able to be recalled as an argument for command calls later
@@ -101,10 +104,17 @@ public class Manager implements IManager{
      */
     public double runCommand(ICommand command) {
         command.execute();
+        /*
         if (current_variables.size() > 0){
             variables.put(current_variables.get(-1),command.returnVal());
             current_variables.remove(-1);
         }
+
+         */
+        return command.returnVal();
+    }
+
+    public double retCommand(ICommand command) {
         return command.returnVal();
     }
 }

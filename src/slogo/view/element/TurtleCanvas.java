@@ -27,6 +27,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   private static final double MIN_CANVAS_HEIGHT = 200;
   private static final double MAX_CANVAS_WIDTH = 1600;
   private static final double MAX_CANVAS_HEIGHT = 1600;
+
   private double TRANSLATE_X = MAX_CANVAS_WIDTH / 2.0;
   private double TRANSLATE_Y = MAX_CANVAS_HEIGHT / 2.0;
 
@@ -53,7 +54,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   private void initializeCanvas() {
     myCanvasHolder = new Pane();
     myCanvas = new Canvas(MAX_CANVAS_WIDTH, MAX_CANVAS_HEIGHT);
-    myCanvasHolder.getChildren().add(myCanvas);
+    myCanvasHolder.getChildren().addAll(myCanvas, myTurtle.getImage());
     myCanvasHolder.setMinWidth(MIN_CANVAS_WIDTH);
     myCanvasHolder.setMinHeight(MIN_CANVAS_HEIGHT);
 
@@ -190,6 +191,14 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
         handlePathDrawing(p);
       }
     }
+  }
+
+  public double getTRANSLATE_X() {
+    return TRANSLATE_X;
+  }
+
+  public double getTRANSLATE_Y() {
+    return TRANSLATE_Y;
   }
 
   public void updateResources(ResourceBundle resources) {

@@ -56,7 +56,7 @@ public class SLogoFrame extends Application implements IFrame {
   }
 
   private void initializeTurtleComponents() {
-    myTurtle = new Turtle(new Location(0,0), 0.0, "");
+    myTurtle = new Turtle(new Location(0,0), 0.0, "slogo/view/resources/Turtle.gif");
     tc = new TurtleCanvas(myTurtle, myResources);
     myTurtle.giveTurtleCanvas(tc);
   }

@@ -1,5 +1,6 @@
 package slogo.model;
 
+import slogo.commands.Argument;
 import slogo.commands.ICommand;
 import slogo.commands.Manager;
 import slogo.controller.Turtle;
@@ -66,7 +67,10 @@ public class Parser implements IParse {
     private void parseText (ProgramParser lang, List<String> lines) {
         for (String line : lines) {
             if (line.trim().length() > 0) {
-                if (lang.getSymbol(line).equals("Constant")) { giveArgument(Float.parseFloat(line)); }
+                if (lang.getSymbol(line).equals("Constant")) {
+                    System.out.println(line);
+                    manager.addCommand(new Argument(Float.parseFloat(line)));
+                }
                 else if (lang.getSymbol(line).equals("Variable")) { giveVariable(line, 0); }
                 else {
                     System.out.println(lang.getSymbol(line));

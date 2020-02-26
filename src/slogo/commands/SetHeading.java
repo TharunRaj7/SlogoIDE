@@ -44,6 +44,7 @@ public class SetHeading implements ICommand{
      */
     public void execute () {
         // TODO: Call on turtle to move it forward the given distance
+        arguments.get(0).returnVal();
         myTurtle.setHeading(arguments.get(0).returnVal());
     }
 

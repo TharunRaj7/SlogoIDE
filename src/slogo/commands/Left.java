@@ -44,6 +44,7 @@ public class Left implements ICommand{
      */
     public void execute () {
         // TODO: Call on turtle to move it forward the given distance
+        arguments.get(0).execute();
         myTurtle.rotate(-arguments.get(0).returnVal());
     }
 

@@ -5,22 +5,16 @@ import slogo.controller.Turtle;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Back implements ICommand{
+public class PenUp implements ICommand{
 
     Turtle myTurtle;
-    int myArgs = 1;
-    double myDist;
-    private double arg1;
-    private ArrayList<Double> arguments = new ArrayList<Double>();
-
-    public Back (Turtle turtle) {
+    int myArgs = 0;
+    private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
+    public PenUp (Turtle turtle) {
         myTurtle = turtle;
+
     }
 
-    public Back (Turtle turtle, double dist) {
-        this(turtle);
-        myDist = dist;
-    }
 
     /**
      * Checks to see if the number of arguments available are sufficient
@@ -36,9 +30,8 @@ public class Back implements ICommand{
      * Manager will check if sufficient and run if needed
      * @param arg
      */
-    public void setArgument (double arg) {
-        myDist = arg;
-        add_arg(arg);
+    public void setArgument (ICommand arg) {
+
     }
 
     /**
@@ -47,7 +40,7 @@ public class Back implements ICommand{
      */
     public void execute () {
         // TODO: Call on turtle to move it forward the given distance
-        myTurtle.moveRelative(-arguments.get(0));
+        myTurtle.penDown();
     }
 
     /**
@@ -55,15 +48,12 @@ public class Back implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        return myDist;
+        return 0.0;
     }
 
-    public void add_arg(double arg){
-        arguments.add(arg);
-    }
+
 
     public int check_arg(){
         return arguments.size();
     }
 }
-

@@ -5,18 +5,17 @@ import slogo.controller.Turtle;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Make implements ICommand{
+public class MakeVariable implements ICommand{
 
     Turtle myTurtle;
-    int myArgs = 1;
-    double myValue;
+    int myArgs = 2;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public Make (Turtle turtle) {
+    public MakeVariable(Turtle turtle) {
         myTurtle = turtle;
     }
 
-    public Make () {
+    public MakeVariable() {
     }
 
     /**
@@ -43,6 +42,10 @@ public class Make implements ICommand{
      */
     public void execute () {
         // TODO: Call on turtle to move it forward the given distance
+        arguments.get(1).execute();
+        if (arguments.get(0) instanceof Variables){
+            ((Variables) arguments.get(0)).setVal(arguments.get(1).returnVal());
+        }
 
     }
 
@@ -51,7 +54,7 @@ public class Make implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        return myValue;
+        return arguments.get(1).returnVal();
     }
 
     public void add_arg(ICommand arg){

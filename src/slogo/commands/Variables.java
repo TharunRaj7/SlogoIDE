@@ -8,7 +8,6 @@ public class Variables implements ICommand{
 
     private String myVarName;
     private Map<String,Double> variables;
-    private ArrayList<String> current_variables = new ArrayList<>();
 
     public Variables(String varName, Map<String, Double> varList) {
         variables = varList;

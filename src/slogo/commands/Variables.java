@@ -7,14 +7,15 @@ import java.util.Map;
 public class Variables implements ICommand{
 
     private String myVarName;
-    private Map<String,Double> variables;
+    private static Map<String,Double> variables;
 
-    public Variables(String varName, Map<String, Double> varList) {
-        variables = varList;
+    public Variables(String varName) { // , Map<String, Double> varList
+        //variables = varList;
         myVarName = varName;
     }
 
     public void setVal(double val) {
+        if(variables == null) { variables = new HashMap<>(); }
         variables.put(myVarName, val);
     }
 

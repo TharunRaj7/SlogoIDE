@@ -5,22 +5,20 @@ import slogo.controller.Turtle;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Towards implements ICommand{
+public class Backward implements ICommand{
 
     Turtle myTurtle;
-    int myArgs = 2;
-    Double myX = null;
-    Double myY = null;
+    int myArgs = 1;
+    double myDist;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public Towards (Turtle turtle) {
+    public Backward (Turtle turtle) {
         myTurtle = turtle;
     }
 
-    public Towards (Turtle turtle, double x, double y) {
+    public Backward (Turtle turtle, double dist) {
         this(turtle);
-        myX = x;
-        myY = y;
+        myDist = dist;
     }
 
     /**
@@ -35,10 +33,15 @@ public class Towards implements ICommand{
     /**
      * Gives the command an argument
      * Manager will check if sufficient and run if needed
-     * @param command
+     * @param arg
      */
-    public void setArgument (ICommand command) {
-        arguments.add(command);
+    public void setArgument (ICommand arg) {
+        /*
+        myDist = arg.returnVal();
+        add_arg(arg);
+
+         */
+        arguments.add(arg);
     }
 
     /**
@@ -46,9 +49,9 @@ public class Towards implements ICommand{
      * and arguments already provided
      */
     public void execute () {
+        // TODO: Call on turtle to move it forward the given distance
         arguments.get(0).execute();
-        arguments.get(1).execute();
-        myTurtle.towards(arguments.get(0).returnVal(), arguments.get(1).returnVal());
+        myTurtle.moveRelative(-arguments.get(0).returnVal());
     }
 
     /**
@@ -56,8 +59,7 @@ public class Towards implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        return 0.0;
-
+        return arguments.get(0).returnVal();
     }
 
     private void add_arg(ICommand arg){

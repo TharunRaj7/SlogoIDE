@@ -1,9 +1,6 @@
 package slogo.model;
 
-import slogo.commands.Argument;
-import slogo.commands.ICommand;
-import slogo.commands.Manager;
-import slogo.commands.Variables;
+import slogo.commands.*;
 import slogo.controller.Turtle;
 
 import java.lang.reflect.Constructor;
@@ -14,11 +11,15 @@ import java.util.List;
 import java.util.Map;
 
 public class Parser implements IParse {
+
     public static final String WHITESPACE = "\\s+";
+
+    private boolean isBlock = false;
     private Map<String, Double> varList = new HashMap<>();
     private Turtle myTurtle;
     private String myLanguage;
     private Manager manager = new Manager();
+    private BlockCommand myBlockCommand;
 
     public Parser(Turtle turtle, String language) {
         myLanguage = language;
@@ -60,7 +61,11 @@ public class Parser implements IParse {
             Constructor constructor = cls.getConstructor(Turtle.class);
             command = constructor.newInstance(turtle);
             ICommand returnCommand = (ICommand) command;
-            manager.addCommand(returnCommand);
+            if(isBlock) {
+                myBlockCommand.setArgument(returnCommand);
+            } else {
+                manager.addCommand(returnCommand);
+            }
             return returnCommand;
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new ParserException(e);
@@ -71,11 +76,22 @@ public class Parser implements IParse {
     private void parseText (ProgramParser lang, List<String> lines) {
         for (String line : lines) {
             if (line.trim().length() > 0) {
-                if (lang.getSymbol(line).equals("Constant")) {
+                if (lang.getSymbol(line).equals("ListStart")) {
+                    System.out.println("List begins");
+                    isBlock = true;
+                    myBlockCommand = new BlockCommand();
+                } else if (lang.getSymbol(line).equals("ListEnd")) {
+                    System.out.println("List ends");
+                    isBlock = false;
+                    manager.addCommand(myBlockCommand);
+                } else if (lang.getSymbol(line).equals("Constant")) {
                     System.out.println(line);
-                    manager.addCommand(new Argument(Float.parseFloat(line)));
-                }
-                else if (lang.getSymbol(line).equals("Variable")) { giveVariable(line); }
+                    if(isBlock) {
+                        myBlockCommand.setArgument(new Argument(Float.parseFloat(line)));
+                    } else {
+                        manager.addCommand(new Argument(Float.parseFloat(line)));
+                    }
+                } else if (lang.getSymbol(line).equals("Variable")) { giveVariable(line); }
                 else {
                     System.out.println(lang.getSymbol(line));
                     makeCommand(myTurtle, "slogo.commands." + lang.getSymbol(line));
@@ -85,7 +101,14 @@ public class Parser implements IParse {
         System.out.println();
     }
 
-    private void giveArgument(double arg) { manager.addArg(arg); }
+    //private void giveArgument(double arg) { manager.addArg(arg); }
 
-    private void giveVariable(String varName) { manager.addCommand(new Variables(varName, varList)); }
+    private void giveVariable(String varName) {
+        if(isBlock) {
+            myBlockCommand.setArgument(new Variables(varName));
+        } else {
+            System.out.println(varName);
+            manager.addCommand(new Variables(varName));
+        }
+    }
 }

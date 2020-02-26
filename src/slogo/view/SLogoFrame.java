@@ -52,7 +52,13 @@ public class SLogoFrame extends Application implements IFrame {
   }
 
   private void initializeResources(String language) {
-    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCES_PACKAGE + language);
+    try {
+      myResources = ResourceBundle.getBundle(DEFAULT_RESOURCES_PACKAGE + language);
+    } catch (Exception e) {
+      initializeResources(myResources.getBaseBundleName().substring(
+          myResources.getBaseBundleName().lastIndexOf('.')+1)
+      );
+    }
   }
 
   private void initializeComponents() {

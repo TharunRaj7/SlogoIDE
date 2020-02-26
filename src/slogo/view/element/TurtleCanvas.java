@@ -2,6 +2,7 @@ package slogo.view.element;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -31,9 +32,9 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
   private static final double MENU_HEIGHT = 25;
 
-  private static final Color DEFAULT_PEN_COLOR = Color.BLACK;
+  private static final Color DEFAULT_PEN_COLOR = Color.WHITE;
   private static final int DEFAULT_PEN_THICKNESS = 1;
-  private static final Color DEFAULT_BACKGROUND_COLOR = Color.WHITE;
+  private static final Color DEFAULT_BACKGROUND_COLOR = Color.BLACK;
 
   private Canvas myCanvas;
   private Pane myCanvasHolder;
@@ -42,11 +43,11 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
   private List<Path> myPaths;
 
-  public TurtleCanvas(Turtle turtle) {
+  public TurtleCanvas(Turtle turtle, ResourceBundle resources) {
     myTurtle = turtle;
     initializeCanvas();
     initializeDefaults();
-    initializeLayoutPane();
+    initializeLayoutPane(resources);
   }
 
   private void initializeCanvas() {
@@ -67,14 +68,15 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     setBackgroundColor(DEFAULT_BACKGROUND_COLOR);
   }
 
-  private void initializeLayoutPane() {
-    Pane menuBar = makeMenuBar();
+  private void initializeLayoutPane(ResourceBundle resources) {
+    Pane menuBar = makeMenuBar(resources);
+    this.getChildren().clear();
     this.add(menuBar, 0, 0);
     this.add(myCanvasHolder, 0, 1);
     setGrowPriorityAlways(myCanvasHolder);
   }
 
-  private Pane makeMenuBar() {
+  private Pane makeMenuBar(ResourceBundle resources) {
     HBox menu = new HBox();
 
     ColorPicker colorPicker = new ColorPicker();
@@ -86,7 +88,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
     menu.getChildren().add(colorPicker);
 
-    Button clearButton = ButtonFactory.button("Clear", e -> {
+    Button clearButton = ButtonFactory.button(resources.getString("clear"), e -> {
       clear();
       myTurtle.setLocation(Location.ORIGIN);
       myTurtle.setHeading(0);
@@ -188,6 +190,10 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
         handlePathDrawing(p);
       }
     }
+  }
+
+  public void updateResources(ResourceBundle resources) {
+    initializeLayoutPane(resources);
   }
 
 }

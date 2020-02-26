@@ -5,6 +5,7 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
+import javafx.scene.shape.SVGPath;
 import slogo.utility.Location;
 import slogo.utility.MathOps;
 import slogo.view.element.TurtleCanvas;
@@ -53,8 +54,9 @@ public class Turtle implements ITurtle {
 
         //call to internal API drawPath
         Path p = new Path();
-        PathElement line;
-        line = new LineTo(xTranslate, yTranslate);
+        PathElement move = new MoveTo(location.getX(), location.getY());
+        p.getElements().add(move);
+        PathElement line= new LineTo(xTranslate, yTranslate);
         line.setAbsolute(false);
         p.getElements().add(line);
         if (tc != null) {
@@ -177,12 +179,12 @@ public class Turtle implements ITurtle {
     public boolean getShowing() {
         return show;
     }
-
-    //testing
-    public static void main(String[] args) {
-        Turtle test = new Turtle(new Location(0,0), 45, "");
-        test.giveTurtleCanvas(new TurtleCanvas(test));
-        test.moveRelative(50);
-
-    }
+//
+//    //testing
+//    public static void main(String[] args) {
+//        Turtle test = new Turtle(new Location(0,0), 45, "");
+//        test.giveTurtleCanvas(new TurtleCanvas(test, ));
+//        test.moveRelative(50);
+//
+//    }
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -25,10 +26,10 @@ public class ScriptEditor extends GuiElement {
 
   private String myFilePath;
 
-  public ScriptEditor(Parser parser) {
+  public ScriptEditor(Parser parser, ResourceBundle resources) {
     myParser = parser;
     initializeInput();
-    initializeButtons();
+    initializeButtons(resources);
     initializeLayout();
   }
 
@@ -36,39 +37,39 @@ public class ScriptEditor extends GuiElement {
     input = new TextArea();
   }
 
-  private void initializeButtons() {
+  private void initializeButtons(ResourceBundle resources) {
     myButtons = new HBox();
     myButtons.setSpacing(BUTTON_CLASS_GAP);
 
-    HBox runMenu = buildRunMenu();
+    HBox runMenu = buildRunMenu(resources);
 
-    HBox fileMenu = buildFileMenu();
+    HBox fileMenu = buildFileMenu(resources);
 
     myButtons.getChildren().add(runMenu);
     myButtons.getChildren().add(fileMenu);
   }
 
-  private HBox buildRunMenu() {
+  private HBox buildRunMenu(ResourceBundle resources) {
     HBox runMenu = new HBox();
     runMenu.setSpacing(GAP);
 
     runMenu.getChildren().add(
-        ButtonFactory.button("Run", e -> myParser.parse(input.getText())));
+        ButtonFactory.button(resources.getString("run"), e -> parseInput()));
     return runMenu;
   }
 
-  private HBox buildFileMenu() {
+  private HBox buildFileMenu(ResourceBundle resources) {
     HBox fileMenu = new HBox();
     fileMenu.setSpacing(GAP);
 
     fileMenu.getChildren().add(
-        ButtonFactory.button("Open", e -> openFile()));
-    mySaveButton = ButtonFactory.button("Save", e -> saveFile());
+        ButtonFactory.button(resources.getString("open"), e -> openFile()));
+    mySaveButton = ButtonFactory.button(resources.getString("save"), e -> saveFile());
     mySaveButton.setDisable(true);
     fileMenu.getChildren().add(mySaveButton);
 
     fileMenu.getChildren().add(
-        ButtonFactory.button("Save As", e -> saveAsFile()));
+        ButtonFactory.button(resources.getString("saveas"), e -> saveAsFile()));
     return fileMenu;
   }
 
@@ -79,6 +80,10 @@ public class ScriptEditor extends GuiElement {
     this.setMinWidth(MIN_WIDTH);
 
     this.add(myButtons, 0, 0);
+  }
+
+  private void parseInput() {
+    myParser.parse(input.getText());
   }
 
   private void openFile() {

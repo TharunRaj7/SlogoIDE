@@ -35,6 +35,7 @@ public class Variables implements ICommand{
 
     @Override
     public double returnVal() {
+        System.out.println(variables.get(myVarName) + "VarCall");
         return (double) variables.get(myVarName);
     }
 }

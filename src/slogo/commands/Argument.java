@@ -23,8 +23,8 @@ public class Argument implements ICommand {
      * Manager will check if sufficient and run if needed
      * @param arg
      */
-    public void setArgument (double arg) {
-        myArgument = arg;
+    public void setArgument (ICommand arg) {
+
     }
 
     /**

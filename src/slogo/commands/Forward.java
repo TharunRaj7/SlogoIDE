@@ -62,11 +62,11 @@ public class Forward implements ICommand{
         return arguments.get(0).returnVal();
     }
 
-    public void add_arg(ICommand arg){
+    private void add_arg(ICommand arg){
         arguments.add(arg);
     }
 
-    public int check_arg(){
+    private int check_arg(){
         return arguments.size();
     }
 }

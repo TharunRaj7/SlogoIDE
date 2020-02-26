@@ -12,7 +12,7 @@ public class Right implements ICommand{
     Turtle myTurtle;
     int myArgs = 1;
     double myAngle;
-    private ArrayList<Double> arguments = new ArrayList<Double>();
+    private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public Right (Turtle turtle) {
         myTurtle = turtle;
@@ -37,8 +37,7 @@ public class Right implements ICommand{
      * Manager will check if sufficient and run if needed
      * @param arg
      */
-    public void setArgument (double arg) {
-        myAngle = arg;
+    public void setArgument (ICommand arg) {
         add_arg(arg);
     }
 
@@ -48,7 +47,7 @@ public class Right implements ICommand{
      */
     public void execute () {
         // TODO: Call on turtle to move it forward the given distance
-        myTurtle.rotate(-arguments.get(0));
+        myTurtle.rotate(-arguments.get(0).returnVal());
     }
 
     /**
@@ -59,7 +58,7 @@ public class Right implements ICommand{
         return myAngle;
     }
 
-    public void add_arg(double arg){
+    public void add_arg(ICommand arg){
         arguments.add(arg);
     }
 

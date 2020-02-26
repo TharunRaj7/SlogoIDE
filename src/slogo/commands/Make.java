@@ -10,7 +10,7 @@ public class Make implements ICommand{
     Turtle myTurtle;
     int myArgs = 1;
     double myValue;
-    private ArrayList<Double> arguments = new ArrayList<Double>();
+    private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public Make (Turtle turtle) {
         myTurtle = turtle;
@@ -33,8 +33,7 @@ public class Make implements ICommand{
      * Manager will check if sufficient and run if needed
      * @param arg
      */
-    public void setArgument (double arg) {
-        myValue = arg;
+    public void setArgument (ICommand arg) {
         add_arg(arg);
     }
 
@@ -55,7 +54,7 @@ public class Make implements ICommand{
         return myValue;
     }
 
-    public void add_arg(double arg){
+    public void add_arg(ICommand arg){
         arguments.add(arg);
     }
 

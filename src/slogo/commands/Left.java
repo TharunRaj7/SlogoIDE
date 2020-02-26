@@ -51,9 +51,7 @@ public class Left implements ICommand{
      * Is the output value that has to be present for every command
      * @return value designated by type of command
      */
-    public double returnVal () {
-        return myAngle;
-    }
+    public double returnVal () { return arguments.get(0).returnVal(); }
 
     public void add_arg(ICommand arg){
         arguments.add(arg);

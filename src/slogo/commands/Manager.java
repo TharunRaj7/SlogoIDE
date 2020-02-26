@@ -40,8 +40,8 @@ public class Manager implements IManager{
                 recent_node = recent_node.getParent();
             }
             if (recent_node.getData().enoughArgs() && recent_node.getParent() == null){
-                //runCommand(recent_node.getData());
-                //recent_node = null;
+                runCommand(recent_node.getData());
+                recent_node = null;
             }
             else{
                 System.out.println("Not enough commands/arguments!");

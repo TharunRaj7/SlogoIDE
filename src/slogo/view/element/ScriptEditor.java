@@ -31,6 +31,7 @@ public class ScriptEditor extends GuiElement {
     initializeInput();
     initializeButtons(resources);
     initializeLayout();
+    mySaveButton.setDisable(true);
   }
 
   private void initializeInput() {
@@ -65,7 +66,6 @@ public class ScriptEditor extends GuiElement {
     fileMenu.getChildren().add(
         ButtonFactory.button(resources.getString("open"), e -> openFile()));
     mySaveButton = ButtonFactory.button(resources.getString("save"), e -> saveFile());
-    mySaveButton.setDisable(true);
     fileMenu.getChildren().add(mySaveButton);
 
     fileMenu.getChildren().add(
@@ -74,6 +74,7 @@ public class ScriptEditor extends GuiElement {
   }
 
   private void initializeLayout() {
+    this.getChildren().clear();
     this.add(input, 0, 1);
     setGrowPriorityAlways(input);
 
@@ -149,5 +150,11 @@ public class ScriptEditor extends GuiElement {
       extension = filename.substring(i+1);
     }
     return extension.equals("logo");
+  }
+
+  @Override
+  public void updateResources(ResourceBundle resources) {
+    initializeButtons(resources);
+    initializeLayout();
   }
 }

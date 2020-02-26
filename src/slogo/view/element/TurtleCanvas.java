@@ -201,6 +201,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     return TRANSLATE_Y;
   }
 
+  @Override
   public void updateResources(ResourceBundle resources) {
     initializeLayoutPane(resources);
   }

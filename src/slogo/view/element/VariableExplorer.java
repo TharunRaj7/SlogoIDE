@@ -1,5 +1,6 @@
 package slogo.view.element;
 
+import java.util.ResourceBundle;
 import javafx.scene.control.TableView;
 
 public class VariableExplorer extends GuiElement {
@@ -14,6 +15,11 @@ public class VariableExplorer extends GuiElement {
     myVariableTable = new TableView();
 
     this.add(myVariableTable, 0, 0);
+  }
+
+  @Override
+  public void updateResources(ResourceBundle resources) {
+    // TODO : add me
   }
 
 }

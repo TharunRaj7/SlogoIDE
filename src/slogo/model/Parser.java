@@ -104,11 +104,15 @@ public class Parser implements IParse {
     //private void giveArgument(double arg) { manager.addArg(arg); }
 
     private void giveVariable(String varName) {
-        if(isBlock) {
-            myBlockCommand.setArgument(new Variables(varName));
-        } else {
-            System.out.println(varName);
-            manager.addCommand(new Variables(varName));
-        }
+      if (isBlock) {
+        myBlockCommand.setArgument(new Variables(varName));
+      } else {
+        System.out.println(varName);
+        manager.addCommand(new Variables(varName));
+      }
+    }
+
+    public void updateLanguage(String language) {
+        myLanguage = language;
     }
 }

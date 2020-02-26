@@ -1,10 +1,13 @@
 package slogo.view;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -13,6 +16,7 @@ import slogo.controller.Turtle;
 import slogo.model.Parser;
 import slogo.utility.Location;
 import slogo.view.element.Console;
+import slogo.view.element.GuiElement;
 import slogo.view.element.ScriptEditor;
 import slogo.view.element.TurtleCanvas;
 import slogo.view.utility.MenuFactory;
@@ -27,8 +31,7 @@ public class SLogoFrame extends Application implements IFrame {
 
   private Stage myPrimaryStage;
   private Pane myLayout;
-  private Turtle myTurtle;
-  private TurtleCanvas tc;
+  private List<GuiElement> myGuiElements;
   private Parser myParser;
   private ResourceBundle myResources;
 
@@ -40,8 +43,6 @@ public class SLogoFrame extends Application implements IFrame {
   public void start(Stage primaryStage) {
     myPrimaryStage = primaryStage;
     initializeResources(DEFAULT_LANGUAGE);
-    initializeTurtleComponents();
-    initializeParser();
     initializeLayoutPane();
     initializeStage();
     myPrimaryStage.show();
@@ -55,27 +56,28 @@ public class SLogoFrame extends Application implements IFrame {
     }
   }
 
-  private void initializeTurtleComponents() {
-    myTurtle = new Turtle(new Location(0,0), 0.0, "slogo/view/resources/Turtle.gif");
-    tc = new TurtleCanvas(myTurtle, myResources);
-    myTurtle.giveTurtleCanvas(tc);
-  }
-
-  private void initializeParser() {
-    myParser = new Parser(myTurtle, getLanguage());
-  }
-
   private void initializeLayoutPane() {
     VBox layout = new VBox();
     SplitPane topRow = new SplitPane();
     SplitPane botRow = new SplitPane();
+    myGuiElements = new ArrayList<>();
+
+    Turtle turtle = new Turtle(new Location(0, 0), 0.0, "slogo/view/resources/Turtle.gif");
+    TurtleCanvas tc = new TurtleCanvas(turtle, myResources);
+    myGuiElements.add(tc);
+    turtle.giveTurtleCanvas(tc);
+    myParser = new Parser(turtle, getLanguage());
 
     topRow.getItems().add(tc);
 
-    topRow.getItems().add(new ScriptEditor(myParser, myResources));
+    ScriptEditor se = new ScriptEditor(myParser, myResources);
+    topRow.getItems().add(se);
     topRow.setDividerPositions(0.5f);
+    myGuiElements.add(se);
 
-    botRow.getItems().add(new Console(myParser));
+    Console console = new Console(myParser);
+    botRow.getItems().add(console);
+    myGuiElements.add(console);
 
     SplitPane sp = new SplitPane();
     sp.setOrientation(Orientation.VERTICAL);
@@ -101,10 +103,18 @@ public class SLogoFrame extends Application implements IFrame {
 
   public void setLanguage(String language) {
     initializeResources(language);
-    initializeParser();
-    initializeLayoutPane();
-    initializeStage();
-    tc.updateResources(myResources);
+    myParser.updateLanguage(getLanguage());
+    for (GuiElement guie : myGuiElements) {
+      guie.updateResources(myResources);
+    }
+    for (Object n : myLayout.getChildren()) {
+      if (n instanceof MenuBar) {
+        myLayout.getChildren().remove(n);
+        break;
+      }
+    }
+    myLayout.getChildren().add(0, MenuFactory.makeSlogoMenu(this));
+    myPrimaryStage.setTitle(myResources.getString("title"));
   }
 
   public ResourceBundle getResources() {

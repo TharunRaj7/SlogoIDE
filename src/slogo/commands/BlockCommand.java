@@ -11,6 +11,7 @@ public class BlockCommand implements ICommand {
 
     //private Turtle myTurtle;
     private ArrayList<ICommand> myCommands = new ArrayList<>();
+    private ArrayList<Double> myReturnVals = new ArrayList<>();
     private double returnValue;
 
     public BlockCommand() {
@@ -40,6 +41,7 @@ public class BlockCommand implements ICommand {
         //System.out.println(copyCommands.toString());
         returnValue = myCommands.get(0).returnVal();
         for (ICommand command : myCommands) {
+            myReturnVals.add(command.returnVal());
             command.clearArgs();
         }
     }
@@ -52,5 +54,15 @@ public class BlockCommand implements ICommand {
     @Override
     public void clearArgs() {
         // Should be empty
+    }
+
+    public double getRetVals (int index) {
+        return myReturnVals.get(index);
+    }
+
+    public Variables getVar (int index) {
+        if (myCommands.get(index) instanceof Variables) {
+            return (Variables) myCommands.get(index);
+        } else { return null; }
     }
 }

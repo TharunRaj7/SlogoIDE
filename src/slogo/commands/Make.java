@@ -45,7 +45,7 @@ public class Make implements ICommand{
      */
     public void execute () {
         // TODO: Call on turtle to move it forward the given distance
-        myTurtle.moveForward(arguments.get(0));
+        myTurtle.moveRelative(arguments.get(0));
     }
 
     /**

@@ -1,16 +1,11 @@
 package slogo.view;
 
-import java.util.Enumeration;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
-import javafx.scene.control.Control;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.SplitPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -45,7 +40,8 @@ public class SLogoFrame extends Application implements IFrame {
   public void start(Stage primaryStage) {
     myPrimaryStage = primaryStage;
     initializeResources(DEFAULT_LANGUAGE);
-    initializeComponents();
+    initializeTurtleComponents();
+    initializeParser();
     initializeLayoutPane();
     initializeStage();
     myPrimaryStage.show();
@@ -55,17 +51,18 @@ public class SLogoFrame extends Application implements IFrame {
     try {
       myResources = ResourceBundle.getBundle(DEFAULT_RESOURCES_PACKAGE + language);
     } catch (Exception e) {
-      initializeResources(myResources.getBaseBundleName().substring(
-          myResources.getBaseBundleName().lastIndexOf('.')+1)
-      );
+      initializeResources(getLanguage());
     }
   }
 
-  private void initializeComponents() {
+  private void initializeTurtleComponents() {
     myTurtle = new Turtle(new Location(0,0), 0.0, "");
     tc = new TurtleCanvas(myTurtle, myResources);
     myTurtle.giveTurtleCanvas(tc);
-    myParser = new Parser(myTurtle);
+  }
+
+  private void initializeParser() {
+    myParser = new Parser(myTurtle, getLanguage());
   }
 
   private void initializeLayoutPane() {
@@ -104,13 +101,19 @@ public class SLogoFrame extends Application implements IFrame {
 
   public void setLanguage(String language) {
     initializeResources(language);
+    initializeParser();
     initializeLayoutPane();
     initializeStage();
     tc.updateResources(myResources);
-    //myParser.updateLanguage(language);
   }
 
   public ResourceBundle getResources() {
     return myResources;
+  }
+
+  private String getLanguage() {
+    return myResources.getBaseBundleName().substring(
+        myResources.getBaseBundleName().lastIndexOf('.')+1
+    );
   }
 }

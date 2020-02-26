@@ -8,17 +8,15 @@ import java.util.Arrays;
 public class ShowTurtle implements ICommand{
 
     Turtle myTurtle;
-    int myArgs = 1;
-    private ArrayList<Double> arguments = new ArrayList<Double>();
+    int myArgs = 0;
+    private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public ShowTurtle (Turtle turtle) {
         myTurtle = turtle;
-        arguments.add(1.0);
     }
 
     public ShowTurtle (Turtle turtle, double dist) {
         this(turtle);
-        arguments.add(1.0);
     }
 
     /**
@@ -33,9 +31,9 @@ public class ShowTurtle implements ICommand{
     /**
      * Gives the command an argument
      * Manager will check if sufficient and run if needed
-     * @param arg
+     * @param command
      */
-    public void setArgument (double arg) {
+    public void setArgument (ICommand command) {
 
     }
 
@@ -53,12 +51,10 @@ public class ShowTurtle implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        return arguments.get(0);
+        return 1.0;
     }
 
-
-
-    public int check_arg(){
+    private int check_arg(){
         return arguments.size();
     }
 }

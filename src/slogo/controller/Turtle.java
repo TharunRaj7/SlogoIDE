@@ -159,11 +159,13 @@ public class Turtle implements ITurtle {
     @Override
     public void show() {
         image.setFitWidth(15);image.setFitHeight(15);
+        show = true;
     }
 
     @Override
     public void hide() {
         image.setFitWidth(0.1);image.setFitHeight(0.1);
+        show = false;
     }
 
     @Override

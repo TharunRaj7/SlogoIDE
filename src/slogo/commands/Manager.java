@@ -32,16 +32,21 @@ public class Manager implements IManager{
         }
         else {
             recent_node.addChild(command_node);
+            recent_node.getData().setArgument(command);
             recent_node = command_node;
             while (recent_node.getData().enoughArgs() && recent_node.getParent() != null) {
-                double return_val = runCommand(recent_node.getData());
-                recent_node.getParent().getData().setArgument(return_val);
+                //double return_val = runCommand(recent_node.getData());
+                //recent_node.getParent().getData().setArgument(return_val);
                 recent_node = recent_node.getParent();
             }
             if (recent_node.getData().enoughArgs() && recent_node.getParent() == null){
-                runCommand(recent_node.getData());
-                recent_node = null;
+                //runCommand(recent_node.getData());
+                //recent_node = null;
             }
+            else{
+                System.out.println("Not enough commands/arguments!");
+            }
+
         }
     }
 
@@ -54,7 +59,8 @@ public class Manager implements IManager{
     public void addArg(double arg) {
         // TODO: Add a value as a leaf to the most recent command
         // TODO: Check if that argument is enough for the command to run. If so, run it
-        recent_node.getData().setArgument(arg);
+
+        /*recent_node.getData().setArgument(arg);
         while (recent_node.getData().enoughArgs() && recent_node.getParent() != null){
             double return_val = runCommand(recent_node.getData());
             recent_node.getParent().getData().setArgument(return_val);
@@ -69,6 +75,8 @@ public class Manager implements IManager{
         else{
             System.out.println("Not enough commands/arguments!");
         }
+
+         */
 
     }
 

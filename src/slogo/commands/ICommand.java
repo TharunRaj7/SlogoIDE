@@ -16,7 +16,7 @@ public interface ICommand {
      * Manager will check if sufficient and run if needed
      * @param arg
      */
-    void setArgument (double arg);
+    void setArgument (ICommand command);
 
     /**
      * Either uses setters on the turtle or calls other commands with the turtle

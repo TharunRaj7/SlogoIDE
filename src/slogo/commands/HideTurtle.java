@@ -5,20 +5,18 @@ import slogo.controller.Turtle;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Forward implements ICommand{
+public class HideTurtle implements ICommand{
 
     Turtle myTurtle;
-    int myArgs = 1;
-    double myDist;
-    private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
+    int myArgs = 0;
+    private ArrayList<Double> arguments = new ArrayList<Double>();
 
-    public Forward (Turtle turtle) {
+    public HideTurtle (Turtle turtle) {
         myTurtle = turtle;
     }
 
-    public Forward (Turtle turtle, double dist) {
+    public HideTurtle (Turtle turtle, double dist) {
         this(turtle);
-        myDist = dist;
     }
 
     /**
@@ -36,12 +34,7 @@ public class Forward implements ICommand{
      * @param arg
      */
     public void setArgument (ICommand arg) {
-        /*
-        myDist = arg.returnVal();
-        add_arg(arg);
 
-         */
-        arguments.add(arg);
     }
 
     /**
@@ -50,8 +43,7 @@ public class Forward implements ICommand{
      */
     public void execute () {
         // TODO: Call on turtle to move it forward the given distance
-        arguments.get(0).execute();
-        myTurtle.moveRelative(arguments.get(0).returnVal());
+        myTurtle.hide();
     }
 
     /**
@@ -59,14 +51,12 @@ public class Forward implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        return arguments.get(0).returnVal();
+        return 0.0;
     }
 
-    private void add_arg(ICommand arg){
-        arguments.add(arg);
-    }
 
-    private int check_arg(){
+
+    public int check_arg(){
         return arguments.size();
     }
 }

@@ -12,11 +12,11 @@ public interface ICommand {
     boolean enoughArgs ();
 
     /**
-     * Gives the command an argument
+     * Gives the command an argument command
      * Manager will check if sufficient and run if needed
-     * @param arg
+     * @param command
      */
-    void setArgument (double arg);
+    void setArgument (ICommand command);
 
     /**
      * Either uses setters on the turtle or calls other commands with the turtle

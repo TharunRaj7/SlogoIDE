@@ -3,14 +3,13 @@ package slogo.commands;
 import slogo.controller.Turtle;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SetHeading implements ICommand{
 
     Turtle myTurtle;
     int myArgs = 1;
     double myAngle;
-    private ArrayList<Double> arguments = new ArrayList<Double>();
+    private ArrayList<ICommand> arguments = new ArrayList<>();
 
     public SetHeading (Turtle turtle) {
         myTurtle = turtle;
@@ -33,11 +32,10 @@ public class SetHeading implements ICommand{
     /**
      * Gives the command an argument
      * Manager will check if sufficient and run if needed
-     * @param arg
+     * @param command
      */
-    public void setArgument (double arg) {
-        myAngle = arg;
-        add_arg(arg);
+    public void setArgument (ICommand command) {
+        arguments.add(command);
     }
 
     /**

@@ -11,7 +11,7 @@ public class Towards implements ICommand{
     int myArgs = 2;
     Double myX = null;
     Double myY = null;
-    private ArrayList<Double> arguments = new ArrayList<Double>();
+    private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public Towards (Turtle turtle) {
         myTurtle = turtle;
@@ -37,15 +37,8 @@ public class Towards implements ICommand{
      * Manager will check if sufficient and run if needed
      * @param arg
      */
-    public void setArgument (double arg) {
-        if (myX.equals(null)){
-            myX = arg;
-            add_arg(arg);
-        }
-        else{
-            myY = arg;
-            add_arg(arg);
-        }
+    public void setArgument (ICommand command) {
+        arguments.add(command);
     }
 
     /**
@@ -66,11 +59,11 @@ public class Towards implements ICommand{
 
     }
 
-    public void add_arg(double arg){
+    private void add_arg(ICommand arg){
         arguments.add(arg);
     }
 
-    public int check_arg(){
+    private int check_arg(){
         return arguments.size();
     }
 }

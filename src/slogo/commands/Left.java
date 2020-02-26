@@ -3,14 +3,13 @@ package slogo.commands;
 import slogo.controller.Turtle;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Left implements ICommand{
 
     Turtle myTurtle;
     int myArgs = 1;
     double myAngle;
-    private ArrayList<Double> arguments = new ArrayList<Double>();
+    private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public Left (Turtle turtle) {
         myTurtle = turtle;
@@ -35,8 +34,7 @@ public class Left implements ICommand{
      * Manager will check if sufficient and run if needed
      * @param arg
      */
-    public void setArgument (double arg) {
-        myAngle = arg;
+    public void setArgument (ICommand arg) {
         add_arg(arg);
     }
 
@@ -46,7 +44,7 @@ public class Left implements ICommand{
      */
     public void execute () {
         // TODO: Call on turtle to move it forward the given distance
-        myTurtle.rotate(-arguments.get(0));
+        myTurtle.rotate(arguments.get(0).returnVal());
     }
 
     /**
@@ -57,7 +55,7 @@ public class Left implements ICommand{
         return myAngle;
     }
 
-    public void add_arg(double arg){
+    public void add_arg(ICommand arg){
         arguments.add(arg);
     }
 

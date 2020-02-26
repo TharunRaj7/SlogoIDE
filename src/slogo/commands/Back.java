@@ -10,8 +10,7 @@ public class Back implements ICommand{
     Turtle myTurtle;
     int myArgs = 1;
     double myDist;
-    private double arg1;
-    private ArrayList<Double> arguments = new ArrayList<Double>();
+    private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public Back (Turtle turtle) {
         myTurtle = turtle;
@@ -36,9 +35,13 @@ public class Back implements ICommand{
      * Manager will check if sufficient and run if needed
      * @param arg
      */
-    public void setArgument (double arg) {
-        myDist = arg;
+    public void setArgument (ICommand arg) {
+        /*
+        myDist = arg.returnVal();
         add_arg(arg);
+
+         */
+        arguments.add(arg);
     }
 
     /**
@@ -47,7 +50,8 @@ public class Back implements ICommand{
      */
     public void execute () {
         // TODO: Call on turtle to move it forward the given distance
-        myTurtle.moveRelative(-arguments.get(0));
+        arguments.get(0).execute();
+        myTurtle.moveRelative(-arguments.get(0).returnVal());
     }
 
     /**
@@ -55,15 +59,14 @@ public class Back implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        return myDist;
+        return arguments.get(0).returnVal();
     }
 
-    public void add_arg(double arg){
+    private void add_arg(ICommand arg){
         arguments.add(arg);
     }
 
-    public int check_arg(){
+    private int check_arg(){
         return arguments.size();
     }
 }
-

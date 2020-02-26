@@ -9,9 +9,8 @@ public class Make implements ICommand{
 
     Turtle myTurtle;
     int myArgs = 1;
-    double myDist;
-    private double arg1;
-    private ArrayList<Double> arguments = new ArrayList<Double>();
+    double myValue;
+    private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public Make (Turtle turtle) {
         myTurtle = turtle;
@@ -34,8 +33,7 @@ public class Make implements ICommand{
      * Manager will check if sufficient and run if needed
      * @param arg
      */
-    public void setArgument (double arg) {
-        myDist = arg;
+    public void setArgument (ICommand arg) {
         add_arg(arg);
     }
 
@@ -45,7 +43,7 @@ public class Make implements ICommand{
      */
     public void execute () {
         // TODO: Call on turtle to move it forward the given distance
-        myTurtle.moveRelative(arguments.get(0));
+
     }
 
     /**
@@ -53,10 +51,10 @@ public class Make implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        return myDist;
+        return myValue;
     }
 
-    public void add_arg(double arg){
+    public void add_arg(ICommand arg){
         arguments.add(arg);
     }
 

@@ -13,6 +13,7 @@ import java.util.Map;
 public class Parser implements IParse {
 
     public static final String WHITESPACE = "\\s+";
+    public static final String NEWLINE = "\\n+";
 
     private boolean isBlock = false;
     private Map<String, Double> varList = new HashMap<>();
@@ -36,11 +37,24 @@ public class Parser implements IParse {
     public void parse(String input) {
 
         ProgramParser lang = new ProgramParser();
+        String commentLess = "";
 
         lang.addPatterns(myLanguage);
         lang.addPatterns("Syntax");
 
-        parseText(lang, Arrays.asList(input.split(WHITESPACE)));
+        List<String> lines = Arrays.asList(input.split(NEWLINE));
+        for(String line : lines) {
+            System.out.println(line);
+            line = line.split("#")[0];
+            if(line.isEmpty()) { lines.remove(line); }
+            System.out.println(line);
+            line.trim();
+            commentLess = commentLess + line;
+        }
+        // input = String.join(" ", lines);
+
+        System.out.println(commentLess);
+        parseText(lang, Arrays.asList(commentLess.split(WHITESPACE)));
 
     }
 

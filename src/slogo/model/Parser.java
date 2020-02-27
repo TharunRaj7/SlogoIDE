@@ -49,7 +49,7 @@ public class Parser implements IParse {
             if(line.isEmpty()) { lines.remove(line); }
             System.out.println(line);
             line.trim();
-            commentLess = commentLess + line;
+            commentLess = commentLess + " " + line;
         }
         // input = String.join(" ", lines);
 

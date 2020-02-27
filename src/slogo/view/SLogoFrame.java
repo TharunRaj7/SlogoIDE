@@ -19,6 +19,7 @@ import slogo.view.element.Console;
 import slogo.view.element.GuiElement;
 import slogo.view.element.ScriptEditor;
 import slogo.view.element.TurtleCanvas;
+import slogo.view.element.VariableExplorer;
 import slogo.view.utility.MenuFactory;
 
 public class SLogoFrame extends Application implements IFrame {
@@ -69,15 +70,18 @@ public class SLogoFrame extends Application implements IFrame {
     myParser = new Parser(turtle, getLanguage());
 
     topRow.getItems().add(tc);
-
-    ScriptEditor se = new ScriptEditor(myParser, myResources);
+    ScriptEditor se = new ScriptEditor(myParser, turtle, myResources);
     topRow.getItems().add(se);
-    topRow.setDividerPositions(0.5f);
     myGuiElements.add(se);
+    topRow.setDividerPositions(0.5f);
 
     Console console = new Console(myParser);
     botRow.getItems().add(console);
     myGuiElements.add(console);
+    VariableExplorer ve = new VariableExplorer();
+    botRow.getItems().add(ve);
+    myGuiElements.add(ve);
+    botRow.setDividerPositions(0.7f);
 
     SplitPane sp = new SplitPane();
     sp.setOrientation(Orientation.VERTICAL);

@@ -57,6 +57,11 @@ public class MakeVariable implements ICommand{
         return arguments.get(1).returnVal();
     }
 
+    @Override
+    public void clearArgs() {
+        arguments.clear();
+    }
+
     public void add_arg(ICommand arg){
         arguments.add(arg);
     }

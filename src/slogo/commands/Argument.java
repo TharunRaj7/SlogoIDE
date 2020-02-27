@@ -42,4 +42,9 @@ public class Argument implements ICommand {
     public double returnVal () {
         return myArgument;
     }
+
+    @Override
+    public void clearArgs() {
+        // Shouldn't do anything
+    }
 }

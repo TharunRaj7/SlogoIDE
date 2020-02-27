@@ -56,6 +56,11 @@ public class SetHeading implements ICommand{
         return myAngle;
     }
 
+    @Override
+    public void clearArgs() {
+        arguments.clear();
+    }
+
     public void add_arg(ICommand arg){
         arguments.add(arg);
     }

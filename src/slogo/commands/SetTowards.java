@@ -59,6 +59,11 @@ public class SetTowards implements ICommand{
         return 0.0;
     }
 
+    @Override
+    public void clearArgs() {
+        arguments.clear();
+    }
+
     private void add_arg(ICommand arg){
         arguments.add(arg);
     }

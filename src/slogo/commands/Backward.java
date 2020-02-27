@@ -62,6 +62,11 @@ public class Backward implements ICommand{
         return arguments.get(0).returnVal();
     }
 
+    @Override
+    public void clearArgs() {
+        arguments.clear();
+    }
+
     private void add_arg(ICommand arg){
         arguments.add(arg);
     }

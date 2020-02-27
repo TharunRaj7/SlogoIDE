@@ -41,7 +41,7 @@ public class Manager implements IManager{
                 recent_node = null;
             }
             else{
-                System.out.println("Not enough commands/arguments!");
+                //System.out.println("Not enough commands/arguments!");
             }
 
         }

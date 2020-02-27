@@ -29,6 +29,7 @@ public class Repeat implements ICommand {
 
         if (arguments.get(2) instanceof BlockCommand) {
             while (arguments.get(0).returnVal() <= arguments.get(1).returnVal()) {
+                System.out.println("Calling repeated block");
                 arguments.get(2).execute();
                 repcount.setVal(repcount.returnVal() + 1.0);
             }
@@ -37,6 +38,11 @@ public class Repeat implements ICommand {
 
     @Override
     public double returnVal() { return arguments.get(2).returnVal(); }
+
+    @Override
+    public void clearArgs() {
+        arguments.clear();
+    }
 
     private int checkArgs() { return arguments.size(); }
 }

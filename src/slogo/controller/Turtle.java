@@ -87,7 +87,6 @@ public class Turtle implements ITurtle {
         double x = l.getX();
         double y = l.getY();
 
-        // TODO: refactor this chunk of code.
         drawOnCanvas(true, x, y);
     }
 
@@ -143,9 +142,20 @@ public class Turtle implements ITurtle {
 
     @Override
     public void towards(double x, double y) {
-        double angle = MathOps.arcTan(x,y);
-        this.currentAngle = angle;
-        image.setRotate(angle);
+        if (location.getX() == x || location.getY() == y){
+            handleTowardsEqual(x, y);
+        }else{
+            handleTowardsNotEqual(x,y);
+        }
+
+    }
+
+    private void handleTowardsNotEqual(double x, double y) {
+        double angle = MathOps.arcTan(x/y);
+
+    }
+
+    private void handleTowardsEqual(double x, double y) {
     }
 
     @Override
@@ -190,6 +200,7 @@ public class Turtle implements ITurtle {
         this.location = l;
         double xOffset = -image.getBoundsInLocal().getWidth()/2;
         double yOffset = -image.getBoundsInLocal().getHeight()/2;
+        // update the turtle image
         image.setX(location.getX() + tc.getTRANSLATE_X() + xOffset); image.setY(location.getY() + tc.getTRANSLATE_Y() + yOffset);
     }
 

@@ -13,8 +13,8 @@ public class MathOps {
         return Math.cos(Math.toRadians(angle));
     }
     public static double tan (double angle) { return Math.tan(Math.toRadians(angle));}
-    public static double arcTan(double x, double y){
-        return Math.atan(x/y);
+    public static double arcTan(double angle){
+        return Math.atan(angle);
     }
     public static double sum (double x, double y){
         return x + y;

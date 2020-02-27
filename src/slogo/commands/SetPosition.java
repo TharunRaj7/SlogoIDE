@@ -28,10 +28,11 @@ public class SetPosition implements ICommand {
 
     @Override
     public void execute() {
-        arguments.get(0).execute();
-        arguments.get(1).execute();
+        //arguments.get(0).execute();
+        //arguments.get(1).execute();
         double futureX = arguments.get(0).returnVal();
-        double futureY = arguments.get(0).returnVal();
+        double futureY = arguments.get(1).returnVal();
+        System.out.println("" + futureX + "" + futureY);
 
         myDist = Math.sqrt(Math.pow(myTurtle.getLocation().getX() - futureX, 2.0) + Math.pow(myTurtle.getLocation().getY() - futureY, 2.0));
 

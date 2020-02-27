@@ -55,7 +55,6 @@ public class Turtle implements ITurtle {
 
 
         //call to internal API drawPath
-        image.setX(50); image.setY(50);
         drawOnCanvas(false, xTranslate, yTranslate);
     }
 

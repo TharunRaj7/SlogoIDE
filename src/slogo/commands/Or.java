@@ -6,13 +6,13 @@ import slogo.utility.MathOps;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Atan implements ICommand{
+public class Or implements ICommand{
 
     Turtle myTurtle;
-    int myArgs = 1;
+    int myArgs = 2;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public Atan (Turtle turtle) {
+    public Or (Turtle turtle) {
         myTurtle = turtle;
     }
 
@@ -48,7 +48,12 @@ public class Atan implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        return MathOps.arcTan(arguments.get(0).returnVal());
+        if (arguments.get(0).returnVal() >0 || arguments.get(1).returnVal() > 0){
+            return 1.0;
+        }
+        else{
+            return 0.0;
+        }
 
     }
 

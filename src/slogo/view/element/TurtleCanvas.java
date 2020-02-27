@@ -117,7 +117,8 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
             ((LineTo) pe).getX(), ((LineTo) pe).getY());
       }
       else if (pe instanceof MoveTo) {
-        moveTo(((MoveTo) pe).getX(), ((MoveTo) pe).getY());
+        moveTo(pe.isAbsolute(),
+                ((MoveTo) pe).getX(), ((MoveTo) pe).getY());
       }
     }
   }
@@ -137,8 +138,13 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     myTurtle.setLocation(destination);
   }
 
-  private void moveTo(double x, double y) {
-    myTurtle.setLocation(new Location(x, y));
+  private void moveTo(boolean absolute, double x, double y) {
+    Location source = myTurtle.getLocation();
+    if (!absolute){
+      myTurtle.setLocation(new Location(source.getX() + x, source.getY() + y));
+    }else{
+      myTurtle.setLocation(new Location(x,y));
+    }
   }
 
   @Override

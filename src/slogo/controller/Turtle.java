@@ -55,7 +55,6 @@ public class Turtle implements ITurtle {
 
 
         //call to internal API drawPath
-        image.setX(50); image.setY(50);
         drawOnCanvas(false, xTranslate, yTranslate);
     }
 
@@ -144,7 +143,9 @@ public class Turtle implements ITurtle {
 
     @Override
     public void towards(double x, double y) {
-
+        double angle = MathOps.arcTan(x,y);
+        this.currentAngle = angle;
+        image.setRotate(angle);
     }
 
     @Override

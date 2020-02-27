@@ -144,7 +144,7 @@ public class Turtle implements ITurtle {
 
     @Override
     public void towards(double x, double y) {
-        double angle = MathOps.arcTan(x,y);
+        double angle = MathOps.arcTan(x);
         this.currentAngle = angle;
         image.setRotate(angle);
     }

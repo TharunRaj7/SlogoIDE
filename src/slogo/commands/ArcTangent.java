@@ -6,13 +6,13 @@ import slogo.utility.MathOps;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Pow implements ICommand{
+public class ArcTangent implements ICommand{
 
     Turtle myTurtle;
-    int myArgs = 2;
+    int myArgs = 1;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public Pow (Turtle turtle) {
+    public ArcTangent(Turtle turtle) {
         myTurtle = turtle;
     }
 
@@ -48,7 +48,7 @@ public class Pow implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        return MathOps.pow(arguments.get(0).returnVal(),arguments.get(1).returnVal());
+        return MathOps.arcTan(arguments.get(0).returnVal());
 
     }
 

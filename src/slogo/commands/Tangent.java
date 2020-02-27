@@ -6,13 +6,13 @@ import slogo.utility.MathOps;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Greater implements ICommand{
+public class Tangent implements ICommand{
 
     Turtle myTurtle;
-    int myArgs = 2;
+    int myArgs = 1;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public Greater (Turtle turtle) {
+    public Tangent(Turtle turtle) {
         myTurtle = turtle;
     }
 
@@ -48,12 +48,7 @@ public class Greater implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        if (arguments.get(0).returnVal()>arguments.get(1).returnVal()){
-            return 1.0;
-        }
-        else{
-            return 0.0;
-        }
+        return MathOps.tan(arguments.get(0).returnVal());
 
     }
 

@@ -6,13 +6,13 @@ import slogo.utility.MathOps;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Cos implements ICommand{
+public class NaturalLog implements ICommand{
 
     Turtle myTurtle;
     int myArgs = 1;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public Cos (Turtle turtle) {
+    public NaturalLog(Turtle turtle) {
         myTurtle = turtle;
     }
 
@@ -48,7 +48,7 @@ public class Cos implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        return MathOps.cos(arguments.get(0).returnVal());
+        return MathOps.log(arguments.get(0).returnVal());
 
     }
 

@@ -6,13 +6,13 @@ import slogo.utility.MathOps;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Atan implements ICommand{
+public class Cosine implements ICommand{
 
     Turtle myTurtle;
     int myArgs = 1;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public Atan (Turtle turtle) {
+    public Cosine(Turtle turtle) {
         myTurtle = turtle;
     }
 
@@ -48,7 +48,7 @@ public class Atan implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        return MathOps.arcTan(arguments.get(0).returnVal());
+        return MathOps.cos(arguments.get(0).returnVal());
 
     }
 

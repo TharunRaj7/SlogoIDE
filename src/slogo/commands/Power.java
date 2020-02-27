@@ -6,13 +6,13 @@ import slogo.utility.MathOps;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Sin implements ICommand{
+public class Power implements ICommand{
 
     Turtle myTurtle;
-    int myArgs = 1;
+    int myArgs = 2;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public Sin (Turtle turtle) {
+    public Power(Turtle turtle) {
         myTurtle = turtle;
     }
 
@@ -48,7 +48,7 @@ public class Sin implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        return MathOps.sin(arguments.get(0).returnVal());
+        return MathOps.pow(arguments.get(0).returnVal(),arguments.get(1).returnVal());
 
     }
 

@@ -156,6 +156,7 @@ public class Turtle implements ITurtle {
     }
 
     private void handleTowardsEqual(double x, double y) {
+
     }
 
     @Override

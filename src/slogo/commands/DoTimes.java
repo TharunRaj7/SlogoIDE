@@ -4,15 +4,15 @@ import slogo.controller.Turtle;
 
 import java.util.ArrayList;
 
-public class For implements ICommand {
+public class DoTimes implements ICommand {
 
     private Turtle myTurtle;
     int myArgs = 2;
     private ArrayList<ICommand> arguments = new ArrayList<>();
-    private int[] forArgs = new int[3];
+    private int[] doArgs = new int[1];
     private Variables variable;
 
-    public For (Turtle turtle) {
+    public DoTimes (Turtle turtle) {
         myTurtle = turtle;
     }
 
@@ -31,20 +31,19 @@ public class For implements ICommand {
         if (arguments.get(0) instanceof BlockCommand) {
             BlockCommand firstArg = (BlockCommand) arguments.get(0);
             variable = firstArg.getVar(0);
-            variable.setVal(0.0);
+            variable.setVal(1.0);
 
             firstArg.execute();
 
-            for (int i = 0; i < forArgs.length; i++) {
-                forArgs[i] = (int) firstArg.getRetVals(i + 1);
+            for (int i = 0; i < doArgs.length; i++) {
+                doArgs[i] = (int) firstArg.getRetVals(i + 1);
             }
 
-            variable.setVal(forArgs[0]);
 
             if(arguments.get(1) instanceof BlockCommand) {
-                while (variable.returnVal() <= forArgs[1]) {
+                while (variable.returnVal() <= doArgs[0]) {
                     arguments.get(1).execute();
-                    variable.setVal(variable.returnVal() + forArgs[2]);
+                    variable.setVal(variable.returnVal() + 1);
                 }
             }
         }

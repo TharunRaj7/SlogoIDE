@@ -48,7 +48,7 @@ public class BlockCommand implements ICommand {
 
     @Override
     public double returnVal() {
-        return 0.0;
+        return returnValue;
     }
 
     @Override

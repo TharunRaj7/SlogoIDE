@@ -5,13 +5,13 @@ import slogo.utility.Location;
 
 import java.util.ArrayList;
 
-public class Home implements ICommand{
+public class ClearScreen implements ICommand{
 
     Turtle myTurtle;
     double distMoved;
     //private ArrayList<ICommand> arguments = new ArrayList<>();
 
-    public Home (Turtle turtle) { myTurtle = turtle; }
+    public ClearScreen (Turtle turtle) { myTurtle = turtle; }
 
     @Override
     public boolean enoughArgs() { return true; }
@@ -28,6 +28,7 @@ public class Home implements ICommand{
         Location origin = new Location(0, 0);
         myTurtle.moveTo(origin);
         myTurtle.setHeading(0.0);
+        myTurtle.clear();
     }
 
     @Override

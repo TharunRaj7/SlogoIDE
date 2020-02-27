@@ -17,23 +17,28 @@ public class Turtle implements ITurtle {
     private boolean show;
     ImageView image;
 
-    public Turtle (Location location, double orientationAngle, String imageFilePath){
+    public Turtle(Location location, double orientationAngle, String imageFilePath) {
         this.location = location;
         this.currentAngle = orientationAngle;
         this.penDown = true;
         image = new ImageView(imageFilePath);
-        image.setFitHeight(15); image.setFitWidth(15);
+        image.setFitHeight(15);
+        image.setFitWidth(15);
     }
 
     public void giveTurtleCanvas(TurtleCanvas tc) {
         this.tc = tc;
-        image.setX(location.getX() + tc.getTRANSLATE_X() ); image.setY(location.getY() + tc.getTRANSLATE_Y());
+        image.setX(location.getX() + tc.getTRANSLATE_X());
+        image.setY(location.getY() + tc.getTRANSLATE_Y());
     }
 
     @Override
     public void moveRelative(double distance) {
         boolean backward = false;
-        if (distance < 0){backward = true; distance *= -1;}
+        if (distance < 0) {
+            backward = true;
+            distance *= -1;
+        }
         QuadrantHelper quadrant = findQuadrant();
         double referenceAngle = referenceAngle(quadrant);
         //System.out.println(normalizedAngle);
@@ -42,16 +47,19 @@ public class Turtle implements ITurtle {
 
         //System.out.println(""+ xTranslate + "  " +  yTranslate);
         // modifying the signs of the translations based on the quadrant the turtle is on.
-        if (quadrant == QuadrantHelper.QUADRANT1){
+        if (quadrant == QuadrantHelper.QUADRANT1) {
             yTranslate = -yTranslate;
-        }else if (quadrant == QuadrantHelper.QUADRANT3){
+        } else if (quadrant == QuadrantHelper.QUADRANT3) {
             xTranslate = -xTranslate;
-        }else if (quadrant == QuadrantHelper.QUADRANT4){
+        } else if (quadrant == QuadrantHelper.QUADRANT4) {
             xTranslate = -xTranslate;
             yTranslate = -yTranslate;
         }
 
-        if (backward){xTranslate *= -1; yTranslate*=-1;}
+        if (backward) {
+            xTranslate *= -1;
+            yTranslate *= -1;
+        }
 
 
         //call to internal API drawPath
@@ -60,7 +68,7 @@ public class Turtle implements ITurtle {
 
     // Provides the reference angle given the current angle
     private double referenceAngle(QuadrantHelper quadrant) {
-        switch (quadrant){
+        switch (quadrant) {
             case QUADRANT1:
                 return currentAngle;
             case QUADRANT2:
@@ -74,11 +82,11 @@ public class Turtle implements ITurtle {
         }
     }
 
-    private QuadrantHelper findQuadrant(){
-        if (currentAngle > 180){
-            return (currentAngle > 270)? QuadrantHelper.QUADRANT4 : QuadrantHelper.QUADRANT3;
-        }else{
-            return (currentAngle > 90)? QuadrantHelper.QUADRANT2 : QuadrantHelper.QUADRANT1;
+    private QuadrantHelper findQuadrant() {
+        if (currentAngle > 180) {
+            return (currentAngle > 270) ? QuadrantHelper.QUADRANT4 : QuadrantHelper.QUADRANT3;
+        } else {
+            return (currentAngle > 90) ? QuadrantHelper.QUADRANT2 : QuadrantHelper.QUADRANT1;
         }
     }
 
@@ -90,17 +98,17 @@ public class Turtle implements ITurtle {
         drawOnCanvas(true, x, y);
     }
 
-    private void drawOnCanvas(boolean absolute, double x, double y){
+    private void drawOnCanvas(boolean absolute, double x, double y) {
         Path p = new Path();
         PathElement move = new MoveTo(location.getX(), location.getY());
         p.getElements().add(move);
 
-        if (getPenDown()){
+        if (getPenDown()) {
             PathElement line;
             line = new LineTo(x, y);
             line.setAbsolute(absolute);
             p.getElements().add(line);
-        }else{
+        } else {
             move = new MoveTo(x, y);
             move.setAbsolute(absolute);
             p.getElements().add(move);
@@ -113,20 +121,20 @@ public class Turtle implements ITurtle {
 
     @Override
     public void rotate(double angle) {
-       // case when right
-        if (angle > 0){
-            if (currentAngle + angle >= 360){
+        // case when right
+        if (angle > 0) {
+            if (currentAngle + angle >= 360) {
                 double temp = 360 - currentAngle;
                 currentAngle = angle - temp;
-            }else{
+            } else {
                 currentAngle += angle;
             }
-        // case when left
-        }else{
-            if (currentAngle + angle < 0){
+            // case when left
+        } else {
+            if (currentAngle + angle < 0) {
                 double temp = currentAngle + angle;
                 currentAngle = 360 + temp;
-            }else{
+            } else {
                 currentAngle += angle;
             }
         }
@@ -138,25 +146,41 @@ public class Turtle implements ITurtle {
         //add angle normalization
         currentAngle = angle;
         image.setRotate(currentAngle);
+
+        double angleDiff = (currentAngle > angle) ? currentAngle - angle : angle - currentAngle;
+        //return Math.abs(angleDiff);
     }
 
     @Override
     public void towards(double x, double y) {
-        if (location.getX() == x || location.getY() == y){
+        if (location.getX() == x || location.getY() == y) {
             handleTowardsEqual(x, y);
-        }else{
-            handleTowardsNotEqual(x,y);
+        } else {
+            handleTowardsNotEqual(x, y);
         }
-
     }
 
     private void handleTowardsNotEqual(double x, double y) {
-        double angle = MathOps.arcTan(x/y);
-
+        double temp = Math.abs(location.getX() - x) / Math.abs(location.getY() - y);
+        double angleBetweenPoints = MathOps.arcTan(temp);
+        double newHeading = 0;
+        //When y is higher on the display then the current turtle location
+        if (y < location.getY()) {
+            newHeading = (x > location.getX()) ? 0 + angleBetweenPoints : 360 - angleBetweenPoints;
+        } else {
+            newHeading = (x > location.getX()) ? 180 - angleBetweenPoints : 180 + angleBetweenPoints;
+        }
+        this.setHeading(newHeading);
     }
 
     private void handleTowardsEqual(double x, double y) {
-
+        double newHeading = 0.0;
+        if (location.getX() == x) {
+            newHeading = (location.getY() < y) ? 180 : 0;
+        } else {
+            newHeading = (location.getX() > x) ? 270 : 90;
+        }
+        this.setHeading(newHeading);
     }
 
     @Override
@@ -171,13 +195,15 @@ public class Turtle implements ITurtle {
 
     @Override
     public void show() {
-        image.setFitWidth(15);image.setFitHeight(15);
+        image.setFitWidth(15);
+        image.setFitHeight(15);
         show = true;
     }
 
     @Override
     public void hide() {
-        image.setFitWidth(0.1);image.setFitHeight(0.1);
+        image.setFitWidth(0.1);
+        image.setFitHeight(0.1);
         show = false;
     }
 
@@ -199,10 +225,11 @@ public class Turtle implements ITurtle {
     @Override
     public void setLocation(Location l) {
         this.location = l;
-        double xOffset = -image.getBoundsInLocal().getWidth()/2;
-        double yOffset = -image.getBoundsInLocal().getHeight()/2;
+        double xOffset = -image.getBoundsInLocal().getWidth() / 2;
+        double yOffset = -image.getBoundsInLocal().getHeight() / 2;
         // update the turtle image
-        image.setX(location.getX() + tc.getTRANSLATE_X() + xOffset); image.setY(location.getY() + tc.getTRANSLATE_Y() + yOffset);
+        image.setX(location.getX() + tc.getTRANSLATE_X() + xOffset);
+        image.setY(location.getY() + tc.getTRANSLATE_Y() + yOffset);
     }
 
     @Override
@@ -219,12 +246,12 @@ public class Turtle implements ITurtle {
     public boolean getShowing() {
         return show;
     }
-//
+
 //    //testing
 //    public static void main(String[] args) {
-//        Turtle test = new Turtle(new Location(0,0), 45, "");
-//        test.giveTurtleCanvas(new TurtleCanvas(test, ));
-//        test.moveRelative(50);
+//        Turtle test = new Turtle(new Location(20,20), 0.0, "slogo/view/resources/Turtle.gif");
+//        test.towards(50,50);
+//        //test.moveRelative(50);
 //
 //    }
 }

@@ -44,4 +44,8 @@ public class Variables implements ICommand{
     public void clearArgs() {
         // shouldn't do anything
     }
+
+    public Map<String, Double> getMap () {
+        return Map.copyOf(variables);
+    }
 }

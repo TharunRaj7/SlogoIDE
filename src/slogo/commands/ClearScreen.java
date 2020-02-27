@@ -3,8 +3,6 @@ package slogo.commands;
 import slogo.controller.Turtle;
 import slogo.utility.Location;
 
-import java.util.ArrayList;
-
 public class ClearScreen implements ICommand{
 
     Turtle myTurtle;
@@ -24,7 +22,7 @@ public class ClearScreen implements ICommand{
     @Override
     public void execute() {
         //arguments.get(0).execute();
-        distMoved = Math.sqrt(Math.pow(myTurtle.getLocation().getX(), 2.0) + Math.pow(myTurtle.getLocation().getX(), 2.0));
+        distMoved = Math.sqrt(Math.pow(myTurtle.getLocation().getX(), 2.0) + Math.pow(myTurtle.getLocation().getY(), 2.0));
         Location origin = new Location(0, 0);
         myTurtle.moveTo(origin);
         myTurtle.setHeading(0.0);

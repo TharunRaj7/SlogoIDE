@@ -46,8 +46,8 @@ public class SetTowards implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-//        arguments.get(0).execute();
-//        arguments.get(1).execute();
+        arguments.get(0).execute();
+        arguments.get(1).execute();
         myTurtle.towards(arguments.get(0).returnVal(), arguments.get(1).returnVal());
     }
 

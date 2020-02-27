@@ -1,6 +1,7 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.utility.MathOps;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +10,8 @@ public class SetTowards implements ICommand{
 
     Turtle myTurtle;
     int myArgs = 2;
+    double myCurrAngle;
+    double myAngle;
     Double myX = null;
     Double myY = null;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
@@ -48,7 +51,9 @@ public class SetTowards implements ICommand{
     public void execute () {
         arguments.get(0).execute();
         arguments.get(1).execute();
+        myCurrAngle = myTurtle.getHeading();
         myTurtle.towards(arguments.get(0).returnVal(), arguments.get(1).returnVal());
+        myAngle = myTurtle.getHeading();
     }
 
     /**
@@ -56,7 +61,7 @@ public class SetTowards implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        return 0.0;
+        return Math.abs(myAngle - myCurrAngle);
     }
 
     @Override

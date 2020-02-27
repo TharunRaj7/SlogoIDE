@@ -72,6 +72,7 @@ public class Parser implements IParse {
         }
     }
 
+    // TODO: Clean this code
     // given some text, prints results of parsing it using the given language
     private void parseText (ProgramParser lang, List<String> lines) {
         for (String line : lines) {

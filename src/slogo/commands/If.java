@@ -41,7 +41,7 @@ public class If implements ICommand {
 
     @Override
     public void clearArgs() {
-
+        arguments.clear();
     }
 
     private int checkArgs() { return arguments.size(); }

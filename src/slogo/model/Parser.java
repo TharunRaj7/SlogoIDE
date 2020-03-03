@@ -5,10 +5,7 @@ import slogo.controller.Turtle;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Parser implements IParse {
 
@@ -17,6 +14,7 @@ public class Parser implements IParse {
 
     private boolean isBlock = false;
     private Map<String, Double> varList = new HashMap<>();
+    private List<BlockCommand> blockCommandQueue = new ArrayList<>();
     private Turtle myTurtle;
     private String myLanguage;
     private Manager manager = new Manager();
@@ -75,8 +73,8 @@ public class Parser implements IParse {
             Constructor constructor = cls.getConstructor(Turtle.class);
             command = constructor.newInstance(turtle);
             ICommand returnCommand = (ICommand) command;
-            if(isBlock) {
-                myBlockCommand.setArgument(returnCommand);
+            if(blockCommandQueue.size() != 0) { //isBlock) {
+                blockCommandQueue.get(blockCommandQueue.size() - 1).setArgument(returnCommand);
             } else {
                 manager.addCommand(returnCommand);
             }
@@ -93,16 +91,23 @@ public class Parser implements IParse {
             if (line.trim().length() > 0) {
                 if (lang.getSymbol(line).equals("ListStart")) {
                     System.out.println("List begins");
-                    isBlock = true;
-                    myBlockCommand = new BlockCommand();
+                    //isBlock = true;
+                    //myBlockCommand = new BlockCommand();
+                    blockCommandQueue.add(new BlockCommand());
                 } else if (lang.getSymbol(line).equals("ListEnd")) {
                     System.out.println("List ends");
-                    isBlock = false;
-                    manager.addCommand(myBlockCommand);
+                    //isBlock = false;
+                    if(blockCommandQueue.size() == 1) {
+                        manager.addCommand(blockCommandQueue.get(0));
+                    } else {
+                        blockCommandQueue.get(blockCommandQueue.size() - 2).setArgument(blockCommandQueue.get(blockCommandQueue.size() - 1));
+                    }
+                    blockCommandQueue.remove(blockCommandQueue.size() - 1);
                 } else if (lang.getSymbol(line).equals("Constant")) {
                     System.out.println(line);
-                    if(isBlock) {
-                        myBlockCommand.setArgument(new Argument(Float.parseFloat(line)));
+                    if(blockCommandQueue.size() != 0) {//isBlock) {
+                        //myBlockCommand.setArgument(new Argument(Float.parseFloat(line)));
+                        blockCommandQueue.get(blockCommandQueue.size() - 1).setArgument(new Argument(Float.parseFloat(line)));
                     } else {
                         manager.addCommand(new Argument(Float.parseFloat(line)));
                     }
@@ -119,8 +124,9 @@ public class Parser implements IParse {
     //private void giveArgument(double arg) { manager.addArg(arg); }
 
     private void giveVariable(String varName) {
-      if (isBlock) {
-        myBlockCommand.setArgument(new Variables(varName));
+      if (blockCommandQueue.size() != 0) {//isBlock) {
+        //myBlockCommand.setArgument(new Variables(varName));
+          blockCommandQueue.get(blockCommandQueue.size() - 1).setArgument(new Variables(varName));
       } else {
         System.out.println(varName);
         manager.addCommand(new Variables(varName));

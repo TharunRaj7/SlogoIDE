@@ -2,11 +2,14 @@ package slogo.view.utility;
 
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
+import javax.swing.Action;
 import slogo.view.SLogoFrame;
 
 public class MenuFactory {
@@ -29,9 +32,9 @@ public class MenuFactory {
     ResourceBundle resources = frame.getResources();
 
     Menu fileMenu = new Menu(resources.getString("file"));
-    MenuItem close = new MenuItem(resources.getString("close"));
-    close.setOnAction(e -> frame.close());
-    fileMenu.getItems().add(close);
+
+    addItemToMenu(fileMenu, resources.getString("newWorkspace"), e->frame.addWorkspace());
+    addItemToMenu(fileMenu, resources.getString("close"), e->frame.close());
 
     return fileMenu;
   }
@@ -55,5 +58,11 @@ public class MenuFactory {
     }
 
     return languageMenu;
+  }
+
+  private static void addItemToMenu(Menu menu, String text, EventHandler<ActionEvent> e) {
+    MenuItem item = new MenuItem(text);
+    item.setOnAction(e);
+    menu.getItems().add(item);
   }
 }

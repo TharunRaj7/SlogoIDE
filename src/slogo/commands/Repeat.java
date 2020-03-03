@@ -35,6 +35,7 @@ public class Repeat implements ICommand {
     @Override
     public void execute() {
         arguments.get(1).execute();
+        repcount.setVal(repcountTracker.get(repcountIndex));
 
         if (arguments.get(2) instanceof BlockCommand) {
             while (arguments.get(0).returnVal() <= arguments.get(1).returnVal()) {
@@ -46,16 +47,27 @@ public class Repeat implements ICommand {
                 System.out.println(repcountTracker);
                 repcount.setVal(iter);
             }
-            repcountTracker.remove(repcountIndex);
+            repcountTracker.set(repcountIndex, 1.0);
         }
     }
 
     @Override
-    public double returnVal() { return arguments.get(2).returnVal(); }
+    public double returnVal() {
+
+        for (ICommand command: arguments) {
+            if (command instanceof BlockCommand) { return command.returnVal(); }
+        }
+        return 0.0;
+
+        //System.out.println(arguments);
+        //return arguments.get(2).returnVal();
+    }
 
     @Override
     public void clearArgs() {
-        arguments.clear();
+        for ( ICommand command : arguments) {
+            command.clearArgs();
+        }
     }
 
     private int checkArgs() { return arguments.size(); }

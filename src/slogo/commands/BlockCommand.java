@@ -34,15 +34,20 @@ public class BlockCommand implements ICommand {
     public void execute() {
         //ArrayList<ICommand> copyCommands = new ArrayList<>();
         Manager blockManager = new Manager();
+        //System.out.println(blockManager.toString());
         for (ICommand command : myCommands) {
+            //System.out.println(command.toString());
+            //System.out.println(blockManager.toString());
             blockManager.addCommand(command);
         }
-        System.out.println(myCommands.toString());
+        //System.out.println(myCommands.toString());
         //System.out.println(copyCommands.toString());
         returnValue = myCommands.get(0).returnVal();
         for (ICommand command : myCommands) {
             myReturnVals.add(command.returnVal());
-            command.clearArgs();
+            if (!(command instanceof BlockCommand)) {
+                command.clearArgs();
+            }
         }
     }
 
@@ -54,6 +59,7 @@ public class BlockCommand implements ICommand {
     @Override
     public void clearArgs() {
         // Should be empty
+        //yReturnVals.clear();
     }
 
     public double getRetVals (int index) {

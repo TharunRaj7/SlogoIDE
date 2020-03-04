@@ -34,7 +34,10 @@ public class BlockCommand implements ICommand {
     public void execute() {
         //ArrayList<ICommand> copyCommands = new ArrayList<>();
         Manager blockManager = new Manager();
+        //System.out.println(blockManager.toString());
         for (ICommand command : myCommands) {
+            //System.out.println(command.toString());
+            //System.out.println(blockManager.toString());
             blockManager.addCommand(command);
         }
         //System.out.println(myCommands.toString());

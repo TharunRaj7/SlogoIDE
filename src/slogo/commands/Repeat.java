@@ -15,6 +15,7 @@ public class Repeat implements ICommand {
 
     public Repeat (Turtle turtle) {
         myTurtle = turtle;
+        /*
         if(repcountTracker == null) { repcountTracker = new ArrayList<>(); }
         repcountIndex = repcountTracker.size();
         if(repcountTracker.size() != 0) {
@@ -22,6 +23,7 @@ public class Repeat implements ICommand {
         }
         repcountTracker.add(1.0);
         System.out.println(repcountTracker);
+        */
         repcount.setVal(1.0);
         setArgument(repcount);
     }
@@ -35,9 +37,17 @@ public class Repeat implements ICommand {
     @Override
     public void execute() {
         arguments.get(1).execute();
-        repcount.setVal(repcountTracker.get(repcountIndex));
+        //repcount.setVal(repcountTracker.get(repcountIndex));
 
         if (arguments.get(2) instanceof BlockCommand) {
+
+            for (int i = 1; i <= arguments.get(1).returnVal(); i++) {
+                //System.out.println("Calling repeated block");
+                arguments.get(2).execute();
+                //System.out.println("Ended calling repeated block");
+                repcount.setVal(i);
+            }
+            /*
             while (arguments.get(0).returnVal() <= arguments.get(1).returnVal()) {
                 System.out.println("Calling repeated block");
                 arguments.get(2).execute();
@@ -48,6 +58,8 @@ public class Repeat implements ICommand {
                 repcount.setVal(iter);
             }
             repcountTracker.set(repcountIndex, 1.0);
+
+             */
         }
     }
 
@@ -65,9 +77,15 @@ public class Repeat implements ICommand {
 
     @Override
     public void clearArgs() {
+        /*
         for ( ICommand command : arguments) {
             command.clearArgs();
         }
+
+         */
+        arguments.clear();
+        //repcount.setVal(1.0);
+        setArgument(repcount);
     }
 
     private int checkArgs() { return arguments.size(); }

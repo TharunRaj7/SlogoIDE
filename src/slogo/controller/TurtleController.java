@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TurtleController {
+    //TODO: implement in tellTurtle to hide turtles when inactive
     private List<Turtle> turtles;
     private List<Turtle> activeTurtles;
     private TurtleCanvas turtleCanvas;
@@ -102,18 +103,28 @@ public class TurtleController {
     }
 
     public void clear (){
+        turtles.clear();
+        activeTurtles.clear();
+        giveTurtleCanvas(this.turtleCanvas);
         turtleCanvas.clear();
     }
 
     //get all the turtle images
-    public List<ImageView> getImage(){
+    public List<ImageView> getActiveTurtleImages(){
+        List<ImageView> ret = new ArrayList<>();
+        for (Turtle turtle : activeTurtles){
+            ret.add(turtle.getImage());
+        }
+        return ret;
+    }
+
+    public List<ImageView> getAllTurtleImages(){
         List<ImageView> ret = new ArrayList<>();
         for (Turtle turtle : turtles){
             ret.add(turtle.getImage());
         }
         return ret;
     }
-
     // get the location for a specific turtle
     public Location getLocation(int id){
         for (Turtle turtle : turtles){
@@ -122,5 +133,15 @@ public class TurtleController {
             }
         }
         return new Location(0,0);
+    }
+
+    /**
+     * resets the location and heading of all the turtles back to the initial state
+     */
+    public void resetTurtles() {
+        for (Turtle turtle : turtles){
+            turtle.setLocation(Location.ORIGIN);
+            turtle.setHeading(0.0);
+        }
     }
 }

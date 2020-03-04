@@ -1,8 +1,7 @@
 package slogo.view.element;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,6 +17,7 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 import slogo.utility.Location;
 import slogo.view.utility.ButtonFactory;
 
@@ -40,12 +40,12 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   private Canvas myCanvas;
   private Pane myCanvasHolder;
   private GraphicsContext myGraphicsContext;
-  private Turtle myTurtle;
+  private TurtleController turtleController;
 
-  private List<Path> myPaths;
+  private Map<Turtle, List<Path>> myPaths;
 
-  public TurtleCanvas(Turtle turtle, ResourceBundle resources) {
-    myTurtle = turtle;
+  public TurtleCanvas(TurtleController turtleController, ResourceBundle resources) {
+    this.turtleController = turtleController;
     initializeCanvas();
     initializeDefaults();
     initializeLayoutPane(resources);
@@ -54,13 +54,14 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   private void initializeCanvas() {
     myCanvasHolder = new Pane();
     myCanvas = new Canvas(MAX_CANVAS_WIDTH, MAX_CANVAS_HEIGHT);
-    myCanvasHolder.getChildren().addAll(myCanvas, myTurtle.getImage());
+    myCanvasHolder.getChildren().add(myCanvas);
+    myCanvasHolder.getChildren().addAll(turtleController.getAllTurtleImages());
     myCanvasHolder.setMinWidth(MIN_CANVAS_WIDTH);
     myCanvasHolder.setMinHeight(MIN_CANVAS_HEIGHT);
 
     myGraphicsContext = myCanvas.getGraphicsContext2D();
 
-    myPaths = new ArrayList<>();
+    myPaths = new HashMap<>();
   }
 
   private void initializeDefaults() {
@@ -91,8 +92,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
     Button clearButton = ButtonFactory.button(resources.getString("clear"), e -> {
       clear();
-      myTurtle.setLocation(Location.ORIGIN);
-      myTurtle.setHeading(0);
+      turtleController.clear();
     });
     menu.getChildren().add(clearButton);
 
@@ -105,29 +105,30 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   }
 
   @Override
-  public void drawPath(Path p) {
-    handlePathDrawing(p);
-    myPaths.add(p);
+  public void drawPath(Turtle turtle, Path p) {
+    handlePathDrawing(turtle, p);
+    myPaths.putIfAbsent(turtle, new ArrayList<>());
+    myPaths.get(turtle).add(p);
   }
 
-  private void handlePathDrawing(Path p) {
+  private void handlePathDrawing(Turtle turtle, Path p) {
     for (PathElement pe : p.getElements()) {
       if (pe instanceof LineTo) {
-        drawLine(pe.isAbsolute(),
+        drawLine(turtle, pe.isAbsolute(),
             ((LineTo) pe).getX(), ((LineTo) pe).getY());
       }
       else if (pe instanceof MoveTo) {
-        moveTo(pe.isAbsolute(),
+        moveTo(turtle, pe.isAbsolute(),
                 ((MoveTo) pe).getX(), ((MoveTo) pe).getY());
       }
     }
   }
 
-  private void drawLine(boolean absolute, double x, double y) {
-    Location source = myTurtle.getLocation();
+  private void drawLine(Turtle turtle, boolean absolute, double x, double y) {
+    Location source = turtle.getLocation();
     Location destination = new Location(x, y);
     if (!absolute) {
-      destination = destination.add(myTurtle.getLocation());
+      destination = destination.add(turtle.getLocation());
     }
 
     myGraphicsContext.strokeLine(
@@ -135,15 +136,15 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
         destination.getX() + TRANSLATE_X, destination.getY() + TRANSLATE_Y
     );
 
-    myTurtle.setLocation(destination);
+    turtle.setLocation(destination);
   }
 
-  private void moveTo(boolean absolute, double x, double y) {
-    Location source = myTurtle.getLocation();
+  private void moveTo(Turtle turtle, boolean absolute, double x, double y) {
+    Location source = turtle.getLocation();
     if (!absolute){
-      myTurtle.setLocation(new Location(source.getX() + x, source.getY() + y));
+      turtle.setLocation(new Location(source.getX() + x, source.getY() + y));
     }else{
-      myTurtle.setLocation(new Location(x,y));
+      turtle.setLocation(new Location(x,y));
     }
   }
 
@@ -180,6 +181,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   }
 
   @Override
+  //TODO: need to debug this
   public void resize(double width, double height) {
     TRANSLATE_X = width / 2.0 - PADDING;
     TRANSLATE_Y = (height - MENU_HEIGHT - GAP) / 2.0 - PADDING;
@@ -191,10 +193,12 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
   private void redrawPaths() {
     clearCanvas();
-    myTurtle.setLocation(Location.ORIGIN);
+    turtleController.resetTurtles();
     if (!myPaths.isEmpty()) {
-      for (Path p : myPaths) {
-        handlePathDrawing(p);
+      for (Turtle turtle : myPaths.keySet()) {
+        for (Path p : myPaths.get(turtle)){
+          handlePathDrawing(turtle, p);
+        }
       }
     }
   }

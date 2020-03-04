@@ -13,6 +13,7 @@ import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 import slogo.model.Parser;
 import slogo.utility.Location;
 import slogo.view.element.Console;
@@ -50,14 +51,14 @@ public class Workspace extends Tab {
     SplitPane botRow = new SplitPane();
     myGuiElements = new ArrayList<>();
 
-    Turtle turtle = new Turtle(0, new Location(0, 0), 0.0,"slogo/view/resources/Turtle.gif");
-    TurtleCanvas tc = new TurtleCanvas(turtle, myResources);
+    TurtleController turtleController = new TurtleController();
+    TurtleCanvas tc = new TurtleCanvas(turtleController, myResources);
     myGuiElements.add(tc);
-    turtle.giveTurtleCanvas(tc);
-    myParser = new Parser(turtle, SLogoFrame.getResourceLanguage(myResources));
+    turtleController.giveTurtleCanvas(tc);
+    myParser = new Parser(turtleController, SLogoFrame.getResourceLanguage(myResources));
 
     topRow.getItems().add(tc);
-    ScriptEditor se = new ScriptEditor(myParser, turtle, myResources);
+    ScriptEditor se = new ScriptEditor(myParser, turtleController, myResources);
     topRow.getItems().add(se);
     myGuiElements.add(se);
     topRow.setDividerPositions(0.5f);

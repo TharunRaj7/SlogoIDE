@@ -80,12 +80,6 @@ public interface ITurtle {
    * Hides the turtle on the canvas.
    */
   void hide();
-
-  /**
-   * Clears all previous paths left by the turtle, leaving a blank canvas.
-   */
-  void clear();
-
   /**
    * Gets the current location of the turtle.
    *

@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 import slogo.model.Parser;
 import slogo.utility.Location;
 import slogo.view.utility.ButtonFactory;
@@ -22,16 +23,16 @@ public class ScriptEditor extends GuiElement {
   private static final int BUTTON_CLASS_GAP = 10;
 
   private Parser myParser;
-  private Turtle myTurtle;
+  private TurtleController turtleController;
   private TextArea input;
   private HBox myButtons;
   private Button mySaveButton;
 
   private String myFilePath;
 
-  public ScriptEditor(Parser parser, Turtle turtle, ResourceBundle resources) {
+  public ScriptEditor(Parser parser, TurtleController turtleController, ResourceBundle resources) {
     myParser = parser;
-    myTurtle = turtle;
+    this.turtleController = turtleController;
     initializeInput();
     initializeButtons(resources);
     initializeLayout();
@@ -88,9 +89,7 @@ public class ScriptEditor extends GuiElement {
   }
 
   private void parseInput() {
-    myTurtle.clear();
-    myTurtle.setHeading(0);
-    myTurtle.setLocation(Location.ORIGIN);
+    turtleController.resetTurtles();
     myParser.parse(input.getText());
   }
 

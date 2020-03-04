@@ -127,7 +127,7 @@ public class Turtle implements ITurtle {
             p.getElements().add(move);
         }
         if (tc != null) {
-            tc.drawPath(p);
+            tc.drawPath(this, p);
         }
 
     }
@@ -221,11 +221,6 @@ public class Turtle implements ITurtle {
     }
 
     @Override
-    public void clear() {
-        tc.clear();
-    }
-
-    @Override
     public Location getLocation() {
         return location;
     }
@@ -263,6 +258,9 @@ public class Turtle implements ITurtle {
     @Override
     public int getId() {
         return id;
+    }
+
+    public void clear(){
     }
 
 //    //testing

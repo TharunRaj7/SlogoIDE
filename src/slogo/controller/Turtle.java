@@ -10,6 +10,7 @@ import slogo.utility.MathOps;
 import slogo.view.element.TurtleCanvas;
 
 public class Turtle implements ITurtle {
+    private int id;
     private TurtleCanvas tc;
     private Location location;
     private double currentAngle;
@@ -17,7 +18,19 @@ public class Turtle implements ITurtle {
     private boolean show;
     ImageView image;
 
-    public Turtle(Location location, double orientationAngle, String imageFilePath) {
+    public Turtle(int id, Location location, double orientationAngle, TurtleCanvas tc, String imageFilePath) {
+        this.id = id;
+        this.location = location;
+        this.currentAngle = orientationAngle;
+        this.tc = tc;
+        this.penDown = true;
+        image = new ImageView(imageFilePath);
+        image.setFitHeight(15);
+        image.setFitWidth(15);
+    }
+
+    public Turtle(int id, Location location, double orientationAngle, String imageFilePath) {
+        this.id = id;
         this.location = location;
         this.currentAngle = orientationAngle;
         this.penDown = true;
@@ -245,6 +258,11 @@ public class Turtle implements ITurtle {
     @Override
     public boolean getShowing() {
         return show;
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 
 //    //testing

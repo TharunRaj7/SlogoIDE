@@ -50,7 +50,7 @@ public class Workspace extends Tab {
     SplitPane botRow = new SplitPane();
     myGuiElements = new ArrayList<>();
 
-    Turtle turtle = new Turtle(new Location(0, 0), 0.0, "slogo/view/resources/Turtle.gif");
+    Turtle turtle = new Turtle(0, new Location(0, 0), 0.0,"slogo/view/resources/Turtle.gif");
     TurtleCanvas tc = new TurtleCanvas(turtle, myResources);
     myGuiElements.add(tc);
     turtle.giveTurtleCanvas(tc);

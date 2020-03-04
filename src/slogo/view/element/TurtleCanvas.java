@@ -22,7 +22,7 @@ import slogo.utility.Location;
 import slogo.view.utility.ButtonFactory;
 
 public class TurtleCanvas extends GuiElement implements IVisualize {
-
+//TODO: change implementation to add turtle images based on turtle controller
   private static final double MIN_CANVAS_WIDTH = 200;
   private static final double MIN_CANVAS_HEIGHT = 200;
   private static final double MAX_CANVAS_WIDTH = 1600;

@@ -49,6 +49,7 @@ public class IsPenDown implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
+        /*
         if (myTurtle.getPenDown()){
             return 1.0;
         }
@@ -56,6 +57,9 @@ public class IsPenDown implements ICommand{
             return 0.0;
         }
 
+         */
+        //TODO: Make this functional (the above worked with one turtle)
+        return 0.0;
 
     }
 

@@ -25,7 +25,8 @@ public class Home implements ICommand{
     @Override
     public void execute() {
         //arguments.get(0).execute();
-        distMoved = Math.sqrt(Math.pow(myTurtle.getLocation().getX(), 2.0) + Math.pow(myTurtle.getLocation().getY(), 2.0));
+        //TODO: Make this return the value of the last turtle called for this equation below
+        //distMoved = Math.sqrt(Math.pow(myTurtle.getLocation().getX(), 2.0) + Math.pow(myTurtle.getLocation().getY(), 2.0));
         Location origin = new Location(0, 0);
         myTurtle.moveTo(origin);
         myTurtle.setHeading(0.0);

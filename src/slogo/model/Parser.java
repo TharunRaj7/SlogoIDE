@@ -50,7 +50,6 @@ public class Parser implements IParse {
             line.trim();
             commentLess = commentLess + " " + line;
         }
-        // input = String.join(" ", lines);
 
         System.out.println(commentLess);
         parseText(lang, Arrays.asList(commentLess.split(WHITESPACE)));
@@ -92,12 +91,9 @@ public class Parser implements IParse {
             if (line.trim().length() > 0) {
                 if (lang.getSymbol(line).equals("ListStart")) {
                     System.out.println("List begins");
-                    //isBlock = true;
-                    //myBlockCommand = new BlockCommand();
                     blockCommandQueue.add(new BlockCommand());
                 } else if (lang.getSymbol(line).equals("ListEnd")) {
                     System.out.println("List ends");
-                    //isBlock = false;
                     if(blockCommandQueue.size() == 1) {
                         manager.addCommand(blockCommandQueue.get(0));
                     } else {
@@ -106,8 +102,7 @@ public class Parser implements IParse {
                     blockCommandQueue.remove(blockCommandQueue.size() - 1);
                 } else if (lang.getSymbol(line).equals("Constant")) {
                     System.out.println(line);
-                    if(blockCommandQueue.size() != 0) {//isBlock) {
-                        //myBlockCommand.setArgument(new Argument(Float.parseFloat(line)));
+                    if(blockCommandQueue.size() != 0) {
                         blockCommandQueue.get(blockCommandQueue.size() - 1).setArgument(new Argument(Float.parseFloat(line)));
                     } else {
                         manager.addCommand(new Argument(Float.parseFloat(line)));
@@ -122,11 +117,8 @@ public class Parser implements IParse {
         System.out.println();
     }
 
-    //private void giveArgument(double arg) { manager.addArg(arg); }
-
     private void giveVariable(String varName) {
-      if (blockCommandQueue.size() != 0) {//isBlock) {
-        //myBlockCommand.setArgument(new Variables(varName));
+      if (blockCommandQueue.size() != 0) {
           blockCommandQueue.get(blockCommandQueue.size() - 1).setArgument(new Variables(varName));
       } else {
         System.out.println(varName);

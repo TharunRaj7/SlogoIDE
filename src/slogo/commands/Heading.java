@@ -49,8 +49,9 @@ public class Heading implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        return myTurtle.getHeading();
-
+        //TODO: Make this return where the latest turtle is heading
+        //return myTurtle.getHeading();
+        return 0.0;
 
     }
 

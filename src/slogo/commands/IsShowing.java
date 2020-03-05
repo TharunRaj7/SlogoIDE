@@ -49,6 +49,7 @@ public class IsShowing implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
+        /*
         if (myTurtle.getShowing()){
             return 1.0;
         }
@@ -56,6 +57,9 @@ public class IsShowing implements ICommand{
             return 0.0;
         }
 
+         */
+        //TODO: Implement the above logic (worked for one turtle)
+        return 0.0;
 
     }
 

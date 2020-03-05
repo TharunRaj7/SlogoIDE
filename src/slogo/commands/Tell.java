@@ -11,7 +11,11 @@ public class Tell extends BlockCommand implements ICommand{
     int myArgs = 1;
     double val;
     private ArrayList<ICommand> arguments = new ArrayList<>();
-    private List<Integer> turtles;
+    private List<Integer> turtles = new ArrayList<>();
+
+    public Tell(TurtleController turtleController){
+        myShell = turtleController;
+    }
 
     @Override
     public boolean enoughArgs() {
@@ -27,15 +31,19 @@ public class Tell extends BlockCommand implements ICommand{
     public void execute() {
         arguments.get(0).execute();
         if(arguments.get(0) instanceof BlockCommand) {
-            int i = 0;
-            while(true) {
+            //int i = 0;
+            for (int i = 0; i < ((BlockCommand) arguments.get(0)).argSize(); i++ ){
+                turtles.add((int) ((BlockCommand) arguments.get(0)).getRetVals(i));
+                val = (int) ((BlockCommand) arguments.get(0)).getRetVals(i);
+            }
+/*            while(true) {
                 try {
                     turtles.add((int) ((BlockCommand) arguments.get(0)).getRetVals(i));
                     val = (int) ((BlockCommand) arguments.get(0)).getRetVals(i);
                 } catch (NullPointerException e) {
                     break;
                 }
-            }
+            }*/
         }
         myShell.tellTurtles(turtles);
     }

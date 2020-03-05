@@ -33,12 +33,15 @@ public class TurtleController {
         for (int i : id){
             turtlesActive.add(findOrCreateTurtle(i));
         }
-        activeTurtles = turtlesActive;
+        activeTurtles.clear();
+        activeTurtles.addAll(turtlesActive);
+        showActiveTurtlesOnCanvas();
     }
 
     private Turtle findOrCreateTurtle(int id) {
         for (Turtle item : turtles){
             if (item.getId() == id){
+                item.show();
                 return item;
             }
         }
@@ -46,6 +49,16 @@ public class TurtleController {
         newTurtle.giveTurtleCanvas(this.turtleCanvas);
         turtles.add(newTurtle);
         return newTurtle;
+    }
+
+    private void showActiveTurtlesOnCanvas() {
+        turtleCanvas.addActiveTurtleImages();
+        List<Integer> hideTurtles = new ArrayList<>();
+        for (Turtle turtle : turtles){
+            if (!activeTurtles.contains(turtle)){
+                turtle.hide();
+            }
+        }
     }
 
 

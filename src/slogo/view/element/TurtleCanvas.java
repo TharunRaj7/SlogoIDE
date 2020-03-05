@@ -104,8 +104,16 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     return menu;
   }
 
-  public void addTurtleImages (){
+  public void addAllTurtleImages (){
     myCanvasHolder.getChildren().addAll(turtleController.getAllTurtleImages());
+  }
+
+  public void addActiveTurtleImages() {
+    for (ImageView image : turtleController.getActiveTurtleImages()){
+      if (!myCanvasHolder.getChildren().contains(image)){
+        myCanvasHolder.getChildren().addAll(image);
+      }
+    }
   }
 
   @Override
@@ -129,7 +137,6 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   }
 
   private void drawLine(Turtle turtle, boolean absolute, double x, double y) {
-    System.out.println("start" + turtle.getHeading());
     Location source = turtle.getLocation();
     Location destination = new Location(x, y);
     if (!absolute) {
@@ -142,7 +149,6 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     );
 
     turtle.setLocation(destination);
-    System.out.println("end" + turtle.getHeading());
   }
 
   private void moveTo(Turtle turtle, boolean absolute, double x, double y) {
@@ -221,5 +227,6 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   public void updateResources(ResourceBundle resources) {
     initializeLayoutPane(resources);
   }
+
 
 }

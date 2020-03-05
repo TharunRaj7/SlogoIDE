@@ -8,7 +8,7 @@ public class For extends BlockCommand implements ICommand {
 
     private Turtle myTurtle;
     int myArgs = 2;
-    private ArrayList<ICommand> arguments = new ArrayList<>();
+    private ArrayList<BlockCommand> arguments = new ArrayList<>();
     private int[] forArgs = new int[3];
     private Variables variable;
 
@@ -23,11 +23,13 @@ public class For extends BlockCommand implements ICommand {
 
     @Override
     public void setArgument(ICommand command) {
-        arguments.add(command);
+        arguments.add((BlockCommand)command);
     }
 
     @Override
     public void execute() {
+
+        //TODO
         if (arguments.get(0) instanceof BlockCommand) {
             BlockCommand firstArg = (BlockCommand) arguments.get(0);
             variable = firstArg.getVar(0);
@@ -41,6 +43,8 @@ public class For extends BlockCommand implements ICommand {
 
             variable.setVal((double) forArgs[0]);
 
+
+            //TODO
             if(arguments.get(1) instanceof BlockCommand) {
                 while (variable.returnVal() <= forArgs[1]) {
                     arguments.get(1).execute();

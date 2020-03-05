@@ -15,7 +15,6 @@ public class ToManager extends To implements ICommand {
 
     public ToManager (Turtle turtle) {
         super(turtle);
-        myArgs = 0;
     }
 
     @Override
@@ -49,8 +48,7 @@ public class ToManager extends To implements ICommand {
 
     @Override
     public double returnVal() {
-        return 0.0;
-
+        return commands.returnVal();
     }
 
     @Override

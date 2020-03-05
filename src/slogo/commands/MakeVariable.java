@@ -42,7 +42,6 @@ public class MakeVariable implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-        // TODO: Call on turtle to move it forward the given distance
         arguments.get(1).execute();
         if (arguments.get(0) instanceof Variables){
             ((Variables) arguments.get(0)).setVal(arguments.get(1).returnVal());

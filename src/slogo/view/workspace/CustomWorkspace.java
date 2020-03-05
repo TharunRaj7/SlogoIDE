@@ -10,7 +10,7 @@ import slogo.view.element.GuiElement;
 
 public class CustomWorkspace extends Workspace {
 
-  public CustomWorkspace(String language) {
+  CustomWorkspace(String language) {
     super(language);
     this.setText("Workspace");
   }
@@ -25,7 +25,7 @@ public class CustomWorkspace extends Workspace {
     myParser = p;
   }
 
-  public void setLayout(List<List<GuiElement>> elements,
+  void setLayout(List<List<GuiElement>> elements,
       List<Double> verticalDividers, List<List<Double>> horizontalDividers) {
 
     checkLayoutErrors(elements, verticalDividers, horizontalDividers);
@@ -72,12 +72,8 @@ public class CustomWorkspace extends Workspace {
     System.out.println("ERROR: Layout error!");
     // TODO : throw layout error
   }
-
-  public Parser getParserInstance() {
-    return myParser;
-  }
-
-  public ResourceBundle getResourceBundle() {
+  
+  ResourceBundle getResourceBundle() {
     return myResources;
   }
 

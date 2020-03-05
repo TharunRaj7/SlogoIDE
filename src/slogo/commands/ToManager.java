@@ -8,6 +8,8 @@ public class ToManager extends To implements ICommand {
 
     private Turtle myTurtle;
     int myArgs;
+    private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
+    private BlockCommand commands;
 
     private Variables variable;
 
@@ -28,7 +30,21 @@ public class ToManager extends To implements ICommand {
 
     @Override
     public void execute() {
+        commands.execute();
+    }
 
+    //TODO: Change the name of this method please
+    public void execute2(Name name){
+        ArrayList<BlockCommand> params = to_parameters.get(name);
+        myArgs = (params.get(0)).argSize();
+        for (int i = 0; i < arguments.size(); i++){
+            (params.get(0)).getVar(i).setVal(arguments.get(i).returnVal());
+        }
+        commands = (BlockCommand)params.get(1);
+    }
+
+    public boolean isInMap(Name name){
+        return to_parameters.containsKey(name);
     }
 
     @Override

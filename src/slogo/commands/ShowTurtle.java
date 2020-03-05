@@ -1,21 +1,22 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ShowTurtle implements ICommand{
 
-    Turtle myTurtle;
+    TurtleController myTurtle;
     int myArgs = 0;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public ShowTurtle (Turtle turtle) {
+    public ShowTurtle (TurtleController turtle) {
         myTurtle = turtle;
     }
 
-    public ShowTurtle (Turtle turtle, double dist) {
+    public ShowTurtle (TurtleController turtle, double dist) {
         this(turtle);
     }
 

@@ -107,7 +107,7 @@ public class WorkspaceFactory {
       e.printStackTrace();
     }
 
-    return new DefaultWorkspace("English");
+    return null;
   }
 
 }

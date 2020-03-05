@@ -72,7 +72,7 @@ public class CustomWorkspace extends Workspace {
     System.out.println("ERROR: Layout error!");
     // TODO : throw layout error
   }
-  
+
   ResourceBundle getResourceBundle() {
     return myResources;
   }

@@ -1,22 +1,23 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Backward implements ICommand{
 
-    Turtle myTurtle;
+    TurtleController myTurtle;
     int myArgs = 1;
     double myDist;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public Backward (Turtle turtle) {
+    public Backward (TurtleController turtle) {
         myTurtle = turtle;
     }
 
-    public Backward (Turtle turtle, double dist) {
+    public Backward (TurtleController turtle, double dist) {
         this(turtle);
         myDist = dist;
     }

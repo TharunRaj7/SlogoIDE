@@ -1,15 +1,16 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 import slogo.utility.Location;
 
 public class ClearScreen implements ICommand{
 
-    Turtle myTurtle;
+    TurtleController myTurtle;
     double distMoved;
     //private ArrayList<ICommand> arguments = new ArrayList<>();
 
-    public ClearScreen (Turtle turtle) { myTurtle = turtle; }
+    public ClearScreen (TurtleController turtle) { myTurtle = turtle; }
 
     @Override
     public boolean enoughArgs() { return true; }

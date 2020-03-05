@@ -4,7 +4,7 @@ import slogo.controller.Turtle;
 
 import java.util.ArrayList;
 
-public class If implements ICommand {
+public class If extends BlockCommand implements ICommand {
 
     private Turtle myTurtle;
     int myArgs = 2;

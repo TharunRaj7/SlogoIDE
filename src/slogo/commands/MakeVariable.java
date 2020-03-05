@@ -1,17 +1,18 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MakeVariable implements ICommand{
 
-    Turtle myTurtle;
+    TurtleController myTurtle;
     int myArgs = 2;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public MakeVariable(Turtle turtle) {
+    public MakeVariable(TurtleController turtle) {
         myTurtle = turtle;
     }
 

@@ -1,17 +1,18 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 import slogo.utility.Location;
 
 import java.util.ArrayList;
 
 public class Home implements ICommand{
 
-    Turtle myTurtle;
+    TurtleController myTurtle;
     double distMoved;
     //private ArrayList<ICommand> arguments = new ArrayList<>();
 
-    public Home (Turtle turtle) { myTurtle = turtle; }
+    public Home (TurtleController turtle) { myTurtle = turtle; }
 
     @Override
     public boolean enoughArgs() { return true; }

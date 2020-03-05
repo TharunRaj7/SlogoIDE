@@ -4,7 +4,7 @@ import slogo.controller.Turtle;
 
 import java.util.ArrayList;
 
-public class Repeat implements ICommand {
+public class Repeat extends BlockCommand implements ICommand {
 
     private Turtle myTurtle;
     int myArgs = 3;
@@ -45,7 +45,7 @@ public class Repeat implements ICommand {
                 //System.out.println("Calling repeated block");
                 arguments.get(2).execute();
                 //System.out.println("Ended calling repeated block");
-                repcount.setVal(i);
+                repcount.setVal((double) i);
             }
             /*
             while (arguments.get(0).returnVal() <= arguments.get(1).returnVal()) {

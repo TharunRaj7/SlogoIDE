@@ -4,7 +4,7 @@ import slogo.controller.Turtle;
 
 import java.util.ArrayList;
 
-public class For implements ICommand {
+public class For extends BlockCommand implements ICommand {
 
     private Turtle myTurtle;
     int myArgs = 2;
@@ -39,7 +39,7 @@ public class For implements ICommand {
                 forArgs[i] = (int) firstArg.getRetVals(i + 1);
             }
 
-            variable.setVal(forArgs[0]);
+            variable.setVal((double) forArgs[0]);
 
             if(arguments.get(1) instanceof BlockCommand) {
                 while (variable.returnVal() <= forArgs[1]) {

@@ -1,17 +1,18 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
 
 public class IfElse extends BlockCommand implements ICommand {
 
-    private Turtle myTurtle;
+    private TurtleController myTurtle;
     int myArgs = 3;
     double retVal = 0.0;
     private ArrayList<ICommand> arguments = new ArrayList<>();
 
-    public IfElse (Turtle turtle) {
+    public IfElse (TurtleController turtle) {
         myTurtle = turtle;
     }
 

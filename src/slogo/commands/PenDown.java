@@ -1,16 +1,17 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PenDown implements ICommand{
 
-    Turtle myTurtle;
+    TurtleController myTurtle;
     int myArgs = 0;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
-    public PenDown (Turtle turtle) {
+    public PenDown (TurtleController turtle) {
         myTurtle = turtle;
 
     }

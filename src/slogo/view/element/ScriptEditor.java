@@ -11,11 +11,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.w3c.dom.Element;
 import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 import slogo.model.Parser;
 import slogo.utility.Location;
 import slogo.view.utility.ButtonFactory;
+import slogo.view.utility.XMLBuilder;
 
 public class ScriptEditor extends GuiElement {
 
@@ -163,4 +165,21 @@ public class ScriptEditor extends GuiElement {
     initializeButtons(resources);
     initializeLayout();
   }
+
+  @Override
+  public Element toXMLElement() {
+    XMLBuilder xmlBuilder = XMLBuilder.newInstance();
+    Element root = xmlBuilder.createElement(this.getClass().getSimpleName());
+
+    Element text = xmlBuilder.createElement("text");
+    text.appendChild(xmlBuilder.createTextNode(input.getText()));
+    root.appendChild(text);
+
+    return root;
+  }
+
+//  @Override
+//  public GuiElement fromXMLElement() {
+//    return new ScriptEditor();
+//  }
 }

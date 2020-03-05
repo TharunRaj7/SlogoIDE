@@ -1,19 +1,20 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
 
 public class Repeat extends BlockCommand implements ICommand {
 
-    private Turtle myTurtle;
+    private TurtleController myTurtle;
     int myArgs = 3;
     private ArrayList<ICommand> arguments = new ArrayList<>();
     private Variables repcount = new Variables(":repcount");
     private static ArrayList<Double> repcountTracker;
     private int repcountIndex;
 
-    public Repeat (Turtle turtle) {
+    public Repeat (TurtleController turtle) {
         myTurtle = turtle;
         /*
         if(repcountTracker == null) { repcountTracker = new ArrayList<>(); }

@@ -2,6 +2,7 @@ package slogo.model;
 
 import slogo.commands.ICommand;
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 
 public interface IParse {
 
@@ -18,12 +19,12 @@ public interface IParse {
    * Passes the instance of the turtle to the parser to then send to the commands
    * @param turtle
    */
-  void giveTurtle(Turtle turtle);
+  void giveTurtle(TurtleController turtle);
 
   /**
    * Instantiates command to send to send to the manager
    * @param turtle
    */
-  ICommand makeCommand(Turtle turtle, String commandType);
+  ICommand makeCommand(TurtleController turtle, String commandType);
 
 }

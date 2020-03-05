@@ -2,6 +2,7 @@ package slogo.model;
 
 import slogo.commands.*;
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -15,12 +16,12 @@ public class Parser implements IParse {
     private boolean isBlock = false;
     private Map<String, Double> varList = new HashMap<>();
     private List<BlockCommand> blockCommandQueue = new ArrayList<>();
-    private Turtle myTurtle;
+    private TurtleController myTurtle;
     private String myLanguage;
     private Manager manager = new Manager();
     private BlockCommand myBlockCommand;
 
-    public Parser(Turtle turtle, String language) {
+    public Parser(TurtleController turtle, String language) {
         myLanguage = language;
         myTurtle = turtle;
     }
@@ -60,17 +61,17 @@ public class Parser implements IParse {
      * Passes the instance of the turtle to the parser to then send to the commands
      * @param turtle
      */
-    public void giveTurtle(Turtle turtle) { myTurtle = turtle; }
+    public void giveTurtle(TurtleController turtle) { myTurtle = turtle; }
 
     /**
      * Instantiates command to send to send to the manager
      * @param turtle
      */
-    public ICommand makeCommand(Turtle turtle, String commandType) {
+    public ICommand makeCommand(TurtleController turtle, String commandType) {
         try {
             Class<?> cls = Class.forName(commandType);
             Object command;
-            Constructor constructor = cls.getConstructor(Turtle.class);
+            Constructor constructor = cls.getConstructor(TurtleController.class);
             command = constructor.newInstance(turtle);
             ICommand returnCommand = (ICommand) command;
             if(blockCommandQueue.size() != 0) { //isBlock) {

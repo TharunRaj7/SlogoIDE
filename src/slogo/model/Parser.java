@@ -73,13 +73,14 @@ public class Parser implements IParse {
             Constructor constructor = cls.getConstructor(TurtleController.class);
             command = constructor.newInstance(turtle);
             ICommand returnCommand = (ICommand) command;
-            if(blockCommandQueue.size() != 0) { //isBlock) {
+            if(blockCommandQueue.size() != 0) {
                 blockCommandQueue.get(blockCommandQueue.size() - 1).setArgument(returnCommand);
             } else {
                 manager.addCommand(returnCommand);
             }
             return returnCommand;
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            //TODO: Add catching to finish TO & Name Classes
             throw new ParserException(e);
         }
     }
@@ -90,23 +91,11 @@ public class Parser implements IParse {
         for (String line : lines) {
             if (line.trim().length() > 0) {
                 if (lang.getSymbol(line).equals("ListStart")) {
-                    System.out.println("List begins");
-                    blockCommandQueue.add(new BlockCommand());
+                    startList();
                 } else if (lang.getSymbol(line).equals("ListEnd")) {
-                    System.out.println("List ends");
-                    if(blockCommandQueue.size() == 1) {
-                        manager.addCommand(blockCommandQueue.get(0));
-                    } else {
-                        blockCommandQueue.get(blockCommandQueue.size() - 2).setArgument(blockCommandQueue.get(blockCommandQueue.size() - 1));
-                    }
-                    blockCommandQueue.remove(blockCommandQueue.size() - 1);
+                    endList();
                 } else if (lang.getSymbol(line).equals("Constant")) {
-                    System.out.println(line);
-                    if(blockCommandQueue.size() != 0) {
-                        blockCommandQueue.get(blockCommandQueue.size() - 1).setArgument(new Argument(Float.parseFloat(line)));
-                    } else {
-                        manager.addCommand(new Argument(Float.parseFloat(line)));
-                    }
+                    addConst(line);
                 } else if (lang.getSymbol(line).equals("Variable")) { giveVariable(line); }
                 else {
                     System.out.println(lang.getSymbol(line));
@@ -115,6 +104,30 @@ public class Parser implements IParse {
             }
         }
         System.out.println();
+    }
+
+    private void startList() {
+        System.out.println("List begins");
+        blockCommandQueue.add(new BlockCommand());
+    }
+
+    private void endList() {
+        System.out.println("List ends");
+        if(blockCommandQueue.size() == 1) {
+            manager.addCommand(blockCommandQueue.get(0));
+        } else {
+            blockCommandQueue.get(blockCommandQueue.size() - 2).setArgument(blockCommandQueue.get(blockCommandQueue.size() - 1));
+        }
+        blockCommandQueue.remove(blockCommandQueue.size() - 1);
+    }
+
+    private void addConst(String line) {
+        System.out.println(line);
+        if(blockCommandQueue.size() != 0) {
+            blockCommandQueue.get(blockCommandQueue.size() - 1).setArgument(new Argument(Float.parseFloat(line)));
+        } else {
+            manager.addCommand(new Argument(Float.parseFloat(line)));
+        }
     }
 
     private void giveVariable(String varName) {

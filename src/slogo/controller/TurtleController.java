@@ -22,7 +22,8 @@ public class TurtleController {
     public void giveTurtleCanvas (TurtleCanvas tc){
         this.turtleCanvas = tc;
         // make one turtle initially
-        Turtle turtle = new Turtle(0, new Location(0,0), 0.0, turtleCanvas, "slogo/view/resources/Turtle.gif");
+        Turtle turtle = new Turtle(1, new Location(0,0), 0.0, "slogo/view/resources/Turtle.gif");
+        turtle.giveTurtleCanvas(this.turtleCanvas);
         turtles.add(turtle);
         activeTurtles.add(turtle);
     }
@@ -32,18 +33,32 @@ public class TurtleController {
         for (int i : id){
             turtlesActive.add(findOrCreateTurtle(i));
         }
-        activeTurtles = turtlesActive;
+        activeTurtles.clear();
+        activeTurtles.addAll(turtlesActive);
+        showActiveTurtlesOnCanvas();
     }
 
     private Turtle findOrCreateTurtle(int id) {
         for (Turtle item : turtles){
             if (item.getId() == id){
+                item.show();
                 return item;
             }
         }
-        Turtle newTurtle = new Turtle(id, new Location(0,0), 0.0, turtleCanvas, "slogo/view/resources/Turtle.gif");
+        Turtle newTurtle = new Turtle(id, new Location(0,0), 0.0, "slogo/view/resources/Turtle.gif");
+        newTurtle.giveTurtleCanvas(this.turtleCanvas);
         turtles.add(newTurtle);
         return newTurtle;
+    }
+
+    private void showActiveTurtlesOnCanvas() {
+        turtleCanvas.addActiveTurtleImages();
+        List<Integer> hideTurtles = new ArrayList<>();
+        for (Turtle turtle : turtles){
+            if (!activeTurtles.contains(turtle)){
+                turtle.hide();
+            }
+        }
     }
 
 
@@ -121,7 +136,7 @@ public class TurtleController {
     public List<ImageView> getAllTurtleImages(){
         List<ImageView> ret = new ArrayList<>();
         for (Turtle turtle : turtles){
-            ret.add(turtle.getImage());
+           ret.add(turtle.getImage());
         }
         return ret;
     }

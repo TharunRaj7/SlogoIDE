@@ -1,18 +1,19 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 import slogo.utility.Location;
 
 import java.util.ArrayList;
 
 public class SetPosition implements ICommand {
 
-    Turtle myTurtle;
+    TurtleController myTurtle;
     int myArgs = 2;
     double myDist;
     private ArrayList<ICommand> arguments = new ArrayList<>();
 
-    public SetPosition (Turtle turtle) {
+    public SetPosition (TurtleController turtle) {
         myTurtle = turtle;
     }
 
@@ -34,7 +35,7 @@ public class SetPosition implements ICommand {
         double futureY = arguments.get(1).returnVal();
         System.out.println("" + futureX + "" + futureY);
 
-        myDist = Math.sqrt(Math.pow(myTurtle.getLocation().getX() - futureX, 2.0) + Math.pow(myTurtle.getLocation().getY() - futureY, 2.0));
+        //myDist = Math.sqrt(Math.pow(myTurtle.getLocation().getX() - futureX, 2.0) + Math.pow(myTurtle.getLocation().getY() - futureY, 2.0));
 
         Location future = new Location(futureX, futureY);
         myTurtle.moveTo(future);

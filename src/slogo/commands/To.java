@@ -10,9 +10,6 @@ public class To extends BlockCommand implements ICommand {
     private Turtle myTurtle;
     int myArgs = 3;
     private ArrayList<ICommand> arguments = new ArrayList<>();
-    protected static ArrayList<ICommand> names = new ArrayList<>();
-    protected static ArrayList<Variables> variables = new ArrayList<>();
-    protected static ArrayList<BlockCommand> commands = new ArrayList<>();
     protected static HashMap<Name, ArrayList<BlockCommand>> to_parameters = new HashMap<>();
 
 
@@ -32,10 +29,10 @@ public class To extends BlockCommand implements ICommand {
 
     @Override
     public void execute() {
-
-
-
-
+        ArrayList<BlockCommand> user_command_args = new ArrayList<>();
+        user_command_args.add((BlockCommand)arguments.get(1));
+        user_command_args.add((BlockCommand)arguments.get(2));
+        to_parameters.put((Name)arguments.get(0),user_command_args);
     }
 
     @Override

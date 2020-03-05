@@ -55,6 +55,7 @@ public class Workspace extends Tab {
     TurtleCanvas tc = new TurtleCanvas(turtleController, myResources);
     myGuiElements.add(tc);
     turtleController.giveTurtleCanvas(tc);
+    tc.addAllTurtleImages(); //adds all the images of the turtle
     myParser = new Parser(turtleController, SLogoFrame.getResourceLanguage(myResources));
 
     topRow.getItems().add(tc);

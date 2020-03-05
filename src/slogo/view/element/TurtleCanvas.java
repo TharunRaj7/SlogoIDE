@@ -7,6 +7,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
@@ -55,7 +56,6 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     myCanvasHolder = new Pane();
     myCanvas = new Canvas(MAX_CANVAS_WIDTH, MAX_CANVAS_HEIGHT);
     myCanvasHolder.getChildren().add(myCanvas);
-    myCanvasHolder.getChildren().addAll(turtleController.getAllTurtleImages());
     myCanvasHolder.setMinWidth(MIN_CANVAS_WIDTH);
     myCanvasHolder.setMinHeight(MIN_CANVAS_HEIGHT);
 
@@ -102,6 +102,18 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     menu.setSpacing(GAP);
 
     return menu;
+  }
+
+  public void addAllTurtleImages (){
+    myCanvasHolder.getChildren().addAll(turtleController.getAllTurtleImages());
+  }
+
+  public void addActiveTurtleImages() {
+    for (ImageView image : turtleController.getActiveTurtleImages()){
+      if (!myCanvasHolder.getChildren().contains(image)){
+        myCanvasHolder.getChildren().addAll(image);
+      }
+    }
   }
 
   @Override
@@ -215,5 +227,6 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   public void updateResources(ResourceBundle resources) {
     initializeLayoutPane(resources);
   }
+
 
 }

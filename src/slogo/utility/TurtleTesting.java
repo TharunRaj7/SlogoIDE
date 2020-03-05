@@ -8,7 +8,7 @@ import slogo.view.element.TurtleCanvas;
 
 public class TurtleTesting {
 
-  public static void testPathDrawing(TurtleCanvas tc) {
+  /*public static void testPathDrawing(TurtleCanvas tc) {
     Path p = new Path();
     PathElement line;
 
@@ -43,6 +43,6 @@ public class TurtleTesting {
 
 
     tc.drawPath(p);
-  }
+  }*/
 
 }

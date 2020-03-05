@@ -18,6 +18,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javax.swing.GroupLayout.Alignment;
 import javax.xml.crypto.Data;
+import org.w3c.dom.Element;
+import slogo.view.utility.XMLBuilder;
 
 public class VariableExplorer extends GuiElement {
 
@@ -110,6 +112,14 @@ public class VariableExplorer extends GuiElement {
   @Override
   public void updateResources(ResourceBundle resources) {
 
+  }
+
+  @Override
+  public Element toXMLElement() {
+    XMLBuilder xmlBuilder = XMLBuilder.newInstance();
+    Element root = xmlBuilder.createElement(this.getClass().getSimpleName());
+
+    return root;
   }
 
 }

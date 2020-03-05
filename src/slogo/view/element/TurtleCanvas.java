@@ -17,9 +17,11 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
+import org.w3c.dom.Element;
 import slogo.controller.Turtle;
 import slogo.utility.Location;
 import slogo.view.utility.ButtonFactory;
+import slogo.view.utility.XMLBuilder;
 
 public class TurtleCanvas extends GuiElement implements IVisualize {
 
@@ -212,4 +214,14 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     initializeLayoutPane(resources);
   }
 
+  @Override
+  public Element toXMLElement() {
+    XMLBuilder xmlBuilder = XMLBuilder.newInstance();
+    Element root = xmlBuilder.createElement(this.getClass().getSimpleName());
+
+    String background = myCanvasHolder.getBackground().getFills().get(0).getFill().toString();
+    root.setAttributeNode(xmlBuilder.createAttribute("backgroundcolor", background));
+
+    return root;
+  }
 }

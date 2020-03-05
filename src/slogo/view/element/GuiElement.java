@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import org.w3c.dom.Element;
 
 public abstract class GuiElement extends GridPane {
 
@@ -32,4 +33,9 @@ public abstract class GuiElement extends GridPane {
     // do nothing by default
   }
 
+  public abstract Element toXMLElement();
+
+  public void fromXMLElement() {
+    System.out.println(this.getClass().getSimpleName());
+  }
 }

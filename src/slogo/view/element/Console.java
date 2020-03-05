@@ -14,7 +14,9 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
+import org.w3c.dom.Element;
 import slogo.model.Parser;
+import slogo.view.utility.XMLBuilder;
 
 public class Console extends GuiElement {
 
@@ -103,6 +105,24 @@ public class Console extends GuiElement {
     myHistoryPointer = myHistory.size();
 
     myHistoryArea.appendText("> " + text + "\n");
+  }
+
+  @Override
+  public Element toXMLElement() {
+    XMLBuilder xmlBuilder = XMLBuilder.newInstance();
+    Element root = xmlBuilder.createElement(this.getClass().getSimpleName());
+
+    Element history = xmlBuilder.createElement("history");
+    for (String line : myHistory) {
+      history.appendChild(xmlBuilder.createTextNode(line + "\n"));
+    }
+    root.appendChild(history);
+
+    Element textField = xmlBuilder.createElement("textfield");
+    textField.appendChild(xmlBuilder.createTextNode(myTextField.getText()));
+    root.appendChild(textField);
+
+    return root;
   }
 
 }

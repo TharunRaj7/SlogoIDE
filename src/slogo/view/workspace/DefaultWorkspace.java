@@ -23,6 +23,7 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 import slogo.model.Parser;
 import slogo.utility.Location;
 import slogo.view.SLogoFrame;
@@ -46,14 +47,15 @@ public class DefaultWorkspace extends Workspace {
     SplitPane botRow = new SplitPane();
     myGuiElements = new ArrayList<>();
 
-    Turtle turtle = new Turtle(new Location(0, 0), 0.0, "slogo/view/resources/Turtle.gif");
-    TurtleCanvas tc = new TurtleCanvas(turtle, myResources);
+    TurtleController turtleController = new TurtleController();
+    TurtleCanvas tc = new TurtleCanvas(turtleController, myResources);
     myGuiElements.add(tc);
-    turtle.giveTurtleCanvas(tc);
-    myParser = new Parser(turtle, SLogoFrame.getResourceLanguage(myResources));
+    turtleController.giveTurtleCanvas(tc);
+    tc.addAllTurtleImages(); //adds all the images of the turtle
+    myParser = new Parser(turtleController, SLogoFrame.getResourceLanguage(myResources));
 
     topRow.getItems().add(tc);
-    ScriptEditor se = new ScriptEditor(myParser, turtle, myResources);
+    ScriptEditor se = new ScriptEditor(myParser, turtleController, myResources);
     topRow.getItems().add(se);
     myGuiElements.add(se);
     topRow.setDividerPositions(0.5f);

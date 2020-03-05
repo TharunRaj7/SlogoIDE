@@ -1,18 +1,19 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
 
-public class For implements ICommand {
+public class For extends BlockCommand implements ICommand {
 
-    private Turtle myTurtle;
+    private TurtleController myTurtle;
     int myArgs = 2;
     private ArrayList<ICommand> arguments = new ArrayList<>();
     private int[] forArgs = new int[3];
     private Variables variable;
 
-    public For (Turtle turtle) {
+    public For (TurtleController turtle) {
         myTurtle = turtle;
     }
 
@@ -39,7 +40,7 @@ public class For implements ICommand {
                 forArgs[i] = (int) firstArg.getRetVals(i + 1);
             }
 
-            variable.setVal(forArgs[0]);
+            variable.setVal((double) forArgs[0]);
 
             if(arguments.get(1) instanceof BlockCommand) {
                 while (variable.returnVal() <= forArgs[1]) {

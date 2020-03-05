@@ -62,7 +62,7 @@ public class BlockCommand implements ICommand {
         //yReturnVals.clear();
     }
 
-    public double getRetVals (int index) {
+    protected double getRetVals (int index) {
         return myReturnVals.get(index);
     }
 
@@ -70,5 +70,9 @@ public class BlockCommand implements ICommand {
         if (myCommands.get(index) instanceof Variables) {
             return (Variables) myCommands.get(index);
         } else { return null; }
+    }
+
+    protected int argSize(){
+        return myCommands.size();
     }
 }

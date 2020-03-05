@@ -3,6 +3,7 @@ package slogo.view.element;
 import javafx.geometry.Bounds;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
+import slogo.controller.Turtle;
 
 public interface IVisualize {
 
@@ -12,7 +13,7 @@ public interface IVisualize {
    * Adds a new path to the canvas's drawing, representing a single turtle movement.
    * @param p the Path to draw
    */
-  void drawPath(Path p);
+  void drawPath(Turtle turtle, Path p);
 
   /**
    * Sets the color of the turtle's pen.

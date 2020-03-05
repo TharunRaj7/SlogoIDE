@@ -1,6 +1,7 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 import slogo.utility.MathOps;
 
 import java.util.ArrayList;
@@ -8,11 +9,11 @@ import java.util.Arrays;
 
 public class IsShowing implements ICommand{
 
-    Turtle myTurtle;
+    TurtleController myTurtle;
     int myArgs = 0;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public IsShowing(Turtle turtle) {
+    public IsShowing(TurtleController turtle) {
         myTurtle = turtle;
     }
 
@@ -48,6 +49,7 @@ public class IsShowing implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
+        /*
         if (myTurtle.getShowing()){
             return 1.0;
         }
@@ -55,6 +57,9 @@ public class IsShowing implements ICommand{
             return 0.0;
         }
 
+         */
+        //TODO: Implement the above logic (worked for one turtle)
+        return 0.0;
 
     }
 

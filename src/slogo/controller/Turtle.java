@@ -10,6 +10,7 @@ import slogo.utility.MathOps;
 import slogo.view.element.TurtleCanvas;
 
 public class Turtle implements ITurtle {
+    private int id;
     private TurtleCanvas tc;
     private Location location;
     private double currentAngle;
@@ -17,7 +18,8 @@ public class Turtle implements ITurtle {
     private boolean show;
     ImageView image;
 
-    public Turtle(Location location, double orientationAngle, String imageFilePath) {
+    public Turtle(int id, Location location, double orientationAngle, String imageFilePath) {
+        this.id = id;
         this.location = location;
         this.currentAngle = orientationAngle;
         this.penDown = true;
@@ -34,6 +36,7 @@ public class Turtle implements ITurtle {
 
     @Override
     public void moveRelative(double distance) {
+        //System.out.println("start" + currentAngle);
         boolean backward = false;
         if (distance < 0) {
             backward = true;
@@ -63,6 +66,7 @@ public class Turtle implements ITurtle {
 
 
         //call to internal API drawPath
+        //System.out.println("End" + currentAngle);
         drawOnCanvas(false, xTranslate, yTranslate);
     }
 
@@ -99,6 +103,7 @@ public class Turtle implements ITurtle {
     }
 
     private void drawOnCanvas(boolean absolute, double x, double y) {
+        //System.out.println("start" + currentAngle);
         Path p = new Path();
         PathElement move = new MoveTo(location.getX(), location.getY());
         p.getElements().add(move);
@@ -114,8 +119,9 @@ public class Turtle implements ITurtle {
             p.getElements().add(move);
         }
         if (tc != null) {
-            tc.drawPath(p);
+            tc.drawPath(this, p);
         }
+        //System.out.println("end" + currentAngle);
 
     }
 
@@ -208,11 +214,6 @@ public class Turtle implements ITurtle {
     }
 
     @Override
-    public void clear() {
-        tc.clear();
-    }
-
-    @Override
     public Location getLocation() {
         return location;
     }
@@ -245,6 +246,14 @@ public class Turtle implements ITurtle {
     @Override
     public boolean getShowing() {
         return show;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    public void clear(){
     }
 
 //    //testing

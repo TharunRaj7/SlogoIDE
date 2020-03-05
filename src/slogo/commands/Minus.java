@@ -1,6 +1,7 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 import slogo.utility.MathOps;
 
 import java.util.ArrayList;
@@ -8,11 +9,11 @@ import java.util.Arrays;
 
 public class Minus implements ICommand{
 
-    Turtle myTurtle;
+    TurtleController myTurtle;
     int myArgs = 1;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public Minus (Turtle turtle) {
+    public Minus (TurtleController turtle) {
         myTurtle = turtle;
     }
 

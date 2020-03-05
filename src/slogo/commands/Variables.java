@@ -2,7 +2,6 @@ package slogo.commands;
 
 import slogo.view.element.VariableExplorer;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +15,7 @@ public class Variables implements ICommand{
         myVarName = varName;
     }
 
-    public void setVal(double val) {
+    public void setVal(Double val) {
         if(variables == null) { variables = new HashMap<>(); }
         variables.put(myVarName, val);
         VariableExplorer.addTableData(getMap());

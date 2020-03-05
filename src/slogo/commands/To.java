@@ -1,18 +1,19 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
-import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class If extends BlockCommand implements ICommand {
+public class To extends BlockCommand implements ICommand {
 
-    private TurtleController myTurtle;
-    int myArgs = 2;
-    double retVal = 0.0;
+    private Turtle myTurtle;
+    int myArgs = 3;
     private ArrayList<ICommand> arguments = new ArrayList<>();
+    protected static HashMap<Name, ArrayList<BlockCommand>> to_parameters = new HashMap<>();
 
-    public If (TurtleController turtle) {
+
+    public To (Turtle turtle) {
         myTurtle = turtle;
     }
 
@@ -28,16 +29,15 @@ public class If extends BlockCommand implements ICommand {
 
     @Override
     public void execute() {
-        arguments.get(0).execute();
-        if(arguments.get(0).returnVal() != 0.0) {
-            arguments.get(1).execute();
-            retVal = 1.0;
-        }
+        ArrayList<BlockCommand> user_command_args = new ArrayList<>();
+        user_command_args.add((BlockCommand)arguments.get(1));
+        user_command_args.add((BlockCommand)arguments.get(2));
+        to_parameters.put((Name)arguments.get(0),user_command_args);
     }
 
     @Override
     public double returnVal() {
-        return retVal;
+        return 0.0;
     }
 
     @Override

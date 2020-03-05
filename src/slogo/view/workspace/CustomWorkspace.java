@@ -1,5 +1,6 @@
 package slogo.view.workspace;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.geometry.Orientation;
@@ -29,6 +30,7 @@ public class CustomWorkspace extends Workspace {
       List<Double> verticalDividers, List<List<Double>> horizontalDividers) {
 
     checkLayoutErrors(elements, verticalDividers, horizontalDividers);
+    myGuiElements = new ArrayList<>();
 
     SplitPane layout = new SplitPane();
     layout.setOrientation(Orientation.VERTICAL);
@@ -36,6 +38,7 @@ public class CustomWorkspace extends Workspace {
     for (int i = 0; i < elements.size(); i++) {
       SplitPane row = new SplitPane();
       row.getItems().addAll(elements.get(i));
+      myGuiElements.addAll(elements.get(i));
 
       for (int d = 0; d < horizontalDividers.get(i).size(); d++) {
         row.setDividerPosition(d, horizontalDividers.get(i).get(d));

@@ -1,52 +1,48 @@
-package slogo.view;
+package slogo.view.workspace;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane.TabClosingPolicy;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 import slogo.model.Parser;
 import slogo.utility.Location;
+import slogo.view.SLogoFrame;
 import slogo.view.element.Console;
 import slogo.view.element.GuiElement;
 import slogo.view.element.ScriptEditor;
 import slogo.view.element.TurtleCanvas;
 import slogo.view.element.VariableExplorer;
+import slogo.view.utility.XMLBuilder;
 
-public class Workspace extends Tab {
+public class DefaultWorkspace extends Workspace {
 
-  private static final double PADDING = 5;
-
-  private Node myLayout;
-  private List<GuiElement> myGuiElements;
-
-  private Parser myParser;
-  private ResourceBundle myResources;
-
-  public Workspace(String language) {
-    initializeResources(language);
-    initializeLayoutPane();
+  public DefaultWorkspace(String language) {
+    super(language);
     this.setText("Workspace");
-    this.setContent(myLayout);
-
-    this.setOnCloseRequest(e -> {
-      if (this.getTabPane().getTabs().size()-1 <= 1) {
-        this.getTabPane().setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-      }
-    });
-
   }
 
-  private void initializeLayoutPane() {
+  @Override
+  protected void initializeLayoutPane() {
     SplitPane topRow = new SplitPane();
     SplitPane botRow = new SplitPane();
     myGuiElements = new ArrayList<>();
@@ -81,20 +77,4 @@ public class Workspace extends Tab {
     myLayout = sp;
   }
 
-
-  private void initializeResources(String language) {
-    try {
-      myResources = ResourceBundle.getBundle(SLogoFrame.DEFAULT_RESOURCES_PACKAGE + language);
-    } catch (Exception e) {
-      initializeResources(SLogoFrame.getResourceLanguage(myResources));
-    }
-  }
-
-  public void setLanguage(String language) {
-    initializeResources(language);
-    myParser.updateLanguage(language);
-    for (GuiElement guie : myGuiElements) {
-      guie.updateResources(myResources);
-    }
-  }
 }

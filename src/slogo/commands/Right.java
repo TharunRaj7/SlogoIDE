@@ -3,22 +3,23 @@ package slogo.commands;
 
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Right implements ICommand{
 
-    Turtle myTurtle;
+    TurtleController myTurtle;
     int myArgs = 1;
     double myAngle;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public Right (Turtle turtle) {
+    public Right (TurtleController turtle) {
         myTurtle = turtle;
     }
 
-    public Right (Turtle turtle, double angle) {
+    public Right (TurtleController turtle, double angle) {
         this(turtle);
         myAngle = angle;
     }

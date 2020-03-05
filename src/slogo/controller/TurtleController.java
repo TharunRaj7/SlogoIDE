@@ -22,7 +22,7 @@ public class TurtleController {
     public void giveTurtleCanvas (TurtleCanvas tc){
         this.turtleCanvas = tc;
         // make one turtle initially
-        Turtle turtle = new Turtle(0, new Location(0,0), 0.0, turtleCanvas, "slogo/view/resources/Turtle.gif");
+        Turtle turtle = new Turtle(1, new Location(0,0), 0.0, turtleCanvas, "slogo/view/resources/Turtle.gif");
         turtles.add(turtle);
         activeTurtles.add(turtle);
     }

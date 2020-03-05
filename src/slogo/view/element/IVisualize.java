@@ -4,6 +4,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 
 public interface IVisualize {
 

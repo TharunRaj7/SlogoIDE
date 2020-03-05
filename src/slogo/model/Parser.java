@@ -66,7 +66,7 @@ public class Parser implements IParse {
      * Instantiates command to send to send to the manager
      * @param turtle
      */
-    public ICommand makeCommand(TurtleController turtle, String commandType) {
+    public void makeCommand(TurtleController turtle, String commandType) {
         try {
             Class<?> cls = Class.forName(commandType);
             Object command;
@@ -78,9 +78,16 @@ public class Parser implements IParse {
             } else {
                 manager.addCommand(returnCommand);
             }
-            return returnCommand;
+            //return returnCommand;
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
             //TODO: Add catching to finish TO & Name Classes
+            Name name = new Name(turtle, commandType);
+            ToManager toManager = new ToManager(turtle);
+            if(toManager.isInMap(name)) {
+                toManager.execute2(name);
+            } else {
+                manager.addCommand(name);
+            }
             throw new ParserException(e);
         }
     }

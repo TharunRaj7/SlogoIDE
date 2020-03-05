@@ -1,19 +1,20 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class To extends BlockCommand implements ICommand {
 
-    private Turtle myTurtle;
+    private TurtleController myTurtle;
     int myArgs = 3;
     private ArrayList<ICommand> arguments = new ArrayList<>();
     protected static HashMap<Name, ArrayList<BlockCommand>> to_parameters = new HashMap<>();
 
 
-    public To (Turtle turtle) {
+    public To (TurtleController turtle) {
         myTurtle = turtle;
     }
 

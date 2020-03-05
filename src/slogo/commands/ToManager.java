@@ -1,19 +1,20 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
 
 public class ToManager extends To implements ICommand {
 
-    private Turtle myTurtle;
+    private TurtleController myTurtle;
     int myArgs;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
     private BlockCommand commands;
 
     private Variables variable;
 
-    public ToManager (Turtle turtle) {
+    public ToManager (TurtleController turtle) {
         super(turtle);
         myArgs = 0;
     }

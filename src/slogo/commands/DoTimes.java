@@ -4,7 +4,7 @@ import slogo.controller.Turtle;
 
 import java.util.ArrayList;
 
-public class DoTimes implements ICommand {
+public class DoTimes extends BlockCommand implements ICommand {
 
     private Turtle myTurtle;
     int myArgs = 2;

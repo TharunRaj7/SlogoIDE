@@ -10,9 +10,8 @@ public class ClearScreen implements ICommand {
     double distMoved;
     //private ArrayList<ICommand> arguments = new ArrayList<>();
 
-    public ClearScreen(TurtleController turtle) {
-        myTurtle = turtle;
-    }
+
+    public ClearScreen (TurtleController turtle) { myTurtle = turtle; }
 
     @Override
     public boolean enoughArgs() {

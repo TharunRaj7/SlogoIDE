@@ -3,15 +3,20 @@ package slogo.commands;
 import slogo.controller.Turtle;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class IfElse extends BlockCommand implements ICommand {
+public class To extends BlockCommand implements ICommand {
 
     private Turtle myTurtle;
     int myArgs = 3;
-    double retVal = 0.0;
     private ArrayList<ICommand> arguments = new ArrayList<>();
+    protected static ArrayList<ICommand> names = new ArrayList<>();
+    protected static ArrayList<Variables> variables = new ArrayList<>();
+    protected static ArrayList<BlockCommand> commands = new ArrayList<>();
+    protected static HashMap<Name, ArrayList<BlockCommand>> to_parameters = new HashMap<>();
 
-    public IfElse (Turtle turtle) {
+
+    public To (Turtle turtle) {
         myTurtle = turtle;
     }
 
@@ -27,19 +32,15 @@ public class IfElse extends BlockCommand implements ICommand {
 
     @Override
     public void execute() {
-        arguments.get(0).execute();
-        if(arguments.get(0).returnVal() != 0.0) {
-            arguments.get(1).execute();
-            retVal = arguments.get(1).returnVal();
-        } else {
-            arguments.get(2).execute();
-            retVal = arguments.get(2).returnVal();
-        }
+
+
+
+
     }
 
     @Override
     public double returnVal() {
-        return retVal;
+        return 0.0;
     }
 
     @Override

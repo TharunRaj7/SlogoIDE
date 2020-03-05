@@ -1,6 +1,7 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 import slogo.utility.MathOps;
 
 import java.util.ArrayList;
@@ -8,11 +9,11 @@ import java.util.Arrays;
 
 public class And implements ICommand{
 
-    Turtle myTurtle;
+    TurtleController myTurtle;
     int myArgs = 2;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public And (Turtle turtle) {
+    public And (TurtleController turtle) {
         myTurtle = turtle;
     }
 
@@ -22,9 +23,7 @@ public class And implements ICommand{
      * to run the command
      * @return
      */
-    public boolean enoughArgs () {
-        return check_arg() == myArgs;
-    }
+    public boolean enoughArgs () { return arguments.size() == myArgs; }
 
     /**
      * Gives the command an argument
@@ -57,14 +56,5 @@ public class And implements ICommand{
 
     }
 
-    @Override
     public void clearArgs() { arguments.clear(); }
-
-    private void add_arg(ICommand arg){
-        arguments.add(arg);
-    }
-
-    private int check_arg(){
-        return arguments.size();
-    }
 }

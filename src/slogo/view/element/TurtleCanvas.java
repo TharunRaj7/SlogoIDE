@@ -7,6 +7,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
@@ -55,7 +56,6 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     myCanvasHolder = new Pane();
     myCanvas = new Canvas(MAX_CANVAS_WIDTH, MAX_CANVAS_HEIGHT);
     myCanvasHolder.getChildren().add(myCanvas);
-    myCanvasHolder.getChildren().addAll(turtleController.getAllTurtleImages());
     myCanvasHolder.setMinWidth(MIN_CANVAS_WIDTH);
     myCanvasHolder.setMinHeight(MIN_CANVAS_HEIGHT);
 
@@ -104,6 +104,10 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     return menu;
   }
 
+  public void addTurtleImages (){
+    myCanvasHolder.getChildren().addAll(turtleController.getAllTurtleImages());
+  }
+
   @Override
   public void drawPath(Turtle turtle, Path p) {
     handlePathDrawing(turtle, p);
@@ -125,6 +129,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   }
 
   private void drawLine(Turtle turtle, boolean absolute, double x, double y) {
+    System.out.println("start" + turtle.getHeading());
     Location source = turtle.getLocation();
     Location destination = new Location(x, y);
     if (!absolute) {
@@ -137,6 +142,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     );
 
     turtle.setLocation(destination);
+    System.out.println("end" + turtle.getHeading());
   }
 
   private void moveTo(Turtle turtle, boolean absolute, double x, double y) {

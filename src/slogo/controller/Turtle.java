@@ -18,17 +18,6 @@ public class Turtle implements ITurtle {
     private boolean show;
     ImageView image;
 
-    public Turtle(int id, Location location, double orientationAngle, TurtleCanvas tc, String imageFilePath) {
-        this.id = id;
-        this.location = location;
-        this.currentAngle = orientationAngle;
-        this.tc = tc;
-        this.penDown = true;
-        image = new ImageView(imageFilePath);
-        image.setFitHeight(15);
-        image.setFitWidth(15);
-    }
-
     public Turtle(int id, Location location, double orientationAngle, String imageFilePath) {
         this.id = id;
         this.location = location;
@@ -47,6 +36,7 @@ public class Turtle implements ITurtle {
 
     @Override
     public void moveRelative(double distance) {
+        //System.out.println("start" + currentAngle);
         boolean backward = false;
         if (distance < 0) {
             backward = true;
@@ -76,6 +66,7 @@ public class Turtle implements ITurtle {
 
 
         //call to internal API drawPath
+        //System.out.println("End" + currentAngle);
         drawOnCanvas(false, xTranslate, yTranslate);
     }
 
@@ -112,6 +103,7 @@ public class Turtle implements ITurtle {
     }
 
     private void drawOnCanvas(boolean absolute, double x, double y) {
+        //System.out.println("start" + currentAngle);
         Path p = new Path();
         PathElement move = new MoveTo(location.getX(), location.getY());
         p.getElements().add(move);
@@ -129,6 +121,7 @@ public class Turtle implements ITurtle {
         if (tc != null) {
             tc.drawPath(this, p);
         }
+        //System.out.println("end" + currentAngle);
 
     }
 

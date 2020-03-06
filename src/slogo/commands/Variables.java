@@ -1,5 +1,6 @@
 package slogo.commands;
 
+import slogo.controller.TurtleController;
 import slogo.view.element.VariableExplorer;
 
 import java.util.HashMap;
@@ -13,6 +14,10 @@ public class Variables implements ICommand{
     public Variables(String varName) { // , Map<String, Double> varList
         //variables = varList;
         myVarName = varName;
+    }
+
+    public Variables(TurtleController turtleController){
+
     }
 
     public void setVal(Double val) {

@@ -1,6 +1,7 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,9 +14,14 @@ public class BlockCommand implements ICommand {
     private ArrayList<ICommand> myCommands = new ArrayList<>();
     private ArrayList<Double> myReturnVals = new ArrayList<>();
     private double returnValue;
+    private Node recent_node = null;
 
-    public BlockCommand() {
-        // Should be empty for now
+    public BlockCommand(){
+
+    }
+
+    public BlockCommand(TurtleController turtleController) {
+
     }
 
     @Override
@@ -75,4 +81,44 @@ public class BlockCommand implements ICommand {
     protected int argSize(){
         return myCommands.size();
     }
+
+    protected boolean checkTree(){
+
+        ArrayList<ICommand> myCommandsCopy = new ArrayList<>();
+
+        for (ICommand command : myCommands){
+            if (command instanceof BlockCommand){
+                if (!((BlockCommand) command).checkTree()){
+                    return false;
+                }
+            }
+            myCommandsCopy.add(command.copy(command));
+        }
+
+        for (ICommand command : myCommandsCopy) {
+            Node command_node = new Node(command);
+            if (recent_node == null) {
+                recent_node = command_node;
+                if (recent_node.getData().enoughArgs()) {
+                    recent_node = null;
+                }
+            }
+
+            else {
+                recent_node.addChild(command_node);
+                recent_node.getData().setArgument(command);
+                recent_node = command_node;
+                while (recent_node.getData().enoughArgs() && recent_node.getParent() != null) {
+                    recent_node = recent_node.getParent();
+                }
+                if (recent_node.getData().enoughArgs() && recent_node.getParent() == null) {
+                    recent_node = null;
+                }
+            }
+        }
+
+        return recent_node.getData().enoughArgs() && recent_node.getParent() == null;
+
+    }
+
 }

@@ -13,6 +13,21 @@ public class Name implements ICommand {
     }
 
     @Override
+    public boolean equals(Object o) {
+        try {
+            Name n = (Name) o;
+            return myName.equals(n.myName);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return myName.hashCode();
+    }
+
+    @Override
     public boolean enoughArgs() {
         return true;
     }

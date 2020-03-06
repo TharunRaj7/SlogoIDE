@@ -84,9 +84,11 @@ public class Parser implements IParse {
             Name name = new Name(turtle, commandType);
             ToManager toManager = new ToManager(turtle);
             if(toManager.isInMap(name)) {
+                System.out.println("Got in Name if statement");
                 toManager.execute2(name);
                 manager.addCommand(toManager);
             } else {
+                System.out.println("Did not get in Name if statement");
                 manager.addCommand(name);
             }
             //throw new ParserException(e);
@@ -140,6 +142,7 @@ public class Parser implements IParse {
 
     private void giveVariable(String varName) {
       if (blockCommandQueue.size() != 0) {
+          System.out.println("Adding " + varName + " to the block");
           blockCommandQueue.get(blockCommandQueue.size() - 1).setArgument(new Variables(varName));
       } else {
         System.out.println(varName);

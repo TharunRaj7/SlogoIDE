@@ -79,6 +79,7 @@ public class BlockCommand implements ICommand {
     }
 
     protected int argSize(){
+        System.out.println(myCommands.toString());
         return myCommands.size();
     }
 

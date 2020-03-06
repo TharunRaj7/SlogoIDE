@@ -18,7 +18,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import slogo.view.utility.MenuFactory;
 import slogo.view.utility.XMLBuilder;
-import slogo.view.workspace.DefaultWorkspace;
 import slogo.view.workspace.Workspace;
 import slogo.view.workspace.WorkspaceFactory;
 
@@ -131,8 +130,8 @@ public class SLogoFrame extends Application implements IFrame {
   public void setLanguage(String language) {
     initializeResources(language);
     for (Tab w : myWorkspaces.getTabs()) {
-      if (w instanceof DefaultWorkspace) {
-        ((DefaultWorkspace) w).setLanguage(getResourceLanguage(myResources));
+      if (w instanceof Workspace) {
+        ((Workspace) w).setLanguage(getResourceLanguage(myResources));
       }
     }
     for (Object n : myLayout.getChildren()) {

@@ -43,7 +43,9 @@ public class ToManager extends MakeUserInstruction implements ICommand {
     //TODO: Change the name of this method please
     public void execute2(Name name){
         params = to_parameters.get(name);
-        myArgs = (params.get(0)).argSize();
+        myArgs = params.get(0).argSize();
+        System.out.println("Number of args:");
+        System.out.println((params.get(0)).argSize());
         commands = (BlockCommand)params.get(1);
     }
 

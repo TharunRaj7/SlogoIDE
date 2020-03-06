@@ -20,6 +20,7 @@ import slogo.controller.TurtleController;
 import slogo.model.Parser;
 import slogo.view.element.Console;
 import slogo.view.element.GuiElement;
+import slogo.view.element.ResourcePanel;
 import slogo.view.element.ScriptEditor;
 import slogo.view.element.TurtleCanvas;
 import slogo.view.element.VariableExplorer;
@@ -30,14 +31,14 @@ public class WorkspaceFactory {
 
   private static final List<List<String>> DEFAULT_ELEMENTS = List.of(
       List.of(TurtleCanvas.class.getName(), ScriptEditor.class.getName()),
-      List.of(Console.class.getName(), VariableExplorer.class.getName())
+      List.of(Console.class.getName(), VariableExplorer.class.getName(), ResourcePanel.class.getName())
   );
   private static final List<Double> DEFAULT_VERTICAL_DIVIDERS = List.of(
       0.7
   );
   private static final List<List<Double>> DEFAULT_HORIZONTAL_DIVIDERS = List.of(
       List.of(0.5),
-      List.of(0.7)
+      List.of(0.4, 0.7)
   );
   public static final String DEFAULT_LANGUAGE = "English";
 

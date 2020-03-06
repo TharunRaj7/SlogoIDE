@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 import slogo.model.Parser;
@@ -31,6 +32,7 @@ public class ScriptEditor extends GuiElement {
   private Button mySaveButton;
 
   private String myFilePath;
+
 
   public ScriptEditor(Parser parser, TurtleController turtleController, ResourceBundle resources) {
     myParser = parser;
@@ -178,8 +180,13 @@ public class ScriptEditor extends GuiElement {
     return root;
   }
 
-//  @Override
-//  public GuiElement fromXMLElement() {
-//    return new ScriptEditor();
-//  }
+  @Override
+  public void setContentsFromXMLElement(Element element) {
+    for (int n = 0; n < element.getChildNodes().getLength(); n++) {
+      Node node = element.getChildNodes().item(n);
+      if (node.getNodeName().equals("text")) {
+        input.setText(node.getTextContent());
+      }
+    }
+  }
 }

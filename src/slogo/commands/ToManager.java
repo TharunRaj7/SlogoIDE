@@ -11,6 +11,7 @@ public class ToManager extends MakeUserInstruction implements ICommand {
     int myArgs;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
     private BlockCommand commands;
+    private ArrayList<BlockCommand> params;
 
     private Variables variable;
 
@@ -30,16 +31,19 @@ public class ToManager extends MakeUserInstruction implements ICommand {
 
     @Override
     public void execute() {
+        for (int i = 0; i < arguments.size(); i++){
+            System.out.println("Value from first variable:");
+            System.out.println(arguments.get(i).returnVal());
+            (params.get(0)).getVar(i).setVal(arguments.get(i).returnVal());
+        }
+
         commands.execute();
     }
 
     //TODO: Change the name of this method please
     public void execute2(Name name){
-        ArrayList<BlockCommand> params = to_parameters.get(name);
+        params = to_parameters.get(name);
         myArgs = (params.get(0)).argSize();
-        for (int i = 0; i < arguments.size(); i++){
-            (params.get(0)).getVar(i).setVal(arguments.get(i).returnVal());
-        }
         commands = (BlockCommand)params.get(1);
     }
 
@@ -58,7 +62,7 @@ public class ToManager extends MakeUserInstruction implements ICommand {
     }
 
     private int checkArgs() {
-        return 0;
+        return arguments.size();
 
     }
 

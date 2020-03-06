@@ -64,8 +64,8 @@ public class WorkspaceFactory {
           for (int i = 0; i < constructor.getParameterCount(); i++) {
             param[i] = parameters.get(constructor.getParameterTypes()[i].toString());
           }
-            GuiElement ge = (GuiElement) constructor.newInstance(param);
-            elementRow.add(ge);
+          GuiElement ge = (GuiElement) constructor.newInstance(param);
+          elementRow.add(ge);
         }
         elements.add(elementRow);
       }
@@ -90,7 +90,7 @@ public class WorkspaceFactory {
       DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       Document doc = dBuilder.parse(file);
 
-      String language = DEFAULT_LANGUAGE;
+      String language;
 
       List<GuiElement> elements = new ArrayList<>();
       List<List<GuiElement>> rows = new ArrayList<>();

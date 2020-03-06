@@ -53,6 +53,10 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     initializeCanvas();
     initializeDefaults();
     initializeLayoutPane(resources);
+
+    turtleController.giveTurtleCanvas(this);
+    this.addAllTurtleImages();
+
   }
 
   private void initializeCanvas() {

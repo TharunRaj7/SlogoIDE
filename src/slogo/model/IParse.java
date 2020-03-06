@@ -25,6 +25,6 @@ public interface IParse {
    * Instantiates command to send to send to the manager
    * @param turtle
    */
-  ICommand makeCommand(TurtleController turtle, String commandType);
+  void makeCommand(TurtleController turtle, String commandType);
 
 }

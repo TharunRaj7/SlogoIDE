@@ -16,7 +16,7 @@ public class Turtle implements ITurtle {
     private double currentAngle;
     private boolean penDown;
     private boolean show;
-    ImageView image;
+    private ImageView image;
 
     public Turtle(int id, Location location, double orientationAngle, String imageFilePath) {
         this.id = id;
@@ -28,7 +28,7 @@ public class Turtle implements ITurtle {
         image.setFitWidth(15);
     }
 
-    public void giveTurtleCanvas(TurtleCanvas tc) {
+    void giveTurtleCanvas(TurtleCanvas tc) {
         this.tc = tc;
         image.setX(location.getX() + tc.getTRANSLATE_X());
         image.setY(location.getY() + tc.getTRANSLATE_Y());
@@ -251,9 +251,6 @@ public class Turtle implements ITurtle {
     @Override
     public int getId() {
         return id;
-    }
-
-    public void clear(){
     }
 
 //    //testing

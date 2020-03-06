@@ -88,7 +88,7 @@ public class Parser implements IParse {
             } else {
                 manager.addCommand(name);
             }
-            throw new ParserException(e);
+            //throw new ParserException(e);
         }
     }
 

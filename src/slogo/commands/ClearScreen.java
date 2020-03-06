@@ -36,8 +36,8 @@ public class ClearScreen implements ICommand {
         return 0.0;//return distMoved;
     }
 
-        @Override
-        public void clearArgs () {
-            // Does nothing
-        }
+    @Override
+    public void clearArgs () {
+        // Does nothing
     }
+}

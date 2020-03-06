@@ -18,6 +18,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javax.swing.GroupLayout.Alignment;
 import javax.xml.crypto.Data;
+import org.w3c.dom.Element;
+import slogo.view.utility.XMLBuilder;
 
 public class VariableExplorer extends GuiElement {
 
@@ -47,16 +49,7 @@ public class VariableExplorer extends GuiElement {
       }
     };
 
-    TableColumn variableNames = new TableColumn("Name");
-    variableNames.setCellValueFactory(
-            new PropertyValueFactory<DataModel,String>("variableName")
-    );
-    TableColumn variableValues = new TableColumn("Value");
-    variableValues.setCellValueFactory(
-            new PropertyValueFactory<DataModel,String>("variableValue")
-    );
-
-    myVariableTable.getColumns().addAll(variableNames, variableValues);
+    initializeTableColumns();
 
     setGrowPriorityAlways(myVariableTable);
 
@@ -68,15 +61,28 @@ public class VariableExplorer extends GuiElement {
     this.setMinWidth(MIN_WIDTH);
   }
 
+  private void initializeTableColumns() {
+    TableColumn variableNames = new TableColumn("Name");
+    variableNames.setCellValueFactory(
+            new PropertyValueFactory<DataModel,String>("variableName")
+    );
+    TableColumn variableValues = new TableColumn("Value");
+    variableValues.setCellValueFactory(
+            new PropertyValueFactory<DataModel,String>("variableValue")
+    );
+
+    myVariableTable.getColumns().addAll(variableNames, variableValues);
+  }
+
   public class DataModel{
 
     private final SimpleStringProperty variableName;
     private final SimpleStringProperty variableValue;
 
-     public DataModel (String variableName, double value){
-       this.variableName = new SimpleStringProperty(variableName);
-       this.variableValue = new SimpleStringProperty(Double.toString(value));
-     }
+    DataModel(String variableName, double value){
+      this.variableName = new SimpleStringProperty(variableName);
+      this.variableValue = new SimpleStringProperty(Double.toString(value));
+    }
     public String getVariableName() {
       return variableName.get();
     }
@@ -109,7 +115,15 @@ public class VariableExplorer extends GuiElement {
 
   @Override
   public void updateResources(ResourceBundle resources) {
+    // TODO : Update resources on language change
+  }
 
+  @Override
+  public Element toXMLElement() {
+    XMLBuilder xmlBuilder = XMLBuilder.newInstance();
+    Element root = xmlBuilder.createElement(this.getClass().getSimpleName());
+
+    return root;
   }
 
 }

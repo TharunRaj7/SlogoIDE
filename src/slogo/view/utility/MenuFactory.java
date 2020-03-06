@@ -34,6 +34,8 @@ public class MenuFactory {
     Menu fileMenu = new Menu(resources.getString("file"));
 
     addItemToMenu(fileMenu, resources.getString("newWorkspace"), e->frame.addWorkspace());
+    addItemToMenu(fileMenu, resources.getString("saveWorkspace"), e->frame.saveCurrentWorkspace());
+    addItemToMenu(fileMenu, resources.getString("openWorkspace"), e->frame.openWorkspace());
     addItemToMenu(fileMenu, resources.getString("close"), e->frame.close());
 
     return fileMenu;

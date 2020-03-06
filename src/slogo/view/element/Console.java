@@ -15,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import slogo.model.Parser;
 import slogo.view.utility.XMLBuilder;
 
@@ -123,6 +124,21 @@ public class Console extends GuiElement {
     root.appendChild(textField);
 
     return root;
+  }
+
+  @Override
+  public void setContentsFromXMLElement(Element element) {
+    for (int n = 0; n < element.getChildNodes().getLength(); n++) {
+      Node node = element.getChildNodes().item(n);
+      if (node.getNodeName().equals("textfield")) {
+        myTextField.setText(node.getTextContent());
+      }
+      if (node.getNodeName().equals("history")) {
+        for (String line : node.getTextContent().split("\n")) {
+          updateHistory(line);
+        }
+      }
+    }
   }
 
 }

@@ -47,11 +47,14 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
   private Map<Turtle, List<Path>> myPaths;
 
+
   public TurtleCanvas(TurtleController turtleController, ResourceBundle resources) {
     this.turtleController = turtleController;
     initializeCanvas();
     initializeDefaults();
     initializeLayoutPane(resources);
+
+    turtleController.giveTurtleCanvas(this);
   }
 
   private void initializeCanvas() {
@@ -93,7 +96,6 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     menu.getChildren().add(colorPicker);
 
     Button clearButton = ButtonFactory.button(resources.getString("clear"), e -> {
-      clear();
       turtleController.clear();
     });
     menu.getChildren().add(clearButton);
@@ -108,6 +110,10 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
   public void addAllTurtleImages (){
     myCanvasHolder.getChildren().addAll(turtleController.getAllTurtleImages());
+  }
+
+  public void removeAllTurtleImages(){
+    myCanvasHolder.getChildren().removeAll(turtleController.getAllTurtleImages());
   }
 
   public void addActiveTurtleImages() {
@@ -181,6 +187,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
   @Override
   public void clear() {
+    removeAllTurtleImages();
     clearCanvas();
     myPaths.clear();
   }
@@ -239,5 +246,10 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     root.setAttributeNode(xmlBuilder.createAttribute("backgroundcolor", background));
 
     return root;
+  }
+
+  @Override
+  public void setContentsFromXMLElement(Element element) {
+    setBackgroundColor(Color.valueOf(element.getAttributes().item(0).getNodeValue()));
   }
 }

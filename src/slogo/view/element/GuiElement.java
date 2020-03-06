@@ -35,7 +35,10 @@ public abstract class GuiElement extends GridPane {
 
   public abstract Element toXMLElement();
 
-  public void fromXMLElement() {
-    System.out.println(this.getClass().getSimpleName());
+  public abstract void setContentsFromXMLElement(Element element);
+
+  @Override
+  public String toString() {
+    return this.getClass().getSimpleName();
   }
 }

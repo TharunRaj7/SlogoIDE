@@ -1,12 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <workspace type="CustomWorkspace">
-    <TurtleCanvas backgroundcolor="0x000000ff"/>
-    <ScriptEditor>
-        <text/>
-    </ScriptEditor>
-    <Console>
-        <history/>
-        <textfield/>
-    </Console>
-    <VariableExplorer/>
+    <language>English</language>
+    <layout>
+        <row rowNumber="0">
+            <TurtleCanvas backgroundcolor="0xcc3333ff"/>
+            <ScriptEditor>
+                <text>
+#comment
+forward 50
+
+#typing goes here</text>
+            </ScriptEditor>
+        </row>
+        <row rowNumber="1">
+            <Console>
+                <history>fd 50
+back 50
+right 50
+left 12000
+</history>
+                <textfield/>
+            </Console>
+            <VariableExplorer/>
+            <ResourcePanel/>
+        </row>
+        <verticalDividers>0.7</verticalDividers>
+        <horizontalDividers>
+            <row rowNumber="0">0.5</row>
+            <row rowNumber="1">0.5 0.7</row>
+        </horizontalDividers>
+    </layout>
 </workspace>

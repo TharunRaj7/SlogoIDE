@@ -14,6 +14,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
+import slogo.view.ExceptionFeedback;
+import slogo.view.ExceptionFeedback.ExceptionType;
 
 public class XMLBuilder {
 
@@ -24,7 +26,8 @@ public class XMLBuilder {
       DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       document = documentBuilder.newDocument();
     } catch (Exception e) {
-      e.printStackTrace();
+      ExceptionFeedback.throwException(ExceptionType.XML_EXCEPTION,
+          "Failed to create/load XML document. Please close the application and report this error.");
     }
   }
 
@@ -57,7 +60,8 @@ public class XMLBuilder {
       System.out.println("Done creating XML File");
 
     } catch (Exception e) {
-      e.printStackTrace();
+      ExceptionFeedback.throwException(ExceptionType.XML_EXCEPTION,
+          "Failed to build XML file. Please close the application and report this error.");
     }
   }
 

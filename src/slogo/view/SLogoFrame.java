@@ -16,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import slogo.view.ExceptionFeedback.ExceptionType;
 import slogo.view.utility.MenuFactory;
 import slogo.view.utility.XMLBuilder;
 import slogo.view.workspace.Workspace;

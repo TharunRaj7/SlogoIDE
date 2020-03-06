@@ -31,6 +31,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import org.w3c.dom.Element;
 import slogo.utility.ResourceHandler;
+import slogo.view.ExceptionFeedback;
+import slogo.view.ExceptionFeedback.ExceptionType;
 import slogo.view.utility.XMLBuilder;
 
 public class ResourcePanel extends GuiElement {
@@ -63,7 +65,8 @@ public class ResourcePanel extends GuiElement {
             icon.setFitWidth(ICON_SIZE);
             return icon;
           } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            ExceptionFeedback.throwException(ExceptionType.RESOURCE_EXCEPTION,
+                "Failed to load resource specified in Images.properties.");
           }
           return new Pane();
         }
@@ -80,8 +83,9 @@ public class ResourcePanel extends GuiElement {
       ClassLoader loader = new URLClassLoader(urls);
       return ResourceBundle.getBundle(path, Locale.getDefault(), loader);
     } catch (Exception e) {
-      e.printStackTrace();
-      // TODO : error handling
+      ExceptionFeedback.throwException(ExceptionType.RESOURCE_EXCEPTION,
+          "Failed to load resources for Resource Panel. Check your directory structure" +
+          " and try loading resources again.");
     }
     return null;
   }

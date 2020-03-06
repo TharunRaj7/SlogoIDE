@@ -98,7 +98,6 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     menu.getChildren().add(colorPicker);
 
     Button clearButton = ButtonFactory.button(resources.getString("clear"), e -> {
-      clear();
       turtleController.clear();
     });
     menu.getChildren().add(clearButton);

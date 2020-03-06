@@ -225,9 +225,14 @@ public class Turtle implements ITurtle {
 
     @Override
     public void setLocation(Location l) {
+        // To handle the case when there is an effect
+        int offSetMultiplier = 2;
+        if (image.getEffect() != null){
+            offSetMultiplier = 4;
+        }
         this.location = l;
-        double xOffset = -image.getBoundsInLocal().getWidth() / 2;
-        double yOffset = -image.getBoundsInLocal().getHeight() / 2;
+        double xOffset = -image.getBoundsInLocal().getWidth() / offSetMultiplier;
+        double yOffset = -image.getBoundsInLocal().getHeight() / offSetMultiplier;
         // update the turtle image
         image.setX(location.getX() + tc.getTRANSLATE_X() + xOffset);
         image.setY(location.getY() + tc.getTRANSLATE_Y() + yOffset);

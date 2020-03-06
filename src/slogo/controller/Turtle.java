@@ -24,6 +24,7 @@ public class Turtle implements ITurtle {
         this.currentAngle = orientationAngle;
         this.penDown = true;
         image = new ImageView(imageFilePath);
+        image.setRotate(this.currentAngle);
         image.setFitHeight(15);
         image.setFitWidth(15);
     }

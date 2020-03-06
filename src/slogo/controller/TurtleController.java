@@ -31,6 +31,7 @@ public class TurtleController {
         turtle.giveTurtleCanvas(this.turtleCanvas);
         turtles.add(turtle);
         activeTurtles.add(turtle);
+        turtleCanvas.addAllTurtleImages();
     }
 
     public void tellTurtles (List<Integer> id){
@@ -131,10 +132,10 @@ public class TurtleController {
     }
 
     public void clear (){
+        turtleCanvas.clear();
         turtles.clear();
         activeTurtles.clear();
         giveTurtleCanvas(this.turtleCanvas);
-        turtleCanvas.clear();
     }
 
     //get all the turtle images

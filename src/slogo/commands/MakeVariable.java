@@ -2,6 +2,7 @@ package slogo.commands;
 
 import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
+import slogo.view.element.VariableExplorer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,7 +46,9 @@ public class MakeVariable implements ICommand{
         // TODO: Call on turtle to move it forward the given distance
         arguments.get(1).execute();
         if (arguments.get(0) instanceof Variables){
-            ((Variables) arguments.get(0)).setVal(arguments.get(1).returnVal());
+            Variables variable = (Variables) arguments.get(0);
+            variable.setVal(arguments.get(1).returnVal());
+            myTurtle.addTableData(variable.getMap());
         }
 
     }

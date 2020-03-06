@@ -6,7 +6,7 @@ import slogo.controller.TurtleController;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class To extends BlockCommand implements ICommand {
+public class MakeUserInstruction extends BlockCommand implements ICommand {
 
     private TurtleController myTurtle;
     int myArgs = 3;
@@ -14,7 +14,7 @@ public class To extends BlockCommand implements ICommand {
     protected static HashMap<Name, ArrayList<BlockCommand>> to_parameters = new HashMap<>();
 
 
-    public To (TurtleController turtle) {
+    public MakeUserInstruction (TurtleController turtle) {
         myTurtle = turtle;
     }
 

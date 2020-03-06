@@ -5,7 +5,7 @@ import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
 
-public class ToManager extends To implements ICommand {
+public class ToManager extends MakeUserInstruction implements ICommand {
 
     private TurtleController myTurtle;
     int myArgs;

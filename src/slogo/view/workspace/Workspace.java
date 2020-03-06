@@ -54,12 +54,18 @@ public abstract class Workspace extends Tab {
   }
 
   public void sendToXML(String filepath) {
-    List<Element> elements = new ArrayList<>();
-    for (GuiElement guiElement : myGuiElements) {
-      elements.add(guiElement.toXMLElement());
-    }
-
     XMLBuilder xmlBuilder = XMLBuilder.newInstance();
+    List<Element> elements = new ArrayList<>();
+
+    Element languageNode = xmlBuilder.createElement("language");
+    languageNode.appendChild(xmlBuilder.createTextNode(SLogoFrame.getResourceLanguage(myResources)));
+    elements.add(languageNode);
+
+    Element layout = generateLayoutXMLElement();
+    elements.add(layout);
+
     xmlBuilder.buildXML(filepath, "workspace", this.getClass().getSimpleName(), elements);
   }
+
+  protected abstract Element generateLayoutXMLElement();
 }

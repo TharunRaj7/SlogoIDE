@@ -6,10 +6,17 @@ import java.util.ResourceBundle;
 import javafx.geometry.Orientation;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.VBox;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import slogo.model.Parser;
 import slogo.view.element.GuiElement;
+import slogo.view.utility.XMLBuilder;
 
 public class CustomWorkspace extends Workspace {
+
+  private List<List<GuiElement>> myElementLayout;
+  private List<Double> myVerticalDividers;
+  private List<List<Double>> myHorizontalDividers;
 
   CustomWorkspace(String language) {
     super(language);
@@ -31,6 +38,10 @@ public class CustomWorkspace extends Workspace {
 
     checkLayoutErrors(elements, verticalDividers, horizontalDividers);
     myGuiElements = new ArrayList<>();
+
+    myElementLayout = elements;
+    myVerticalDividers = verticalDividers;
+    myHorizontalDividers = horizontalDividers;
 
     SplitPane layout = new SplitPane();
     layout.setOrientation(Orientation.VERTICAL);
@@ -78,6 +89,45 @@ public class CustomWorkspace extends Workspace {
 
   ResourceBundle getResourceBundle() {
     return myResources;
+  }
+
+  Parser getParser() {
+    return myParser;
+  }
+
+  @Override
+  protected Element generateLayoutXMLElement() {
+    XMLBuilder xmlBuilder = XMLBuilder.newInstance();
+    Element layout = xmlBuilder.createElement("layout");
+    for (int i = 0; i < myElementLayout.size(); i++) {
+      Element rowElement = xmlBuilder.createElement("row");
+      rowElement.setAttribute("rowNumber", ""+i);
+
+      for (GuiElement ge : myElementLayout.get(i)) {
+        Node geNode = xmlBuilder.importNode(ge.toXMLElement(), true);
+        rowElement.appendChild(geNode);
+      }
+      layout.appendChild(rowElement);
+    }
+
+    Element vDividers = xmlBuilder.createElement("verticalDividers");
+    for (Double divider : myVerticalDividers) {
+      vDividers.appendChild(xmlBuilder.createTextNode("" + divider));
+    }
+    layout.appendChild(vDividers);
+
+    Element hDividers = xmlBuilder.createElement("horizontalDividers");
+    for (int i = 0; i < myHorizontalDividers.size(); i++) {
+      Element rowElement = xmlBuilder.createElement("row");
+      rowElement.setAttribute("rowNumber", ""+i);
+      for (Double divider : myHorizontalDividers.get(i)) {
+        rowElement.appendChild(xmlBuilder.createTextNode("" + divider));
+      }
+      hDividers.appendChild(rowElement);
+    }
+    layout.appendChild(hDividers);
+
+    return layout;
   }
 
 }

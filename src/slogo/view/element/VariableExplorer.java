@@ -126,4 +126,9 @@ public class VariableExplorer extends GuiElement {
     return root;
   }
 
+  @Override
+  public void setContentsFromXMLElement(Element element) {
+    // do nothing
+  }
+
 }

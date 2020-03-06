@@ -47,6 +47,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
   private Map<Turtle, List<Path>> myPaths;
 
+
   public TurtleCanvas(TurtleController turtleController, ResourceBundle resources) {
     this.turtleController = turtleController;
     initializeCanvas();
@@ -239,5 +240,10 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     root.setAttributeNode(xmlBuilder.createAttribute("backgroundcolor", background));
 
     return root;
+  }
+
+  @Override
+  public void setContentsFromXMLElement(Element element) {
+    setBackgroundColor(Color.valueOf(element.getAttributes().item(0).getNodeValue()));
   }
 }

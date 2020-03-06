@@ -75,4 +75,8 @@ public class XMLBuilder {
     return attr;
   }
 
+  public Node importNode(Node s, boolean deepcopy) {
+    return document.importNode(s, deepcopy);
+  }
+
 }

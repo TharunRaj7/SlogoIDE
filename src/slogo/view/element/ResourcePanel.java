@@ -11,6 +11,7 @@ import java.net.URLClassLoader;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -29,6 +30,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.TextAlignment;
 import org.w3c.dom.Element;
 import slogo.utility.ResourceHandler;
 import slogo.view.ExceptionFeedback;
@@ -72,8 +74,13 @@ public class ResourcePanel extends GuiElement {
         }
     ));
 
+    Label title = new Label("Resources");
+    GridPane.setHalignment(title, HPos.CENTER);
+    setGrowPriorityAlways(title);
+    this.add(title, 0, 0);
+
     setGrowPriorityAlways(tabs);
-    this.add(tabs, 0, 0);
+    this.add(tabs, 0, 1);
   }
 
   private ResourceBundle getResourceBundleFromPath(String path) {

@@ -6,6 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -21,6 +22,7 @@ import slogo.view.utility.XMLBuilder;
 
 public class Console extends GuiElement {
 
+  private static final String CARET = ">";
   private Parser myParser;
   private List<String> myHistory;
   private TextArea myHistoryArea;
@@ -54,7 +56,29 @@ public class Console extends GuiElement {
         myTextField.requestFocus();
       }
     };
+
+    setHistorySelectionBehavior();
     myHistoryArea.setEditable(false);
+  }
+
+  private void setHistorySelectionBehavior() {
+    myHistoryArea.setOnMouseClicked(e -> {
+      if (e.getButton() == MouseButton.PRIMARY) {
+        int caretPosition = myHistoryArea.getCaretPosition();
+        String text = myHistoryArea.getText();
+        int lineBreak1 = text.lastIndexOf('\n', caretPosition - 1);
+        int lineBreak2 = text.indexOf('\n', caretPosition);
+        if (lineBreak2 < 0) {
+          // if no more line breaks are found, select to end of text
+          lineBreak2 = text.length();
+        }
+
+        myHistoryArea.selectRange(lineBreak1, lineBreak2);
+        myTextField.setText(myHistoryArea.getSelectedText().strip().replaceAll(CARET + " ", ""));
+        myTextField.positionCaret(myTextField.getLength());
+        e.consume();
+        }
+      });
   }
 
   private void initializeTextField() {
@@ -105,7 +129,7 @@ public class Console extends GuiElement {
     myHistory.add(text);
     myHistoryPointer = myHistory.size();
 
-    myHistoryArea.appendText("> " + text + "\n");
+    myHistoryArea.appendText(CARET + " " + text + "\n");
   }
 
   @Override

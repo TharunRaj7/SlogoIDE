@@ -85,6 +85,7 @@ public class Parser implements IParse {
             ToManager toManager = new ToManager(turtle);
             if(toManager.isInMap(name)) {
                 toManager.execute2(name);
+                manager.addCommand(toManager);
             } else {
                 manager.addCommand(name);
             }

@@ -170,7 +170,6 @@ public class TurtleController {
     public void resetTurtles() {
         for (Turtle turtle : turtles){
             turtle.setLocation(Location.ORIGIN);
-            turtle.setHeading(0.0);
         }
     }
 }

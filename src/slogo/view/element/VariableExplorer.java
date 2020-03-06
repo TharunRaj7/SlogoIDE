@@ -19,22 +19,22 @@ import javafx.scene.text.TextAlignment;
 import javax.swing.GroupLayout.Alignment;
 import javax.xml.crypto.Data;
 import org.w3c.dom.Element;
+import slogo.controller.TurtleController;
 import slogo.view.utility.XMLBuilder;
 
 public class VariableExplorer extends GuiElement {
 
   private static final int MIN_WIDTH = 150;
-  private static VariableExplorer v;
 
   private TableView myVariableTable;
 
 
-  public VariableExplorer() {
+  public VariableExplorer(TurtleController turtleController) {
     initializeTable();
+    turtleController.giveVariableExplorer(this);
   }
 
   private void initializeTable() {
-    v = this;
     myVariableTable = new TableView() {
       @Override
       public void resize(double width, double height) {
@@ -100,9 +100,9 @@ public class VariableExplorer extends GuiElement {
     }
   }
 
-  public static void addTableData(Map<String, Double> variables){
+  public void addTableData(Map<String, Double> variables){
     final ObservableList<DataModel> data = FXCollections.observableArrayList();
-    v.makeTable(data, variables);
+    makeTable(data, variables);
   }
 
   private void makeTable(ObservableList<DataModel> data, Map<String, Double> variables) {

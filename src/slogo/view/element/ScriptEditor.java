@@ -93,6 +93,7 @@ public class ScriptEditor extends GuiElement {
   }
 
   private void parseInput() {
+    turtleController.clear();
     turtleController.resetTurtles();
     myParser.parse(input.getText());
   }

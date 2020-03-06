@@ -7,16 +7,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import slogo.utility.Location;
 import slogo.view.element.TurtleCanvas;
+import slogo.view.element.VariableExplorer;
 
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class TurtleController {
     //TODO: implement in tellTurtle to hide turtles when inactive
     private List<Turtle> turtles;
     private List<Turtle> activeTurtles;
     private TurtleCanvas turtleCanvas;
+    private VariableExplorer variableExplorer;
 
     //TODO: getters give last active turtle
     public TurtleController (){
@@ -172,5 +175,19 @@ public class TurtleController {
             turtle.setLocation(Location.ORIGIN);
             turtle.setHeading(0.0);
         }
+    }
+
+    public void resetTurtleLocation() {
+        for (Turtle turtle : turtles){
+            turtle.setLocation(Location.ORIGIN);
+        }
+    }
+
+    public void addTableData(Map<String, Double> map) {
+        variableExplorer.addTableData(map);
+    }
+
+    public void giveVariableExplorer(VariableExplorer v) {
+        this.variableExplorer = v;
     }
 }

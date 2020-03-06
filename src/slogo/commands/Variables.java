@@ -23,7 +23,6 @@ public class Variables implements ICommand{
     public void setVal(Double val) {
         if(variables == null) { variables = new HashMap<>(); }
         variables.put(myVarName, val);
-        VariableExplorer.addTableData(getMap());
     }
 
     @Override

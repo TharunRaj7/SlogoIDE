@@ -1,6 +1,10 @@
 package slogo.controller;
 
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import slogo.utility.Location;
 import slogo.view.element.TurtleCanvas;
 
@@ -14,6 +18,7 @@ public class TurtleController {
     private List<Turtle> activeTurtles;
     private TurtleCanvas turtleCanvas;
 
+    //TODO: getters give last active turtle
     public TurtleController (){
         turtles = new ArrayList<>();
         activeTurtles = new ArrayList<>();
@@ -26,6 +31,7 @@ public class TurtleController {
         turtle.giveTurtleCanvas(this.turtleCanvas);
         turtles.add(turtle);
         activeTurtles.add(turtle);
+        turtleCanvas.addAllTurtleImages();
     }
 
     public void tellTurtles (List<Integer> id){
@@ -52,11 +58,19 @@ public class TurtleController {
     }
 
     private void showActiveTurtlesOnCanvas() {
+        for (Turtle turtle : activeTurtles){
+            DropShadow borderGlow = new DropShadow();
+            borderGlow.setColor(Color.RED);
+            borderGlow.setOffsetX(0f);
+            borderGlow.setOffsetY(0f);
+            turtle.getImage().setEffect(borderGlow);
+        }
+        //unhighlight inactive turtles
         turtleCanvas.addActiveTurtleImages();
-        List<Integer> hideTurtles = new ArrayList<>();
         for (Turtle turtle : turtles){
             if (!activeTurtles.contains(turtle)){
-                turtle.hide();
+                turtle.getImage().setEffect(null);
+                turtle.setLocation(turtle.getLocation());
             }
         }
     }
@@ -118,10 +132,10 @@ public class TurtleController {
     }
 
     public void clear (){
+        turtleCanvas.clear();
         turtles.clear();
         activeTurtles.clear();
         giveTurtleCanvas(this.turtleCanvas);
-        turtleCanvas.clear();
     }
 
     //get all the turtle images

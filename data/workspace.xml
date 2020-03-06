@@ -22,11 +22,12 @@ left 12000
                 <textfield/>
             </Console>
             <VariableExplorer/>
+            <ResourcePanel/>
         </row>
         <verticalDividers>0.7</verticalDividers>
         <horizontalDividers>
             <row rowNumber="0">0.5</row>
-            <row rowNumber="1">0.7</row>
+            <row rowNumber="1">0.5 0.7</row>
         </horizontalDividers>
     </layout>
 </workspace>

@@ -51,9 +51,9 @@ public class BlockCommand implements ICommand {
         returnValue = myCommands.get(0).returnVal();
         for (ICommand command : myCommands) {
             myReturnVals.add(command.returnVal());
-            if (!(command instanceof BlockCommand)) {
+            //if (!(command instanceof BlockCommand)) {
                 command.clearArgs();
-            }
+            //}
         }
     }
 

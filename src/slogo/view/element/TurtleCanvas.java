@@ -53,6 +53,8 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     initializeCanvas();
     initializeDefaults();
     initializeLayoutPane(resources);
+
+    turtleController.giveTurtleCanvas(this);
   }
 
   private void initializeCanvas() {
@@ -94,7 +96,6 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     menu.getChildren().add(colorPicker);
 
     Button clearButton = ButtonFactory.button(resources.getString("clear"), e -> {
-      clear();
       turtleController.clear();
     });
     menu.getChildren().add(clearButton);
@@ -109,6 +110,10 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
   public void addAllTurtleImages (){
     myCanvasHolder.getChildren().addAll(turtleController.getAllTurtleImages());
+  }
+
+  public void removeAllTurtleImages(){
+    myCanvasHolder.getChildren().removeAll(turtleController.getAllTurtleImages());
   }
 
   public void addActiveTurtleImages() {
@@ -182,6 +187,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
   @Override
   public void clear() {
+    removeAllTurtleImages();
     clearCanvas();
     myPaths.clear();
   }

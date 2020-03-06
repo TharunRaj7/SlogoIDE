@@ -41,6 +41,7 @@ public class Repeat extends BlockCommand implements ICommand {
         //repcount.setVal(repcountTracker.get(repcountIndex));
 
         if (arguments.get(2) instanceof BlockCommand) {
+            System.out.println(arguments.get(1).returnVal());
 
             for (int i = 1; i <= arguments.get(1).returnVal(); i++) {
                 //System.out.println("Calling repeated block");

@@ -30,15 +30,15 @@ public class MakeUserInstruction extends BlockCommand implements ICommand {
 
     @Override
     public void execute() {
-        //if (returnVal() == 1.0) {
-            ArrayList<BlockCommand> user_command_args = new ArrayList<>();
-            user_command_args.add((BlockCommand) arguments.get(1));
-            for (int i = 0; i < user_command_args.get(0).argSize(); i++) {
-                user_command_args.get(0).getVar(i).setVal(0.0);
-            }
-            user_command_args.add((BlockCommand) arguments.get(2));
-            to_parameters.put((Name) arguments.get(0), user_command_args);
-        //}
+        ArrayList<BlockCommand> user_command_args = new ArrayList<>();
+        user_command_args.add((BlockCommand) arguments.get(1));
+        for (int i = 0; i < user_command_args.get(0).argSize(); i++) {
+            user_command_args.get(0).getVar(i).setVal(0.0);
+        }
+        user_command_args.add((BlockCommand) arguments.get(2));
+            //to_parameters.put(arguments.get(0), user_command_args);
+        to_parameters.put((Name) arguments.get(0),user_command_args);
+
     }
 
     @Override

@@ -59,4 +59,10 @@ public abstract class GuiElement extends GridPane {
   public String toString() {
     return this.getClass().getSimpleName();
   }
+
+  @Override
+  public void add(Node node, int r, int c) {
+    super.add(node, r, c);
+    setGrowPriorityAlways(node);
+  }
 }

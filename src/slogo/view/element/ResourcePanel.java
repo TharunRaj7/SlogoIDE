@@ -30,8 +30,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.TextAlignment;
 import org.w3c.dom.Element;
 import slogo.utility.ResourceHandler;
 import slogo.view.ExceptionFeedback;
@@ -41,7 +39,7 @@ import slogo.view.utility.XMLBuilder;
 public class ResourcePanel extends GuiElement {
 
   private static final String DEFAULT_RESOURCE_PATH = "data/resources";
-  public static final int ICON_SIZE = 25;
+  private static final int ICON_SIZE = 25;
 
   private ResourceBundle myResources;
 

@@ -7,14 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.scene.paint.Color;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import slogo.model.Parser;
@@ -39,10 +33,8 @@ public class Console extends GuiElement {
 
   private void initializeLayout() {
     this.add(myHistoryArea, 0, 0);
-    setGrowPriorityAlways(myHistoryArea);
 
     this.add(myTextField, 0, 1);
-    setGrowPriorityAlways(myTextField);
     GridPane.setVgrow(myTextField, Priority.NEVER);
   }
 
@@ -69,7 +61,6 @@ public class Console extends GuiElement {
         int lineBreak1 = text.lastIndexOf('\n', caretPosition - 1);
         int lineBreak2 = text.indexOf('\n', caretPosition);
         if (lineBreak2 < 0) {
-          // if no more line breaks are found, select to end of text
           lineBreak2 = text.length();
         }
 
@@ -78,7 +69,8 @@ public class Console extends GuiElement {
         myTextField.positionCaret(myTextField.getLength());
         e.consume();
         }
-      });
+      }
+    );
   }
 
   private void initializeTextField() {

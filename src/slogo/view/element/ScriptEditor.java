@@ -13,10 +13,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 import slogo.model.Parser;
-import slogo.utility.Location;
 import slogo.view.utility.ButtonFactory;
 import slogo.view.utility.XMLBuilder;
 

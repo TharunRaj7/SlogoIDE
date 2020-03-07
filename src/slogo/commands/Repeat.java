@@ -1,9 +1,7 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 import slogo.view.ExceptionFeedback;
-
 import java.util.ArrayList;
 
 public class Repeat extends BlockCommand implements ICommand {
@@ -31,12 +29,8 @@ public class Repeat extends BlockCommand implements ICommand {
         arguments.get(1).execute();
 
         if (arguments.get(2) instanceof BlockCommand) {
-            System.out.println(arguments.get(1).returnVal());
-
             for (int i = 1; i <= arguments.get(1).returnVal(); i++) {
-                //System.out.println("Calling repeated block");
                 arguments.get(2).execute();
-                //System.out.println("Ended calling repeated block");
                 repcount.setVal((double) i);
             }
         }
@@ -45,12 +39,12 @@ public class Repeat extends BlockCommand implements ICommand {
     @Override
     public double returnVal() {
         for (ICommand command: arguments) {
-            try{
-                return command.returnVal();
-            }catch (Exception e){
-                ExceptionFeedback.throwException(ExceptionFeedback.ExceptionType.INPUT_EXCEPTION,"Wrong input");
+            try {
+                return ((BlockCommand) command).returnVal();
+            } catch (Exception e){
+                //ExceptionFeedback.throwException(ExceptionFeedback.ExceptionType.INPUT_EXCEPTION,"Wrong input");
+                // Shouldn't do anything
             }
-
         }
         return 0.0;
     }
@@ -60,5 +54,4 @@ public class Repeat extends BlockCommand implements ICommand {
         arguments.clear();
         setArgument(repcount);
     }
-
 }

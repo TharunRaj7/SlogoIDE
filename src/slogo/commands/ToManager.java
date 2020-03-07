@@ -1,6 +1,5 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
@@ -13,15 +12,13 @@ public class ToManager extends MakeUserInstruction implements ICommand {
     private BlockCommand commands;
     private ArrayList<BlockCommand> params;
 
-    private Variables variable;
-
     public ToManager (TurtleController turtle) {
         myTurtle = turtle;
     }
 
     @Override
     public boolean enoughArgs() {
-        return checkArgs() == myArgs;
+        return arguments.size() == myArgs;
     }
 
     @Override
@@ -32,20 +29,14 @@ public class ToManager extends MakeUserInstruction implements ICommand {
     @Override
     public void execute() {
         for (int i = 0; i < arguments.size(); i++){
-            System.out.println("Value from first variable:");
-            System.out.println(arguments.get(i).returnVal());
             (params.get(0)).getVar(i).setVal(arguments.get(i).returnVal());
         }
-
         commands.execute();
     }
 
-    //TODO: Change the name of this method please
     public void execute2(Name name){
         params = to_parameters.get(name);
         myArgs = params.get(0).argSize();
-        System.out.println("Number of args:");
-        System.out.println((params.get(0)).argSize());
         commands = params.get(1);
     }
 
@@ -66,11 +57,4 @@ public class ToManager extends MakeUserInstruction implements ICommand {
     public void clearArgs() {
         arguments.clear();
     }
-
-    private int checkArgs() {
-        return arguments.size();
-
-    }
-
-
 }

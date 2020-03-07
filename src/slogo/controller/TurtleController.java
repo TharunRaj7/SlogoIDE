@@ -15,13 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 public class TurtleController {
-    //TODO: implement in tellTurtle to hide turtles when inactive
     private List<Turtle> turtles;
     private List<Turtle> activeTurtles;
     private TurtleCanvas turtleCanvas;
+    private List<Turtle> turtlesAskHolder;
     private VariableExplorer variableExplorer;
 
-    //TODO: getters give last active turtle, implement this
     public TurtleController (){
         turtles = new ArrayList<>();
         activeTurtles = new ArrayList<>();
@@ -77,6 +76,20 @@ public class TurtleController {
                 turtle.setLocation(turtle.getLocation());
             }
         }
+    }
+
+    public void askTurtles (List<Integer>id){
+        this.turtlesAskHolder = activeTurtles;
+        tellTurtles(id);
+    }
+
+    public void restore (){
+        List<Integer> id = new ArrayList<>();
+        for (Turtle turtle : turtlesAskHolder){
+            id.add(turtle.getId());
+        }
+        tellTurtles(id);
+        turtlesAskHolder.clear();
     }
 
 
@@ -183,7 +196,7 @@ public class TurtleController {
                 return turtle.getLocation();
             }
         }
-        return new Location(0,0);
+        return Location.ORIGIN;
     }
 
     /**
@@ -196,6 +209,9 @@ public class TurtleController {
         }
     }
 
+    /**
+     * Resets the location of all turtles back to the origin
+     */
     public void resetTurtleLocation() {
         for (Turtle turtle : turtles){
             turtle.setLocation(Location.ORIGIN);

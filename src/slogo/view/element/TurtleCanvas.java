@@ -215,6 +215,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   private void redrawPaths() {
     clearCanvas();
     turtleController.resetTurtleLocation();
+
     if (!myPaths.isEmpty()) {
       for (Turtle turtle : myPaths.keySet()) {
         for (Path p : myPaths.get(turtle)){

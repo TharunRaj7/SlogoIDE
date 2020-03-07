@@ -9,18 +9,17 @@ import java.util.ArrayList;
 
 public class BlockCommand implements ICommand {
 
-
     private ArrayList<ICommand> myCommands = new ArrayList<>();
     private ArrayList<Double> myReturnVals = new ArrayList<>();
     private double returnValue;
     private Node recent_node = null;
 
     public BlockCommand(){
-
+        // Shouldn't do anything
     }
 
     public BlockCommand(TurtleController turtleController) {
-
+        // Shouldn't do anything
     }
 
     @Override
@@ -30,8 +29,6 @@ public class BlockCommand implements ICommand {
 
     @Override
     public void setArgument(ICommand command) {
-        // Blocks should not have arguments, therefore this should be used to add commands
-        // to the command list
         myCommands.add(command);
     }
 
@@ -55,8 +52,7 @@ public class BlockCommand implements ICommand {
 
     @Override
     public void clearArgs() {
-        // Should be empty
-        //yReturnVals.clear();
+        // Shouldn't do anything
     }
 
 

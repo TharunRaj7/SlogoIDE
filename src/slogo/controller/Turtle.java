@@ -1,5 +1,7 @@
 package slogo.controller;
 
+import java.io.FileInputStream;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -7,9 +9,13 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import slogo.utility.Location;
 import slogo.utility.MathOps;
+import slogo.view.ExceptionFeedback;
+import slogo.view.ExceptionFeedback.ExceptionType;
 import slogo.view.element.TurtleCanvas;
 
 public class Turtle implements ITurtle {
+    private static final int TURTLE_SIZE = 15;
+
     private int id;
     private TurtleCanvas tc;
     private Location location;
@@ -23,10 +29,16 @@ public class Turtle implements ITurtle {
         this.location = location;
         this.currentAngle = orientationAngle;
         this.penDown = true;
-        image = new ImageView(imageFilePath);
+        try {
+            image = new ImageView(new Image(new FileInputStream(imageFilePath)));
+        } catch (Exception e) {
+            ExceptionFeedback.throwException(ExceptionType.RESOURCE_EXCEPTION,
+                "Could not find Turtle image file.");
+            image = new ImageView();
+        }
         image.setRotate(this.currentAngle);
-        image.setFitHeight(15);
-        image.setFitWidth(15);
+        image.setFitHeight(TURTLE_SIZE);
+        image.setFitWidth(TURTLE_SIZE);
     }
 
     void giveTurtleCanvas(TurtleCanvas tc) {

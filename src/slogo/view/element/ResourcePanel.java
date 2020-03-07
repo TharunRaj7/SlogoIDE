@@ -13,6 +13,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -42,8 +43,11 @@ public class ResourcePanel extends GuiElement {
   private static final String DEFAULT_RESOURCE_PATH = "data/resources";
   public static final int ICON_SIZE = 25;
 
-  public ResourcePanel() {
+  private ResourceBundle myResources;
+
+  public ResourcePanel(ResourceBundle resources) {
     super();
+    myResources = resources;
     initializeLayout();
   }
 
@@ -53,7 +57,7 @@ public class ResourcePanel extends GuiElement {
     tabs.getTabs().add(new ResourceTab("Colors", getResourceBundleFromPath("Colors"),
         r -> {
           Pane p = new Pane();
-          p.setBackground(new Background(new BackgroundFill((Paint) Color.valueOf(r), null, null)));
+          p.setBackground(new Background(new BackgroundFill(Color.valueOf(r), null, null)));
           p.setMinSize(ICON_SIZE, ICON_SIZE);
           return p;
         }
@@ -74,7 +78,7 @@ public class ResourcePanel extends GuiElement {
         }
     ));
 
-    Label title = new Label("Resources");
+    Label title = new Label(myResources.getString("resources"));
     GridPane.setHalignment(title, HPos.CENTER);
     setGrowPriorityAlways(title);
     this.add(title, 0, 0);
@@ -119,15 +123,17 @@ public class ResourcePanel extends GuiElement {
       int index = 0;
       for (String key : Collections.list(resources.getKeys())) {
         VBox icon = new VBox();
-        icon.getChildren().add(new Label(key));
+        icon.setAlignment(Pos.CENTER);
+        icon.getChildren().add(new Label("" + index));
         icon.getChildren().add(rh.handleResource(resources.getString(key)));
+        int finalIndex = index;
         icon.setOnMouseClicked(e -> {
-          StringSelection stringSelection = new StringSelection(resources.getString(key));
+          StringSelection stringSelection = new StringSelection(""+finalIndex);
           Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
           clipboard.setContents(stringSelection, null);
         });
         setGrowPriorityAlways(icon);
-        layout.add(icon, index / DEFAULT_ROWS, index % DEFAULT_ROWS);
+        layout.add(icon, index % DEFAULT_ROWS, index / DEFAULT_ROWS);
         index += 1;
       }
       scroll.setContent(layout);
@@ -145,6 +151,16 @@ public class ResourcePanel extends GuiElement {
       GridPane.setVgrow(n, Priority.ALWAYS);
     }
 
+  }
+
+  /**
+   * Updates the ResourceBundle being used.
+   * @param resources the new ResourceBundle
+   */
+  @Override
+  public void updateResources(ResourceBundle resources) {
+    myResources = resources;
+    initializeLayout();
   }
 
   @Override

@@ -11,6 +11,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -31,9 +32,15 @@ public class VariableExplorer extends GuiElement {
   private TableView myVariableTable;
   private Map<String, Double> currentVariableMap;
   private TurtleController turtleController;
+  private ResourceBundle myResources;
+
+  private Label myTitle;
+  private TableColumn myVariableNames;
+  private TableColumn myVariableValues;
 
 
-  public VariableExplorer(TurtleController turtleController) {
+  public VariableExplorer(TurtleController turtleController, ResourceBundle resources) {
+    myResources = resources;
     initializeTable();
     this.turtleController = turtleController;
     turtleController.giveVariableExplorer(this);
@@ -58,26 +65,26 @@ public class VariableExplorer extends GuiElement {
 
     setGrowPriorityAlways(myVariableTable);
 
-    Label title = new Label("Variable Explorer");
-    GridPane.setHalignment(title, HPos.CENTER);
+    myTitle = new Label(myResources.getString("variableExplorer"));
+    GridPane.setHalignment(myTitle, HPos.CENTER);
 
-    this.add(title, 0, 0);
+    this.add(myTitle, 0, 0);
     this.add(myVariableTable, 0, 1);
     this.setMinWidth(MIN_WIDTH);
   }
 
   private void initializeTableColumns() {
-    TableColumn variableNames = new TableColumn("Name");
-    variableNames.setCellValueFactory(
+    myVariableNames = new TableColumn(myResources.getString("name"));
+    myVariableNames.setCellValueFactory(
             new PropertyValueFactory<DataModel,String>("variableName")
     );
-    TableColumn variableValues = new TableColumn("Value");
-    variableValues.setCellValueFactory(
+    myVariableValues = new TableColumn(myResources.getString("value"));
+    myVariableValues.setCellValueFactory(
             new PropertyValueFactory<DataModel,String>("variableValue")
     );
-    variableValues.setCellFactory(TextFieldTableCell.forTableColumn());
-    variableValues.setOnEditCommit(event -> {
-      TableColumn.CellEditEvent<DataModel, Object> e = (TableColumn.CellEditEvent<DataModel, Object>) event;
+    myVariableValues.setCellFactory(TextFieldTableCell.forTableColumn());
+    myVariableValues.setOnEditCommit(event -> {
+      CellEditEvent<DataModel, Object> e = (CellEditEvent<DataModel, Object>) event;
       //System.out.println(e.getNewValue());
       DataModel data = e.getTableView().getItems().get(e.getTablePosition().getRow());
       myVariableTable.getItems().remove(data);
@@ -86,7 +93,7 @@ public class VariableExplorer extends GuiElement {
       //System.out.println(Double.parseDouble(data.getVariableValue()));
     });
 
-    myVariableTable.getColumns().addAll(variableNames, variableValues);
+    myVariableTable.getColumns().addAll(myVariableNames, myVariableValues);
     myVariableTable.setEditable(true);
   }
 
@@ -129,18 +136,23 @@ public class VariableExplorer extends GuiElement {
     myVariableTable.setItems(data);
   }
 
-
+  /**
+   * Updates the ResourceBundle being used.
+   * @param resources the new ResourceBundle
+   */
   @Override
   public void updateResources(ResourceBundle resources) {
-    // TODO : Update resources on language change
+    myResources = resources;
+    myTitle.setText(myResources.getString("title"));
+    myVariableNames.setText(myResources.getString("name"));
+    myVariableValues.setText(myResources.getString("value"));
   }
 
   @Override
   public Element toXMLElement() {
     XMLBuilder xmlBuilder = XMLBuilder.newInstance();
-    Element root = xmlBuilder.createElement(this.getClass().getSimpleName());
 
-    return root;
+    return xmlBuilder.createElement(this.getClass().getSimpleName());
   }
 
   @Override

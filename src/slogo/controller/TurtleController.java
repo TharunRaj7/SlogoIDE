@@ -1,8 +1,6 @@
 package slogo.controller;
 
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Effect;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import slogo.utility.Location;
@@ -15,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 public class TurtleController {
+
+    public static final String DEFAULT_TURTLE_IMAGE = "data/resources/images/Turtle.png";
     private List<Turtle> turtles;
     private List<Turtle> activeTurtles;
     private TurtleCanvas turtleCanvas;
@@ -29,7 +29,7 @@ public class TurtleController {
     public void giveTurtleCanvas (TurtleCanvas tc){
         this.turtleCanvas = tc;
         // make one turtle initially
-        Turtle turtle = new Turtle(1, new Location(0,0), 0.0, "slogo/view/resources/Turtle.gif");
+        Turtle turtle = new Turtle(1, new Location(0,0), 0.0, DEFAULT_TURTLE_IMAGE);
         turtle.giveTurtleCanvas(this.turtleCanvas);
         turtles.add(turtle);
         activeTurtles.add(turtle);
@@ -53,7 +53,8 @@ public class TurtleController {
                 return item;
             }
         }
-        Turtle newTurtle = new Turtle(id, new Location(0,0), 0.0, "slogo/view/resources/Turtle.gif");
+        Turtle newTurtle = new Turtle(id, new Location(0,0), 0.0,
+            DEFAULT_TURTLE_IMAGE);
         newTurtle.giveTurtleCanvas(this.turtleCanvas);
         turtles.add(newTurtle);
         return newTurtle;

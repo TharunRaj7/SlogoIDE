@@ -26,7 +26,7 @@ public class ToManager extends MakeUserInstruction implements ICommand {
 
     @Override
     public void setArgument(ICommand command) {
-
+        arguments.add(command);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ToManager extends MakeUserInstruction implements ICommand {
         myArgs = params.get(0).argSize();
         System.out.println("Number of args:");
         System.out.println((params.get(0)).argSize());
-        commands = (BlockCommand)params.get(1);
+        commands = params.get(1);
     }
 
     public boolean isInMap(Name name){
@@ -60,7 +60,7 @@ public class ToManager extends MakeUserInstruction implements ICommand {
 
     @Override
     public void clearArgs() {
-
+        arguments.clear();
     }
 
     private int checkArgs() {

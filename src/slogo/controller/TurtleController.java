@@ -4,13 +4,15 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import slogo.utility.Location;
+import slogo.view.ExceptionFeedback;
 import slogo.view.element.TurtleCanvas;
 import slogo.view.element.VariableExplorer;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.*;
 
 public class TurtleController {
 
@@ -21,6 +23,8 @@ public class TurtleController {
     private List<Turtle> turtlesAskHolder;
     private VariableExplorer variableExplorer;
     private Turtle currentTurtle;
+    private ResourceBundle resource;
+
 
     public TurtleController (){
         turtles = new ArrayList<>();
@@ -44,6 +48,7 @@ public class TurtleController {
         }
         activeTurtles.clear();
         activeTurtles.addAll(turtlesActive);
+        currentTurtle = turtlesActive.get(turtlesActive.size() - 1);
         showActiveTurtlesOnCanvas();
     }
 
@@ -240,5 +245,46 @@ public class TurtleController {
     }
     public int numberOfTurtlesCreated(){
         return turtles.size();
+    }
+
+    private ResourceBundle getResourceBundleFromPath(String path) {
+        try {
+            File file = new File("data/resources");
+            URL[] urls = {file.toURI().toURL()};
+            ClassLoader loader = new URLClassLoader(urls);
+            return ResourceBundle.getBundle(path, Locale.getDefault(), loader);
+        } catch (Exception e) {
+            ExceptionFeedback.throwException(ExceptionFeedback.ExceptionType.RESOURCE_EXCEPTION,
+                    "Failed to load resources for Resource Panel. Check your directory structure" +
+                            " and try loading resources again.");
+        }
+        return null;
+    }
+
+    public void setBackground (int index){
+        resource = getResourceBundleFromPath("Colors");
+        String colorString = Collections.list(resource.getKeys()).get(index);
+        Color color = Color.valueOf(colorString);
+        turtleCanvas.setBackgroundColor(color);
+    }
+    public void setPenColor (int index){
+        resource = getResourceBundleFromPath("Colors");
+        String colorString = Collections.list(resource.getKeys()).get(index);
+        Color color = Color.valueOf(colorString);
+        for (Turtle turtle : activeTurtles){
+            turtle.setPenColor(color);
+            currentTurtle = turtle;
+        }
+    }
+    public void setPenSize (int penSize){
+        for (Turtle turtle : activeTurtles){
+            turtle.setPenSize(penSize);
+            currentTurtle = turtle;
+        }
+    }
+
+    public void setShape (int index){
+        resource = getResourceBundleFromPath("images");
+        String imageName = Collections.list(resource.getKeys()).get(index);
     }
 }

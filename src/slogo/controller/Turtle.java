@@ -3,6 +3,7 @@ package slogo.controller;
 import java.io.FileInputStream;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -22,6 +23,8 @@ public class Turtle implements ITurtle {
     private double currentAngle;
     private boolean penDown;
     private boolean show;
+    private double penSize;
+    private Color penColor;
     private ImageView image;
 
     public Turtle(int id, Location location, double orientationAngle, String imageFilePath) {
@@ -39,6 +42,8 @@ public class Turtle implements ITurtle {
         image.setRotate(this.currentAngle);
         image.setFitHeight(TURTLE_SIZE);
         image.setFitWidth(TURTLE_SIZE);
+        penSize = 1.0;
+        penColor = Color.WHITE;
     }
 
     void giveTurtleCanvas(TurtleCanvas tc) {
@@ -269,6 +274,18 @@ public class Turtle implements ITurtle {
     @Override
     public int getId() {
         return id;
+    }
+    public Color getPenColor (){
+        return this.penColor;
+    }
+    public double getPenSize (){
+        return this.penSize;
+    }
+    public void setPenColor(Color color) {
+        this.penColor = color;
+    }
+    public void setPenSize (double penSize) {
+        this.penSize = penSize;
     }
 
 //    //testing

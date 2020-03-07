@@ -1,7 +1,10 @@
 package slogo.view.element;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -25,7 +28,6 @@ import slogo.view.utility.ButtonFactory;
 import slogo.view.utility.XMLBuilder;
 
 public class TurtleCanvas extends GuiElement implements IVisualize {
-//TODO: change implementation to add turtle images based on turtle controller
   private static final double MIN_CANVAS_WIDTH = 200;
   private static final double MIN_CANVAS_HEIGHT = 200;
   private static final double MAX_CANVAS_WIDTH = 1600;
@@ -95,9 +97,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
     menu.getChildren().add(colorPicker);
 
-    Button clearButton = ButtonFactory.button(resources.getString("clear"), e -> {
-      turtleController.clear();
-    });
+    Button clearButton = ButtonFactory.button(resources.getString("clear"), e -> turtleController.clear());
     menu.getChildren().add(clearButton);
 
     menu.setMinHeight(MENU_HEIGHT);
@@ -112,7 +112,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     myCanvasHolder.getChildren().addAll(turtleController.getAllTurtleImages());
   }
 
-  public void removeAllTurtleImages(){
+  private void removeAllTurtleImages(){
     myCanvasHolder.getChildren().removeAll(turtleController.getAllTurtleImages());
   }
 
@@ -150,6 +150,9 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     if (!absolute) {
       destination = destination.add(turtle.getLocation());
     }
+
+    setPenColor(turtle.getPenColor());
+    setPenThickness((int) turtle.getPenSize());
 
     myGraphicsContext.strokeLine(
         source.getX()      + TRANSLATE_X, source.getY()      + TRANSLATE_Y,
@@ -202,7 +205,6 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   }
 
   @Override
-  //TODO: need to debug this
   public void resize(double width, double height) {
     TRANSLATE_X = width / 2.0 - PADDING;
     TRANSLATE_Y = (height - MENU_HEIGHT - GAP) / 2.0 - PADDING;

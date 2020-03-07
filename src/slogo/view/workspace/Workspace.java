@@ -1,6 +1,5 @@
 package slogo.view.workspace;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -15,13 +14,11 @@ import slogo.view.utility.XMLBuilder;
 
 public abstract class Workspace extends Tab {
 
-  protected static final double PADDING = 5;
+  Node myLayout;
+  List<GuiElement> myGuiElements;
 
-  protected Node myLayout;
-  protected List<GuiElement> myGuiElements;
-
-  protected Parser myParser;
-  protected ResourceBundle myResources;
+  Parser myParser;
+  ResourceBundle myResources;
 
   public Workspace(String language) {
     initializeResources(language);
@@ -37,7 +34,7 @@ public abstract class Workspace extends Tab {
 
   protected abstract void initializeLayoutPane();
 
-  protected void initializeResources(String language) {
+  private void initializeResources(String language) {
     try {
       myResources = ResourceBundle.getBundle(SLogoFrame.DEFAULT_RESOURCES_PACKAGE + language);
     } catch (Exception e) {

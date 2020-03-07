@@ -45,9 +45,8 @@ public class MakeVariable implements ICommand{
     public void execute () {
         arguments.get(1).execute();
         if (arguments.get(0) instanceof Variables){
-            Variables variable = (Variables) arguments.get(0);
-            variable.setVal(arguments.get(1).returnVal());
-            myTurtle.addTableData(variable.getMap());
+            ((Variables) arguments.get(0)).setVal(arguments.get(1).returnVal());
+            myTurtle.addTableData(((Variables) arguments.get(0)).getMap());
         }
 
     }

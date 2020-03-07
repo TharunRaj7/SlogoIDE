@@ -21,7 +21,7 @@ public class TurtleController {
     private TurtleCanvas turtleCanvas;
     private VariableExplorer variableExplorer;
 
-    //TODO: getters give last active turtle
+    //TODO: getters give last active turtle, implement this
     public TurtleController (){
         turtles = new ArrayList<>();
         activeTurtles = new ArrayList<>();
@@ -63,9 +63,10 @@ public class TurtleController {
     private void showActiveTurtlesOnCanvas() {
         for (Turtle turtle : activeTurtles){
             DropShadow borderGlow = new DropShadow();
-            borderGlow.setColor(Color.RED);
-            borderGlow.setOffsetX(0f);
-            borderGlow.setOffsetY(0f);
+            borderGlow.setColor(Color.GREEN);
+            borderGlow.setSpread(0.8);
+//            borderGlow.setOffsetX(0f);
+//            borderGlow.setOffsetY(0f);
             turtle.getImage().setEffect(borderGlow);
         }
         //unhighlight inactive turtles
@@ -140,6 +141,24 @@ public class TurtleController {
         activeTurtles.clear();
         giveTurtleCanvas(this.turtleCanvas);
     }
+
+    public Location getLocation () {
+        return turtles.get(turtles.size() - 1).getLocation();
+    }
+    public double getHeading() {
+        return turtles.get(turtles.size() - 1).getHeading();
+    }
+
+
+    public boolean getPenDown() {
+        return turtles.get(turtles.size() - 1).getPenDown();
+    }
+
+
+    public boolean getShowing() {
+        return turtles.get(turtles.size() - 1).getShowing();
+    }
+
 
     //get all the turtle images
     public List<ImageView> getActiveTurtleImages(){

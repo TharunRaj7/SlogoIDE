@@ -1,6 +1,7 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 
 public interface ICommand {
 
@@ -34,4 +35,13 @@ public interface ICommand {
      * Remove all the commands from arguments list
      */
     void clearArgs ();
+
+    default ICommand copy(ICommand command){
+        try {
+            return this.getClass().getConstructor(TurtleController.class).newInstance(new TurtleController());
+        } catch (Exception ignored){}
+
+        return null;
+    }
+
 }

@@ -13,13 +13,10 @@ public class Parser implements IParse {
     public static final String WHITESPACE = "\\s+";
     public static final String NEWLINE = "\\n+";
 
-    private boolean isBlock = false;
-    private Map<String, Double> varList = new HashMap<>();
     private List<BlockCommand> blockCommandQueue = new ArrayList<>();
     private TurtleController myTurtle;
     private String myLanguage;
     private Manager manager = new Manager();
-    private BlockCommand myBlockCommand;
 
     public Parser(TurtleController turtle, String language) {
         myLanguage = language;
@@ -66,7 +63,7 @@ public class Parser implements IParse {
      * Instantiates command to send to send to the manager
      * @param turtle
      */
-    public ICommand makeCommand(TurtleController turtle, String commandType) {
+    public void makeCommand(TurtleController turtle, String commandType) {
         try {
             Class<?> cls = Class.forName(commandType);
             Object command;
@@ -78,10 +75,21 @@ public class Parser implements IParse {
             } else {
                 manager.addCommand(returnCommand);
             }
-            return returnCommand;
+            //return returnCommand;
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
             //TODO: Add catching to finish TO & Name Classes
-            throw new ParserException(e);
+            Name name = new Name(turtle, commandType);
+            ToManager toManager = new ToManager(turtle);
+
+            if(toManager.isInMap(name) && !toManager.isOverwrite()) {
+                System.out.println("Got in Name if statement");
+                toManager.execute2(name);
+                manager.addCommand(toManager);
+            } else {
+                System.out.println("Did not get in Name if statement");
+                manager.addCommand(name);
+            }
+            //throw new ParserException(e);
         }
     }
 
@@ -132,10 +140,11 @@ public class Parser implements IParse {
 
     private void giveVariable(String varName) {
       if (blockCommandQueue.size() != 0) {
-          blockCommandQueue.get(blockCommandQueue.size() - 1).setArgument(new Variables(varName));
+          System.out.println("Adding " + varName + " to the block");
+          blockCommandQueue.get(blockCommandQueue.size() - 1).setArgument(new Variables(varName, myTurtle));
       } else {
         System.out.println(varName);
-        manager.addCommand(new Variables(varName));
+        manager.addCommand(new Variables(varName, myTurtle));
       }
     }
 

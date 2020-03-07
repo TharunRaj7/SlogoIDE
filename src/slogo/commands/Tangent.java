@@ -2,9 +2,7 @@ package slogo.commands;
 
 import slogo.controller.Turtle;
 import slogo.utility.MathOps;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Tangent implements ICommand{
 
@@ -16,14 +14,13 @@ public class Tangent implements ICommand{
         myTurtle = turtle;
     }
 
-
     /**
      * Checks to see if the number of arguments available are sufficient
      * to run the command
      * @return
      */
     public boolean enoughArgs () {
-        return check_arg() == myArgs;
+        return arguments.size() == myArgs;
     }
 
     /**
@@ -40,7 +37,7 @@ public class Tangent implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-
+        // Shouldn't do anything
     }
 
     /**
@@ -49,17 +46,8 @@ public class Tangent implements ICommand{
      */
     public double returnVal () {
         return MathOps.tan(arguments.get(0).returnVal());
-
     }
 
     @Override
     public void clearArgs() { arguments.clear(); }
-
-    private void add_arg(ICommand arg){
-        arguments.add(arg);
-    }
-
-    private int check_arg(){
-        return arguments.size();
-    }
 }

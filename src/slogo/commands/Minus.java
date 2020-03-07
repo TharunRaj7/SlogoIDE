@@ -1,11 +1,8 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 import slogo.utility.MathOps;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Minus implements ICommand{
 
@@ -41,7 +38,7 @@ public class Minus implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-
+        // Shouldn't do anything
     }
 
     /**
@@ -50,7 +47,6 @@ public class Minus implements ICommand{
      */
     public double returnVal () {
         return MathOps.minus(arguments.get(0).returnVal());
-
     }
 
     @Override

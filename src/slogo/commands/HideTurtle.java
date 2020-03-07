@@ -1,23 +1,13 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class HideTurtle implements ICommand{
 
     private TurtleController myTurtle;
-    private int myArgs = 0;
-    private ArrayList<Double> arguments = new ArrayList<Double>();
 
     public HideTurtle (TurtleController turtle) {
         myTurtle = turtle;
-    }
-
-    public HideTurtle (TurtleController turtle, double dist) {
-        this(turtle);
     }
 
     /**
@@ -26,7 +16,7 @@ public class HideTurtle implements ICommand{
      * @return
      */
     public boolean enoughArgs () {
-        return arguments.size() == myArgs;
+        return true;
     }
 
     /**
@@ -35,7 +25,7 @@ public class HideTurtle implements ICommand{
      * @param arg
      */
     public void setArgument (ICommand arg) {
-
+        // Shouldn't do anything
     }
 
     /**
@@ -43,7 +33,6 @@ public class HideTurtle implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-        // TODO: Call on turtle to move it forward the given distance
         myTurtle.hide();
     }
 

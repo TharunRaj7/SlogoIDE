@@ -1,11 +1,7 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
-import slogo.utility.MathOps;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class And implements ICommand{
 
@@ -39,7 +35,7 @@ public class And implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-
+        // Should be empty
     }
 
     /**

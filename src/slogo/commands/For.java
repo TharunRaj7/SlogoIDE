@@ -1,9 +1,7 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 import slogo.view.ExceptionFeedback;
-
 import java.util.ArrayList;
 
 public class For extends BlockCommand implements ICommand {

@@ -1,6 +1,7 @@
 package slogo.commands;
 
 import slogo.controller.TurtleController;
+import slogo.view.ExceptionFeedback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +32,15 @@ public class Tell extends BlockCommand implements ICommand{
     public void execute() {
         arguments.get(0).execute();
 
-        //TODO
-        if(arguments.get(0) instanceof BlockCommand) {
+        try{
             for (int i = 0; i < ((BlockCommand) arguments.get(0)).argSize(); i++ ){
                 turtles.add((int) ((BlockCommand) arguments.get(0)).getRetVals(i));
                 val = (int) ((BlockCommand) arguments.get(0)).getRetVals(i);
             }
-
+        }catch (Exception e){
+            ExceptionFeedback.throwException(ExceptionFeedback.ExceptionType.INPUT_EXCEPTION,"Wrong input");
         }
+
         myShell.tellTurtles(turtles);
     }
 

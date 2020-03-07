@@ -67,5 +67,5 @@ public class Right implements ICommand{
     public void add_arg(ICommand arg){
         arguments.add(arg);
     }
-    
+
 }

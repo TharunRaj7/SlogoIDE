@@ -1,6 +1,5 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
@@ -9,16 +8,10 @@ public class Left implements ICommand{
 
     private TurtleController myTurtle;
     private int myArgs = 1;
-    private double myAngle;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public Left (TurtleController turtle) {
         myTurtle = turtle;
-    }
-
-    public Left (TurtleController turtle, double angle) {
-        this(turtle);
-        myAngle = angle;
     }
 
     /**
@@ -45,7 +38,6 @@ public class Left implements ICommand{
      */
     public void execute () {
         arguments.get(0).execute();
-        System.out.println("Executed Left");
         myTurtle.rotate(-arguments.get(0).returnVal());
     }
 

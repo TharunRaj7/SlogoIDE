@@ -1,11 +1,7 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
-import slogo.utility.MathOps;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Not implements ICommand{
 
@@ -16,7 +12,6 @@ public class Not implements ICommand{
     public Not (TurtleController turtle) {
         myTurtle = turtle;
     }
-
 
     /**
      * Checks to see if the number of arguments available are sufficient
@@ -41,7 +36,7 @@ public class Not implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-
+        // Shouldn't do anything
     }
 
     /**
@@ -55,7 +50,6 @@ public class Not implements ICommand{
         else{
             return 0.0;
         }
-
     }
 
     @Override

@@ -1,12 +1,8 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 import slogo.view.ExceptionFeedback;
-import slogo.view.element.VariableExplorer;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MakeVariable implements ICommand{
 
@@ -19,6 +15,7 @@ public class MakeVariable implements ICommand{
     }
 
     public MakeVariable() {
+        // Shouldn't do anything
     }
 
     /**
@@ -45,15 +42,12 @@ public class MakeVariable implements ICommand{
      */
     public void execute () {
         arguments.get(1).execute();
-        //if (arguments.get(0) instanceof Variables){
-
         try {
             ((Variables) arguments.get(0)).setVal(arguments.get(1).returnVal());
             myTurtle.addTableData(((Variables) arguments.get(0)).getMap());
         } catch (Exception e) {
             ExceptionFeedback.throwException(ExceptionFeedback.ExceptionType.INPUT_EXCEPTION,"Wrong input");
         }
-
     }
 
     /**

@@ -14,7 +14,7 @@ public interface IManager {
      * are satisfied to execute
      * @param arg
      */
-    void addArg(double arg);
+    //void addArg(double arg);
 
     /**
      * Adds a variable to the map held in the manager
@@ -22,7 +22,7 @@ public interface IManager {
      * @param name
      * @param value
      */
-    void addVariable(String name);
+    //void addVariable(String name);
 
     /**
      * Runs the command with the arguments, and returns a double to

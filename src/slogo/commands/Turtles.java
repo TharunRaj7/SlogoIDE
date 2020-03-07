@@ -2,12 +2,14 @@ package slogo.commands;
 
 import slogo.controller.TurtleController;
 
-public class ClearScreen implements ICommand {
+public class Turtles implements ICommand {
 
     private TurtleController myTurtle;
-    private double distMoved;
+    private int myArgs = 0;
 
-    public ClearScreen (TurtleController turtle) { myTurtle = turtle; }
+    public Turtles (TurtleController turtle) {
+        myTurtle = turtle;
+    }
 
     @Override
     public boolean enoughArgs() {
@@ -21,17 +23,16 @@ public class ClearScreen implements ICommand {
 
     @Override
     public void execute() {
-        distMoved = Math.sqrt(Math.pow(myTurtle.getLocation().getX(), 2.0) + Math.pow(myTurtle.getLocation().getY(), 2.0));
-        myTurtle.clear();
+        // Should be empty
     }
 
     @Override
     public double returnVal() {
-        return distMoved;
+        return myTurtle.numberOfTurtlesCreated();
     }
 
     @Override
-    public void clearArgs () {
-        // Shouldn't do anything
+    public void clearArgs() {
+        // Should be empty
     }
 }

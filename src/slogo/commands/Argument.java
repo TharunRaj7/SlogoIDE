@@ -11,7 +11,7 @@ public class Argument implements ICommand {
     }
 
     public Argument (TurtleController turtleController){
-
+        // Shouldn't do anything
     }
 
     /**
@@ -30,7 +30,7 @@ public class Argument implements ICommand {
      * @param arg
      */
     public void setArgument (ICommand arg) {
-
+        // Shouldn't do anything
     }
 
     /**

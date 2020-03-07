@@ -29,14 +29,32 @@ public abstract class GuiElement extends GridPane {
     GridPane.setVgrow(node, Priority.ALWAYS);
   }
 
+  /**
+   * Updates the ResourceBundle being used by this GuiElement.
+   *
+   * By default, does nothing. GuiElements with resources to update should override this method.
+   * @param resources the new ResourceBundle
+   */
   public void updateResources(ResourceBundle resources) {
     // do nothing by default
   }
 
+  /**
+   * Creates an XML element representing this GuiElement.
+   * @return new XML Element node
+   */
   public abstract Element toXMLElement();
 
+  /**
+   * Sets the contents of this GuiElement from an XML element.
+   * @param element XML Element node
+   */
   public abstract void setContentsFromXMLElement(Element element);
 
+  /**
+   * Returns a string representing this class.
+   * @return class name
+   */
   @Override
   public String toString() {
     return this.getClass().getSimpleName();

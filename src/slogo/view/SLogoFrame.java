@@ -29,6 +29,7 @@ public class SLogoFrame extends Application implements IFrame {
 
   public static final String DEFAULT_RESOURCES_PACKAGE = SLogoFrame.class.getPackageName() + ".resources.";
   public static final String DEFAULT_LANGUAGE = "English";
+  private static final String MISSING_LANGUAGE_PROPERTIES = "MissingLanguage";
 
   private Stage myPrimaryStage;
   private Pane myLayout;
@@ -53,7 +54,7 @@ public class SLogoFrame extends Application implements IFrame {
     try {
       myResources = ResourceBundle.getBundle(DEFAULT_RESOURCES_PACKAGE + language);
     } catch (Exception e) {
-      initializeResources(getResourceLanguage(myResources));
+      initializeResources(MISSING_LANGUAGE_PROPERTIES);
     }
   }
 

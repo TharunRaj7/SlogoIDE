@@ -163,6 +163,10 @@ public class ScriptEditor extends GuiElement {
     return extension.equals("logo");
   }
 
+  /**
+   * Updates the ResourceBundle being used.
+   * @param resources the new ResourceBundle
+   */
   @Override
   public void updateResources(ResourceBundle resources) {
     initializeButtons(resources);

@@ -79,6 +79,7 @@ public class WorkspaceFactory {
       ExceptionFeedback.throwException(ExceptionType.GUI_EXCEPTION,
           "Failed to create the default workspace." +
               "Please close the application and report this error.");
+      e.printStackTrace();
     }
 
     return workspace;

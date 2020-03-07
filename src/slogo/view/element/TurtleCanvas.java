@@ -233,6 +233,10 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     return TRANSLATE_Y;
   }
 
+  /**
+   * Updates the ResourceBundle being used.
+   * @param resources the new ResourceBundle
+   */
   @Override
   public void updateResources(ResourceBundle resources) {
     initializeLayoutPane(resources);

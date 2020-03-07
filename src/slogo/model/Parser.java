@@ -41,15 +41,15 @@ public class Parser implements IParse {
 
         List<String> lines = Arrays.asList(input.split(NEWLINE));
         for(String line : lines) {
-            System.out.println(line);
+            //System.out.println(line);
             line = line.split("#")[0];
             if(line.isEmpty()) { lines.remove(line); }
-            System.out.println(line);
+            //System.out.println(line);
             line.trim();
             commentLess = commentLess + " " + line;
         }
 
-        System.out.println(commentLess);
+        //System.out.println(commentLess);
         parseText(lang, Arrays.asList(commentLess.split(WHITESPACE)));
 
     }

@@ -1,16 +1,16 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 import slogo.utility.MathOps;
 import java.util.ArrayList;
 
 public class Sum implements ICommand{
 
-    Turtle myTurtle;
+    TurtleController myTurtle;
     int myArgs = 2;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public Sum (Turtle turtle) {
+    public Sum (TurtleController turtle) {
         myTurtle = turtle;
     }
 

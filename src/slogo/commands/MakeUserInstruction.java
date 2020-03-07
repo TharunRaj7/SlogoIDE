@@ -17,7 +17,7 @@ public class MakeUserInstruction extends BlockCommand implements ICommand {
     }
 
     public MakeUserInstruction (TurtleController turtle) {
-        System.out.println("Setting overwrite to true");
+        //System.out.println("Setting overwrite to true");
         overwrite = true;
         myTurtle = turtle;
     }
@@ -29,7 +29,7 @@ public class MakeUserInstruction extends BlockCommand implements ICommand {
 
     @Override
     public void setArgument(ICommand command) {
-        System.out.println("Setting overwrite to false");
+        //System.out.println("Setting overwrite to false");
         overwrite = false;
         arguments.add(command);
     }

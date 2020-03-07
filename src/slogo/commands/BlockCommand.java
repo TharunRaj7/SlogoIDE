@@ -80,7 +80,7 @@ public class BlockCommand implements ICommand {
                     return false;
                 }
             }catch (Exception e){
-                ExceptionFeedback.throwException(ExceptionFeedback.ExceptionType.INPUT_EXCEPTION,"Wrong input");
+                //ExceptionFeedback.throwException(ExceptionFeedback.ExceptionType.INPUT_EXCEPTION,"Wrong input");
             }
             myCommandsCopy.add(command.copy(command));
         }

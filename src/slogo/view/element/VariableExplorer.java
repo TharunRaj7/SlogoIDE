@@ -80,7 +80,9 @@ public class VariableExplorer extends GuiElement {
       TableColumn.CellEditEvent<DataModel, Object> e = (TableColumn.CellEditEvent<DataModel, Object>) event;
       //System.out.println(e.getNewValue());
       DataModel data = e.getTableView().getItems().get(e.getTablePosition().getRow());
+      myVariableTable.getItems().remove(data);
       currentVariableMap.put(":" + data.getVariableName(), Double.parseDouble((String)e.getNewValue()));
+      myVariableTable.getItems().add(new DataModel(data.getVariableName(), Double.parseDouble((String)e.getNewValue())));
       //System.out.println(Double.parseDouble(data.getVariableValue()));
     });
 

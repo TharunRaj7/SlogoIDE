@@ -13,7 +13,8 @@ public class ExceptionFeedback {
     LOGIC_EXCEPTION,
     XML_EXCEPTION,
     GUI_EXCEPTION,
-    RESOURCE_EXCEPTION
+    RESOURCE_EXCEPTION,
+    INPUT_EXCEPTION
   }
 
   public static void throwException(ExceptionType e, String message) {

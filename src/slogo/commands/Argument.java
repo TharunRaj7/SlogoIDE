@@ -4,7 +4,7 @@ import slogo.controller.TurtleController;
 
 public class Argument implements ICommand {
 
-    double myArgument;
+    private double myArgument;
 
     public Argument(double argument) {
         myArgument = argument;

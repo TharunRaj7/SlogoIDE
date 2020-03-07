@@ -9,8 +9,8 @@ import java.util.Arrays;
 
 public class And implements ICommand{
 
-    TurtleController myTurtle;
-    int myArgs = 2;
+    private TurtleController myTurtle;
+    private int myArgs = 2;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public And (TurtleController turtle) {

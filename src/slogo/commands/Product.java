@@ -1,11 +1,8 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 import slogo.utility.MathOps;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Product implements ICommand{
 
@@ -16,7 +13,6 @@ public class Product implements ICommand{
     public Product (TurtleController turtle) {
         myTurtle = turtle;
     }
-
 
     /**
      * Checks to see if the number of arguments available are sufficient
@@ -41,7 +37,7 @@ public class Product implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-
+        // Shouldn't do anything
     }
 
     /**
@@ -50,10 +46,8 @@ public class Product implements ICommand{
      */
     public double returnVal () {
         return MathOps.product(arguments.get(0).returnVal(),arguments.get(1).returnVal());
-
     }
 
     @Override
     public void clearArgs() { arguments.clear(); }
-
 }

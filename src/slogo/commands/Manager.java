@@ -1,14 +1,11 @@
 package slogo.commands;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+public class Manager implements IManager {
 
-public class Manager implements IManager{
     private Node recent_node = null;
-    //private HashMap<String,Double> variables = new HashMap<>();
-    //private ArrayList<String> current_variables = new ArrayList<>();
 
     public Manager () {
+        // Shouldn't do anything
     }
 
     /**
@@ -19,76 +16,12 @@ public class Manager implements IManager{
 
         Node command_node = new Node(command);
         if (recent_node == null){
-            recent_node = command_node;
-            if (recent_node.getData().enoughArgs()) {
-                runCommand(recent_node.getData());
-                recent_node = null;
-            }
+            firstNode(command_node);
         }
         else {
-            recent_node.addChild(command_node);
-            recent_node.getData().setArgument(command);
-            recent_node = command_node;
-            while (recent_node.getData().enoughArgs() && recent_node.getParent() != null) {
-                recent_node = recent_node.getParent();
-            }
-            if (recent_node.getData().enoughArgs() && recent_node.getParent() == null){
-                runCommand(recent_node.getData());
-                recent_node = null;
-            }
+            addNode(command_node, command);
         }
     }
-
-    /**
-     * Adds an argument to the leaf of the current command
-     * Should check the command it's under if the args
-     * are satisfied to execute
-     * @param arg
-     */
-    /*
-    public void addArg(double arg) {
-        // TODO: Add a value as a leaf to the most recent command
-        // TODO: Check if that argument is enough for the command to run. If so, run it
-
-        /*recent_node.getData().setArgument(arg);
-        while (recent_node.getData().enoughArgs() && recent_node.getParent() != null){
-            double return_val = runCommand(recent_node.getData());
-            recent_node.getParent().getData().setArgument(return_val);
-            recent_node = recent_node.getParent();
-        }
-
-        if (recent_node.getData().enoughArgs() && recent_node.getParent() == null){
-            runCommand(recent_node.getData());
-            recent_node = null;
-        }
-
-        else{
-            System.out.println("Not enough commands/arguments!");
-        }
-
-
-
-    }
-
-     */
-
-    /**
-     * Adds a variable to the map held in the manager
-     * Able to be recalled as an argument for command calls later
-     * @param name
-     */
-    /*
-    public void addVariable(String name) {
-        if (recent_node.getData() instanceof MakeVariable){
-            current_variables.add(name);
-            variables.putIfAbsent(name,0.0);
-        }
-        else{
-            addArg(variables.get(name));
-        }
-    }
-
-     */
 
     /**
      * Runs the command with the arguments, and returns a double to
@@ -100,10 +33,25 @@ public class Manager implements IManager{
         command.execute();
         return command.returnVal();
     }
-/*
-    public double retCommand(ICommand command) {
-        return command.returnVal();
+
+    private void firstNode (Node command_node) {
+        recent_node = command_node;
+        if (recent_node.getData().enoughArgs()) {
+            runCommand(recent_node.getData());
+            recent_node = null;
+        }
     }
 
- */
+    private void addNode (Node command_node, ICommand command) {
+        recent_node.addChild(command_node);
+        recent_node.getData().setArgument(command);
+        recent_node = command_node;
+        while (recent_node.getData().enoughArgs() && recent_node.getParent() != null) {
+            recent_node = recent_node.getParent();
+        }
+        if (recent_node.getData().enoughArgs() && recent_node.getParent() == null){
+            runCommand(recent_node.getData());
+            recent_node = null;
+        }
+    }
 }

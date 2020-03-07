@@ -1,10 +1,7 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PenDown implements ICommand{
 
@@ -13,9 +10,7 @@ public class PenDown implements ICommand{
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
     public PenDown (TurtleController turtle) {
         myTurtle = turtle;
-
     }
-
 
     /**
      * Checks to see if the number of arguments available are sufficient
@@ -32,7 +27,7 @@ public class PenDown implements ICommand{
      * @param arg
      */
     public void setArgument (ICommand arg) {
-
+        // Shouldn't do anything
     }
 
     /**

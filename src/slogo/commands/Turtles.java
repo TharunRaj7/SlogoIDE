@@ -5,7 +5,6 @@ import slogo.controller.TurtleController;
 public class Turtles implements ICommand {
 
     private TurtleController myTurtle;
-    private int myArgs = 0;
 
     public Turtles (TurtleController turtle) {
         myTurtle = turtle;

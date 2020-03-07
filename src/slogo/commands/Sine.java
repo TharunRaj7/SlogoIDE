@@ -2,9 +2,7 @@ package slogo.commands;
 
 import slogo.controller.Turtle;
 import slogo.utility.MathOps;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Sine implements ICommand{
 
@@ -15,7 +13,6 @@ public class Sine implements ICommand{
     public Sine(Turtle turtle) {
         myTurtle = turtle;
     }
-
 
     /**
      * Checks to see if the number of arguments available are sufficient
@@ -40,7 +37,7 @@ public class Sine implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-
+        // Shouldn't do anything
     }
 
     /**
@@ -49,15 +46,10 @@ public class Sine implements ICommand{
      */
     public double returnVal () {
         return MathOps.sin(arguments.get(0).returnVal());
-
     }
 
     @Override
     public void clearArgs() { arguments.clear(); }
-
-    private void add_arg(ICommand arg){
-        arguments.add(arg);
-    }
 
     private int check_arg(){
         return arguments.size();

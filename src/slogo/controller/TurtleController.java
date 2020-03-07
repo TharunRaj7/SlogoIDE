@@ -1,6 +1,7 @@
 package slogo.controller;
 
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import slogo.utility.Location;
@@ -38,6 +39,7 @@ public class TurtleController {
         turtle.giveTurtleCanvas(this.turtleCanvas);
         turtles.add(turtle);
         activeTurtles.add(turtle);
+        currentTurtle = turtle;
         turtleCanvas.addAllTurtleImages();
     }
 
@@ -273,6 +275,7 @@ public class TurtleController {
         Color color = Color.valueOf(colorString);
         for (Turtle turtle : activeTurtles){
             turtle.setPenColor(color);
+            turtle.setColorIndex(index);
             currentTurtle = turtle;
         }
     }
@@ -283,9 +286,24 @@ public class TurtleController {
         }
     }
 
+
     public void setShape (int index){
         resource = getResourceBundleFromPath("images");
         String imageName = Collections.list(resource.getKeys()).get(index);
+        Image image = new Image("data/resources/images/" + imageName);
+        for (Turtle turtle : activeTurtles){
+            turtle.getImage().setImage(image);
+            turtle.setShapeIndex(index);
+            currentTurtle = turtle;
+        }
+    }
+
+    public int getPenColorIndex (){
+        return currentTurtle.getColorIndex();
+    }
+
+    public int getShapeIndex () {
+        return currentTurtle.getShapeIndex();
     }
 
 }

@@ -1,7 +1,6 @@
 package slogo.commands;
 
 import slogo.controller.TurtleController;
-
 import java.util.ArrayList;
 
 public class SetBackground implements ICommand {
@@ -18,22 +17,17 @@ public class SetBackground implements ICommand {
     public boolean enoughArgs() { return arguments.size() == myArgs; }
 
     @Override
-    public void setArgument(ICommand command) {
-        arguments.add(command);
-    }
+    public void setArgument(ICommand command) { arguments.add(command); }
 
     @Override
     public void execute() {
-        
+        arguments.get(0).execute();
+        myTurtle.setBackground((int) arguments.get(0).returnVal());
     }
 
     @Override
-    public double returnVal() {
-        return myTurtle.getLastId();
-    }
+    public double returnVal() { return arguments.get(0).returnVal(); }
 
     @Override
-    public void clearArgs() {
-        // Should be empty
-    }
+    public void clearArgs() { arguments.clear(); }
 }

@@ -16,7 +16,7 @@ public class ToManager extends MakeUserInstruction implements ICommand {
     private Variables variable;
 
     public ToManager (TurtleController turtle) {
-        super(turtle);
+        myTurtle = turtle;
     }
 
     @Override
@@ -51,6 +51,10 @@ public class ToManager extends MakeUserInstruction implements ICommand {
 
     public boolean isInMap(Name name){
         return to_parameters.containsKey(name);
+    }
+
+    public boolean isOverwrite () {
+        return overwrite;
     }
 
     @Override

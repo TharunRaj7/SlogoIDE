@@ -12,9 +12,15 @@ public class MakeUserInstruction extends BlockCommand implements ICommand {
     int myArgs = 3;
     private ArrayList<ICommand> arguments = new ArrayList<>();
     protected static HashMap<Name, ArrayList<BlockCommand>> to_parameters = new HashMap<>();
+    protected static boolean overwrite;
 
+    public MakeUserInstruction () {
+        // Should be empty
+    }
 
     public MakeUserInstruction (TurtleController turtle) {
+        System.out.println("Setting overwrite to true");
+        overwrite = true;
         myTurtle = turtle;
     }
 
@@ -25,6 +31,8 @@ public class MakeUserInstruction extends BlockCommand implements ICommand {
 
     @Override
     public void setArgument(ICommand command) {
+        System.out.println("Setting overwrite to false");
+        overwrite = false;
         arguments.add(command);
     }
 

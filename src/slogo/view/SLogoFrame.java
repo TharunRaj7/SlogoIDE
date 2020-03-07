@@ -134,6 +134,7 @@ public class SLogoFrame extends Application implements IFrame {
     for (Tab w : myWorkspaces.getTabs()) {
       if (w instanceof Workspace) {
         ((Workspace) w).setLanguage(getResourceLanguage(myResources));
+        ((Workspace) w).setParserLanguage(language);
       }
     }
     for (Object n : myLayout.getChildren()) {

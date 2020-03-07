@@ -269,7 +269,7 @@ public class TurtleController {
     }
     public void setPenColor (int index){
         resource = getResourceBundleFromPath("Colors");
-        String colorString = Collections.list(resource.getKeys()).get(index);
+        String colorString = resource.getString(Collections.list(resource.getKeys()).get(index % resource.keySet().size()));
         Color color = Color.valueOf(colorString);
         for (Turtle turtle : activeTurtles){
             turtle.setPenColor(color);

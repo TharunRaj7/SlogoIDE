@@ -65,4 +65,8 @@ public abstract class Workspace extends Tab {
   }
 
   protected abstract Element generateLayoutXMLElement();
+
+  public void setParserLanguage(String language) {
+    myParser.updateLanguage(language);
+  }
 }

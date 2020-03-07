@@ -5,16 +5,13 @@ import slogo.controller.TurtleController;
 public class ID implements ICommand {
 
     private TurtleController myTurtle;
-    private int myArgs = 0;
 
     public ID (TurtleController turtle) {
         myTurtle = turtle;
     }
 
     @Override
-    public boolean enoughArgs() {
-        return true;
-    }
+    public boolean enoughArgs() { return true; }
 
     @Override
     public void setArgument(ICommand command) {

@@ -1,6 +1,5 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 import slogo.view.ExceptionFeedback;
 
@@ -41,14 +40,13 @@ public class DoTimes extends BlockCommand implements ICommand {
                 doArgs[i] = (int) firstArg.getRetVals(i + 1);
             }
 
-
             if(arguments.get(1) instanceof BlockCommand) {
                 while (variable.returnVal() <= doArgs[0]) {
                     arguments.get(1).execute();
                     variable.setVal(variable.returnVal() + 1);
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e){
             ExceptionFeedback.throwException(ExceptionFeedback.ExceptionType.INPUT_EXCEPTION,"Wrong input");
         }
 

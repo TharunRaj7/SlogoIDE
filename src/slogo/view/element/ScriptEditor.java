@@ -8,15 +8,15 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 import slogo.model.Parser;
-import slogo.utility.Location;
 import slogo.view.utility.ButtonFactory;
 import slogo.view.utility.XMLBuilder;
 
@@ -90,6 +90,7 @@ public class ScriptEditor extends GuiElement {
     this.setMinWidth(MIN_WIDTH);
 
     this.add(myButtons, 0, 0);
+    GridPane.setVgrow(myButtons, Priority.NEVER);
   }
 
   private void parseInput() {

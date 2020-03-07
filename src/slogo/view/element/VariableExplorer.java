@@ -1,14 +1,11 @@
 package slogo.view.element;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -16,12 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
-import javax.swing.GroupLayout.Alignment;
-import javax.xml.crypto.Data;
 import org.w3c.dom.Element;
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 import slogo.view.utility.XMLBuilder;
 
@@ -31,7 +23,6 @@ public class VariableExplorer extends GuiElement {
 
   private TableView myVariableTable;
   private Map<String, Double> currentVariableMap;
-  private TurtleController turtleController;
   private ResourceBundle myResources;
 
   private Label myTitle;
@@ -42,7 +33,6 @@ public class VariableExplorer extends GuiElement {
   public VariableExplorer(TurtleController turtleController, ResourceBundle resources) {
     myResources = resources;
     initializeTable();
-    this.turtleController = turtleController;
     turtleController.giveVariableExplorer(this);
   }
 
@@ -63,8 +53,6 @@ public class VariableExplorer extends GuiElement {
 
     initializeTableColumns();
 
-    setGrowPriorityAlways(myVariableTable);
-
     myTitle = new Label(myResources.getString("variableExplorer"));
     GridPane.setHalignment(myTitle, HPos.CENTER);
 
@@ -74,30 +62,32 @@ public class VariableExplorer extends GuiElement {
   }
 
   private void initializeTableColumns() {
-    myVariableNames = new TableColumn(myResources.getString("name"));
-    myVariableNames.setCellValueFactory(
-            new PropertyValueFactory<DataModel,String>("variableName")
-    );
-    myVariableValues = new TableColumn(myResources.getString("value"));
-    myVariableValues.setCellValueFactory(
-            new PropertyValueFactory<DataModel,String>("variableValue")
-    );
+    myVariableNames = createTableColumn("name", "variableName");
+    myVariableValues = createTableColumn("value", "variableValue");
+
     myVariableValues.setCellFactory(TextFieldTableCell.forTableColumn());
     myVariableValues.setOnEditCommit(event -> {
       CellEditEvent<DataModel, Object> e = (CellEditEvent<DataModel, Object>) event;
-      //System.out.println(e.getNewValue());
       DataModel data = e.getTableView().getItems().get(e.getTablePosition().getRow());
       myVariableTable.getItems().remove(data);
       currentVariableMap.put(":" + data.getVariableName(), Double.parseDouble((String)e.getNewValue()));
-      myVariableTable.getItems().add(new DataModel(data.getVariableName(), Double.parseDouble((String)e.getNewValue())));
-      //System.out.println(Double.parseDouble(data.getVariableValue()));
+      myVariableTable.getItems().add(
+          new DataModel(data.getVariableName(), Double.parseDouble((String) e.getNewValue())));
     });
 
     myVariableTable.getColumns().addAll(myVariableNames, myVariableValues);
     myVariableTable.setEditable(true);
   }
 
-  public class DataModel{
+  private TableColumn createTableColumn(String titleKey, String valueKey) {
+    TableColumn column = new TableColumn(myResources.getString(titleKey));
+    column.setCellValueFactory(
+            new PropertyValueFactory<DataModel,String>(valueKey)
+    );
+    return column;
+  }
+
+  public static class DataModel {
 
     private SimpleStringProperty variableName;
     private SimpleStringProperty variableValue;
@@ -106,7 +96,8 @@ public class VariableExplorer extends GuiElement {
       this.variableName = new SimpleStringProperty(variableName);
       this.variableValue = new SimpleStringProperty(Double.toString(value));
     }
-    public String getVariableName() {
+
+    String getVariableName() {
       return variableName.get();
     }
 

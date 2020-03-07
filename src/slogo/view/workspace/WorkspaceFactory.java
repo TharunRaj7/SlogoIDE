@@ -18,6 +18,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import slogo.controller.TurtleController;
 import slogo.model.Parser;
+import slogo.view.ExceptionFeedback;
+import slogo.view.ExceptionFeedback.ExceptionType;
 import slogo.view.element.Console;
 import slogo.view.element.GuiElement;
 import slogo.view.element.ResourcePanel;
@@ -74,7 +76,9 @@ public class WorkspaceFactory {
       workspace.setLayout(elements, DEFAULT_VERTICAL_DIVIDERS, DEFAULT_HORIZONTAL_DIVIDERS);
 
     } catch (Exception e) {
-      e.printStackTrace();
+      ExceptionFeedback.throwException(ExceptionType.GUI_EXCEPTION,
+          "Failed to create the default workspace." +
+              "Please close the application and report this error.");
     }
 
     return workspace;
@@ -93,7 +97,6 @@ public class WorkspaceFactory {
 
       String language;
 
-      List<GuiElement> elements = new ArrayList<>();
       List<List<GuiElement>> rows = new ArrayList<>();
       List<Double> vDividers = new ArrayList<>();
       List<List<Double>> hDividers = new ArrayList<>();
@@ -119,7 +122,9 @@ public class WorkspaceFactory {
       return workspace;
 
     } catch (Exception e) {
-      e.printStackTrace();
+      ExceptionFeedback.throwException(ExceptionType.XML_EXCEPTION,
+          "Failed to build workspace from XML file. The file is corrupted or otherwise" +
+              "cannot be loaded. Please check the XML syntax or try another file.");
     }
 
     return null;
@@ -162,8 +167,8 @@ public class WorkspaceFactory {
         layout.add(rowElements);
       }
     } catch (Exception e) {
-      e.printStackTrace();
-      // FIXME : throw an error in a better way
+      ExceptionFeedback.throwException(ExceptionType.XML_EXCEPTION,
+          "Failed to load GUI elements from XML file. Check layout syntax or try another file.");
     }
 
     return layout;

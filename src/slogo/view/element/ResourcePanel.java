@@ -11,6 +11,7 @@ import java.net.URLClassLoader;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -29,8 +30,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.TextAlignment;
 import org.w3c.dom.Element;
 import slogo.utility.ResourceHandler;
+import slogo.view.ExceptionFeedback;
+import slogo.view.ExceptionFeedback.ExceptionType;
 import slogo.view.utility.XMLBuilder;
 
 public class ResourcePanel extends GuiElement {
@@ -63,14 +67,20 @@ public class ResourcePanel extends GuiElement {
             icon.setFitWidth(ICON_SIZE);
             return icon;
           } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            ExceptionFeedback.throwException(ExceptionType.RESOURCE_EXCEPTION,
+                "Failed to load resource specified in Images.properties.");
           }
           return new Pane();
         }
     ));
 
+    Label title = new Label("Resources");
+    GridPane.setHalignment(title, HPos.CENTER);
+    setGrowPriorityAlways(title);
+    this.add(title, 0, 0);
+
     setGrowPriorityAlways(tabs);
-    this.add(tabs, 0, 0);
+    this.add(tabs, 0, 1);
   }
 
   private ResourceBundle getResourceBundleFromPath(String path) {
@@ -80,8 +90,9 @@ public class ResourcePanel extends GuiElement {
       ClassLoader loader = new URLClassLoader(urls);
       return ResourceBundle.getBundle(path, Locale.getDefault(), loader);
     } catch (Exception e) {
-      e.printStackTrace();
-      // TODO : error handling
+      ExceptionFeedback.throwException(ExceptionType.RESOURCE_EXCEPTION,
+          "Failed to load resources for Resource Panel. Check your directory structure" +
+          " and try loading resources again.");
     }
     return null;
   }

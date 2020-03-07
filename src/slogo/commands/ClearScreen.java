@@ -26,7 +26,7 @@ public class ClearScreen implements ICommand {
     public void execute() {
 
         distMoved = Math.sqrt(Math.pow(myTurtle.getLocation().getX(), 2.0) + Math.pow(myTurtle.getLocation().getY(), 2.0));
-        Location origin = new Location(0, 0);
+        //Location origin = new Location(0, 0);
         myTurtle.clear();
     }
 

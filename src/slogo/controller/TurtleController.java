@@ -63,9 +63,10 @@ public class TurtleController {
     private void showActiveTurtlesOnCanvas() {
         for (Turtle turtle : activeTurtles){
             DropShadow borderGlow = new DropShadow();
-            borderGlow.setColor(Color.RED);
-            borderGlow.setOffsetX(0f);
-            borderGlow.setOffsetY(0f);
+            borderGlow.setColor(Color.GREEN);
+            borderGlow.setSpread(0.8);
+//            borderGlow.setOffsetX(0f);
+//            borderGlow.setOffsetY(0f);
             turtle.getImage().setEffect(borderGlow);
         }
         //unhighlight inactive turtles

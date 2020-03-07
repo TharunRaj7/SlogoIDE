@@ -47,6 +47,6 @@ public class Variables implements ICommand{
     }
 
     public Map<String, Double> getMap () {
-        return Map.copyOf(variables);
+        return variables;
     }
 }

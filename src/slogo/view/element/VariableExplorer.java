@@ -13,12 +13,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javax.swing.GroupLayout.Alignment;
 import javax.xml.crypto.Data;
 import org.w3c.dom.Element;
+import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 import slogo.view.utility.XMLBuilder;
 
@@ -27,10 +29,13 @@ public class VariableExplorer extends GuiElement {
   private static final int MIN_WIDTH = 150;
 
   private TableView myVariableTable;
+  private Map<String, Double> currentVariableMap;
+  private TurtleController turtleController;
 
 
   public VariableExplorer(TurtleController turtleController) {
     initializeTable();
+    this.turtleController = turtleController;
     turtleController.giveVariableExplorer(this);
   }
 
@@ -70,14 +75,22 @@ public class VariableExplorer extends GuiElement {
     variableValues.setCellValueFactory(
             new PropertyValueFactory<DataModel,String>("variableValue")
     );
+    variableValues.setCellFactory(TextFieldTableCell.forTableColumn());
+    variableValues.setOnEditCommit(event -> {
+      TableColumn.CellEditEvent<DataModel, Object> e = (TableColumn.CellEditEvent<DataModel, Object>) event;
+      DataModel data = e.getTableView().getItems().get(e.getTablePosition().getRow());
+      data.setVariableValue(e.getNewValue());
+      currentVariableMap.put(data.getVariableName(), Double.parseDouble(data.getVariableValue()));
+    });
 
     myVariableTable.getColumns().addAll(variableNames, variableValues);
+    myVariableTable.setEditable(true);
   }
 
   public class DataModel{
 
-    private final SimpleStringProperty variableName;
-    private final SimpleStringProperty variableValue;
+    private SimpleStringProperty variableName;
+    private SimpleStringProperty variableValue;
 
     DataModel(String variableName, double value){
       this.variableName = new SimpleStringProperty(variableName);
@@ -98,9 +111,16 @@ public class VariableExplorer extends GuiElement {
     public SimpleStringProperty variableValueProperty() {
       return variableValue;
     }
+
+    public void setVariableValue(Object o) {
+      if (o instanceof Double){
+        this.variableValue = new SimpleStringProperty(Double.toString((Double) o));
+      }
+    }
   }
 
   public void addTableData(Map<String, Double> variables){
+    this.currentVariableMap = variables;
     final ObservableList<DataModel> data = FXCollections.observableArrayList();
     makeTable(data, variables);
   }

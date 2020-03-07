@@ -1,11 +1,17 @@
 package slogo.commands;
 
+import slogo.controller.TurtleController;
+
 public class Argument implements ICommand {
 
     double myArgument;
 
     public Argument(double argument) {
         myArgument = argument;
+    }
+
+    public Argument (TurtleController turtleController){
+
     }
 
     /**

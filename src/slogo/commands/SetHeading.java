@@ -1,21 +1,22 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
 
 public class SetHeading implements ICommand{
 
-    Turtle myTurtle;
+    TurtleController myTurtle;
     int myArgs = 1;
     double myAngle;
     private ArrayList<ICommand> arguments = new ArrayList<>();
 
-    public SetHeading (Turtle turtle) {
+    public SetHeading (TurtleController turtle) {
         myTurtle = turtle;
     }
 
-    public SetHeading (Turtle turtle, double angle) {
+    public SetHeading (TurtleController turtle, double angle) {
         this(turtle);
         myAngle = angle;
     }

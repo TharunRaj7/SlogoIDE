@@ -5,15 +5,14 @@ import slogo.controller.TurtleController;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tell extends BlockCommand implements ICommand{
+public class Ask extends BlockCommand implements ICommand{
 
     TurtleController myShell;
-    int myArgs = 1;
-    double val;
+    int myArgs = 2;
     private ArrayList<ICommand> arguments = new ArrayList<>();
     private List<Integer> turtles = new ArrayList<>();
 
-    public Tell(TurtleController turtleController){
+    public Ask (TurtleController turtleController){
         myShell = turtleController;
     }
 
@@ -29,22 +28,12 @@ public class Tell extends BlockCommand implements ICommand{
 
     @Override
     public void execute() {
-        arguments.get(0).execute();
 
-        //TODO
-        if(arguments.get(0) instanceof BlockCommand) {
-            for (int i = 0; i < ((BlockCommand) arguments.get(0)).argSize(); i++ ){
-                turtles.add((int) ((BlockCommand) arguments.get(0)).getRetVals(i));
-                val = (int) ((BlockCommand) arguments.get(0)).getRetVals(i);
-            }
-
-        }
-        myShell.tellTurtles(turtles);
     }
 
     @Override
     public double returnVal() {
-        return val;
+
     }
 
     @Override

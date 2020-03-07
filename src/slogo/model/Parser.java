@@ -1,19 +1,20 @@
 package slogo.model;
 
 import slogo.commands.*;
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Parser implements IParse {
 
     public static final String WHITESPACE = "\\s+";
     public static final String NEWLINE = "\\n+";
 
-    private List<BlockCommand> blockCommandQueue = new ArrayList<>();
+    private List<BlockCommand> blockQueue = new ArrayList<>();
     private TurtleController myTurtle;
     private String myLanguage;
     private Manager manager = new Manager();
@@ -59,42 +60,10 @@ public class Parser implements IParse {
      */
     public void giveTurtle(TurtleController turtle) { myTurtle = turtle; }
 
-    /**
-     * Instantiates command to send to send to the manager
-     * @param turtle
-     */
-    public void makeCommand(TurtleController turtle, String commandType) {
-        try {
-            Class<?> cls = Class.forName(commandType);
-            Object command;
-            Constructor constructor = cls.getConstructor(TurtleController.class);
-            command = constructor.newInstance(turtle);
-            ICommand returnCommand = (ICommand) command;
-            if(blockCommandQueue.size() != 0) {
-                blockCommandQueue.get(blockCommandQueue.size() - 1).setArgument(returnCommand);
-            } else {
-                manager.addCommand(returnCommand);
-            }
-            //return returnCommand;
-        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            //TODO: Add catching to finish TO & Name Classes
-            Name name = new Name(turtle, commandType);
-            ToManager toManager = new ToManager(turtle);
-
-            if(toManager.isInMap(name) && !toManager.isOverwrite()) {
-                System.out.println("Got in Name if statement");
-                toManager.execute2(name);
-                manager.addCommand(toManager);
-            } else {
-                System.out.println("Did not get in Name if statement");
-                manager.addCommand(name);
-            }
-            //throw new ParserException(e);
-        }
+    public void updateLanguage(String language) {
+        myLanguage = language;
     }
 
-    // TODO: Clean this code
-    // given some text, prints results of parsing it using the given language
     private void parseText (ProgramParser lang, List<String> lines) {
         for (String line : lines) {
             if (line.trim().length() > 0) {
@@ -106,49 +75,76 @@ public class Parser implements IParse {
                     addConst(line);
                 } else if (lang.getSymbol(line).equals("Variable")) { giveVariable(line); }
                 else {
-                    System.out.println(lang.getSymbol(line));
+                    //System.out.println(lang.getSymbol(line));
                     makeCommand(myTurtle, "slogo.commands." + lang.getSymbol(line));
                 }
             }
         }
-        System.out.println();
+        //System.out.println();
+    }
+
+    /**
+     * Instantiates command to send to send to the manager
+     * @param turtle
+     */
+    public void makeCommand(TurtleController turtle, String commandType) {
+        try {
+            Class<?> cls = Class.forName(commandType);
+            Object command;
+            Constructor constructor = cls.getConstructor(TurtleController.class);
+            command = constructor.newInstance(turtle);
+            ICommand returnCommand = (ICommand) command;
+            if(blockQueue.size() != 0) {
+                blockQueue.get(blockQueue.size() - 1).setArgument(returnCommand);
+            } else {
+                manager.addCommand(returnCommand);
+            }
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            Name name = new Name(turtle, commandType);
+            ToManager toManager = new ToManager(turtle);
+
+            if(toManager.isInMap(name) && !toManager.isOverwrite()) {
+                System.out.println("Got in Name if statement");
+                toManager.execute2(name);
+                manager.addCommand(toManager);
+            } else {
+                System.out.println("Did not get in Name if statement");
+                manager.addCommand(name);
+            }
+        }
     }
 
     private void startList() {
-        System.out.println("List begins");
-        blockCommandQueue.add(new BlockCommand());
+        //System.out.println("List begins");
+        blockQueue.add(new BlockCommand());
     }
 
     private void endList() {
-        System.out.println("List ends");
-        if(blockCommandQueue.size() == 1) {
-            manager.addCommand(blockCommandQueue.get(0));
+        //System.out.println("List ends");
+        if(blockQueue.size() == 1) {
+            manager.addCommand(blockQueue.get(0));
         } else {
-            blockCommandQueue.get(blockCommandQueue.size() - 2).setArgument(blockCommandQueue.get(blockCommandQueue.size() - 1));
+            blockQueue.get(blockQueue.size() - 2).setArgument(blockQueue.get(blockQueue.size() - 1));
         }
-        blockCommandQueue.remove(blockCommandQueue.size() - 1);
+        blockQueue.remove(blockQueue.size() - 1);
     }
 
     private void addConst(String line) {
-        System.out.println(line);
-        if(blockCommandQueue.size() != 0) {
-            blockCommandQueue.get(blockCommandQueue.size() - 1).setArgument(new Argument(Float.parseFloat(line)));
+        //System.out.println(line);
+        if(blockQueue.size() != 0) {
+            blockQueue.get(blockQueue.size() - 1).setArgument(new Argument(Float.parseFloat(line)));
         } else {
             manager.addCommand(new Argument(Float.parseFloat(line)));
         }
     }
 
     private void giveVariable(String varName) {
-      if (blockCommandQueue.size() != 0) {
-          System.out.println("Adding " + varName + " to the block");
-          blockCommandQueue.get(blockCommandQueue.size() - 1).setArgument(new Variables(varName, myTurtle));
-      } else {
-        System.out.println(varName);
-        manager.addCommand(new Variables(varName, myTurtle));
-      }
-    }
-
-    public void updateLanguage(String language) {
-        myLanguage = language;
+        if (blockQueue.size() != 0) {
+            //System.out.println("Adding " + varName + " to the block");
+            blockQueue.get(blockQueue.size() - 1).setArgument(new Variables(varName, myTurtle));
+        } else {
+            //System.out.println(varName);
+            manager.addCommand(new Variables(varName, myTurtle));
+        }
     }
 }

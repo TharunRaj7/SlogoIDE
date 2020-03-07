@@ -33,6 +33,7 @@ public class Variables implements ICommand{
     }
 
     public void setVal(Double val) {
+        variables = allVariables.get(myTurtle);
         if(variables == null) { variables = new HashMap<>(); }
         variables.put(myVarName, val);
         allVariables.put(myTurtle, variables);
@@ -50,13 +51,14 @@ public class Variables implements ICommand{
 
     @Override
     public void execute() {
-        // Should be empty
+        // Should be empty 
     }
 
     @Override
     public double returnVal() {
         //System.out.println(variables.get(myVarName) + "VarCall");
-        return (double) variables.get(myVarName);
+        System.out.println(allVariables.get(myTurtle).toString());
+        return (double) allVariables.get(myTurtle).get(myVarName);
     }
 
     @Override
@@ -65,6 +67,6 @@ public class Variables implements ICommand{
     }
 
     public Map<String, Double> getMap () {
-        return variables;
+        return allVariables.get(myTurtle);
     }
 }

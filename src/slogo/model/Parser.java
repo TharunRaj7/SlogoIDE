@@ -141,10 +141,10 @@ public class Parser implements IParse {
     private void giveVariable(String varName) {
       if (blockCommandQueue.size() != 0) {
           System.out.println("Adding " + varName + " to the block");
-          blockCommandQueue.get(blockCommandQueue.size() - 1).setArgument(new Variables(varName));
+          blockCommandQueue.get(blockCommandQueue.size() - 1).setArgument(new Variables(varName, myTurtle));
       } else {
         System.out.println(varName);
-        manager.addCommand(new Variables(varName));
+        manager.addCommand(new Variables(varName, myTurtle));
       }
     }
 

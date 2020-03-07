@@ -10,10 +10,11 @@ public class Repeat extends BlockCommand implements ICommand {
     private TurtleController myTurtle;
     int myArgs = 3;
     private ArrayList<ICommand> arguments = new ArrayList<>();
-    private Variables repcount = new Variables(":repcount");
+    private Variables repcount;
 
     public Repeat (TurtleController turtle) {
         myTurtle = turtle;
+        repcount = new Variables(":repcount", myTurtle);
         repcount.setVal(1.0);
         setArgument(repcount);
     }

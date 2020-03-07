@@ -79,7 +79,7 @@ public class TurtleController {
     }
 
     public void askTurtles (List<Integer>id){
-        this.turtlesAskHolder = activeTurtles;
+        this.turtlesAskHolder = List.copyOf(activeTurtles);
         tellTurtles(id);
     }
 

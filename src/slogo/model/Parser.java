@@ -13,13 +13,10 @@ public class Parser implements IParse {
     public static final String WHITESPACE = "\\s+";
     public static final String NEWLINE = "\\n+";
 
-    private boolean isBlock = false;
-    private Map<String, Double> varList = new HashMap<>();
     private List<BlockCommand> blockCommandQueue = new ArrayList<>();
     private TurtleController myTurtle;
     private String myLanguage;
     private Manager manager = new Manager();
-    private BlockCommand myBlockCommand;
 
     public Parser(TurtleController turtle, String language) {
         myLanguage = language;
@@ -83,7 +80,8 @@ public class Parser implements IParse {
             //TODO: Add catching to finish TO & Name Classes
             Name name = new Name(turtle, commandType);
             ToManager toManager = new ToManager(turtle);
-            if(toManager.isInMap(name)) {
+
+            if(toManager.isInMap(name) && !toManager.isOverwrite()) {
                 System.out.println("Got in Name if statement");
                 toManager.execute2(name);
                 manager.addCommand(toManager);

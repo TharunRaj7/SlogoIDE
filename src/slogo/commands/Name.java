@@ -8,7 +8,7 @@ public class Name implements ICommand {
     private String myName;
 
     public Name(TurtleController turtle) {
-
+        // Shouldn't do anything
     }
 
     public Name(TurtleController turtle, String name) {

@@ -9,6 +9,8 @@ import javafx.scene.layout.VBox;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import slogo.model.Parser;
+import slogo.view.ExceptionFeedback;
+import slogo.view.ExceptionFeedback.ExceptionType;
 import slogo.view.element.GuiElement;
 import slogo.view.utility.XMLBuilder;
 
@@ -83,8 +85,9 @@ public class CustomWorkspace extends Workspace {
   }
 
   private void throwLayoutError() {
-    System.out.println("ERROR: Layout error!");
-    // TODO : throw layout error
+    ExceptionFeedback.throwException(ExceptionType.GUI_EXCEPTION,
+        "Layout error! Could not build workspace from provided layout. "
+            + "Check that the layout file has the right number of dividers for the elements.");
   }
 
   ResourceBundle getResourceBundle() {

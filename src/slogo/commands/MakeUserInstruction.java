@@ -1,8 +1,6 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -42,14 +40,11 @@ public class MakeUserInstruction extends BlockCommand implements ICommand {
             ArrayList<BlockCommand> user_command_args = new ArrayList<>();
             user_command_args.add((BlockCommand) arguments.get(1));
             for (int i = 0; i < user_command_args.get(0).argSize(); i++) {
-                System.out.println("Setting " + user_command_args.get(0).getVar(i).toString() + " to 0");
                 user_command_args.get(0).getVar(i).setVal(0.0);
             }
             user_command_args.add((BlockCommand) arguments.get(2));
-            //to_parameters.put(arguments.get(0), user_command_args);
             to_parameters.put((Name) arguments.get(0), user_command_args);
         }
-        // TODO: Throw an error corresponding with incorrect tree format
     }
 
     @Override
@@ -58,7 +53,7 @@ public class MakeUserInstruction extends BlockCommand implements ICommand {
             if (((BlockCommand)arguments.get(2)).checkTree()){
                 return 1.0;
             }
-        }catch (Exception e){}
+        } catch (Exception e) {}
         return 0.0;
     }
 

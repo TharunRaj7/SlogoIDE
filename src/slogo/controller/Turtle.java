@@ -15,7 +15,10 @@ import slogo.view.ExceptionFeedback.ExceptionType;
 import slogo.view.element.TurtleCanvas;
 
 public class Turtle implements ITurtle {
+
     private static final int TURTLE_SIZE = 15;
+    public static final double DEFAULT_PEN_SIZE = 1.0;
+    public static final Color DEFAULT_PEN_COLOR = Color.WHITE;
 
     private int id;
     private TurtleCanvas tc;
@@ -44,8 +47,8 @@ public class Turtle implements ITurtle {
         image.setRotate(this.currentAngle);
         image.setFitHeight(TURTLE_SIZE);
         image.setFitWidth(TURTLE_SIZE);
-        penSize = 1.0;
-        penColor = Color.WHITE;
+        penSize = DEFAULT_PEN_SIZE;
+        penColor = DEFAULT_PEN_COLOR;
     }
 
     void giveTurtleCanvas(TurtleCanvas tc) {

@@ -5,11 +5,8 @@ import static java.util.Map.entry;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -42,20 +39,16 @@ public class WorkspaceFactory {
       List.of(0.5),
       List.of(0.4, 0.7)
   );
-  public static final String DEFAULT_LANGUAGE = "English";
+
+  private static final String MISSING_LANGUAGE = "MissingLanguage";
 
 
   public static Workspace defaultWorkspace(String language) {
     CustomWorkspace workspace = new CustomWorkspace(language);
     TurtleController tc = new TurtleController();
-    Parser parser = new Parser(tc, language);
-    workspace.setParser(parser);
+    workspace.setParser(new Parser(tc, language));
 
-    Map<String, Object> parameters = Map.ofEntries(
-    entry("class slogo.controller.TurtleController", tc),
-    entry("class java.util.ResourceBundle", workspace.getResourceBundle()),
-    entry("class slogo.model.Parser", parser)
-    );
+    Map<String, Object> parameters = getConstructionParametersForWorkspace(workspace, tc);
 
     try {
       List<List<GuiElement>> elements = new ArrayList<>();
@@ -78,50 +71,43 @@ public class WorkspaceFactory {
     } catch (Exception e) {
       ExceptionFeedback.throwException(ExceptionType.GUI_EXCEPTION,
           "Failed to create the default workspace." +
-              "Please close the application and report this error.");
-      e.printStackTrace();
+              " Please close the application and report this error.");
     }
 
     return workspace;
   }
 
+  private static Map<String, Object> getConstructionParametersForWorkspace(CustomWorkspace workspace, TurtleController tc) {
+    return Map.ofEntries(
+        entry("class slogo.controller.TurtleController", tc),
+        entry("class java.util.ResourceBundle", workspace.getResourceBundle()),
+        entry("class slogo.model.Parser", workspace.getParser())
+    );
+  }
+
   public static Workspace fromXML(String filepath) {
     try {
-      CustomWorkspace workspace = null;
-      TurtleController tc = new TurtleController();
-      Parser parser;
-
       File file = new File(filepath);
 
       DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       Document doc = dBuilder.parse(file);
 
-      String language;
-
-      List<List<GuiElement>> rows = new ArrayList<>();
-      List<Double> vDividers = new ArrayList<>();
-      List<List<Double>> hDividers = new ArrayList<>();
+      String language = null;
 
       NodeList nodes = doc.getChildNodes().item(0).getChildNodes();
       for (int i = 0; i < nodes.getLength(); i++) {
         Node node = nodes.item(i);
         if (node.getNodeName().equals("language")) {
           language = node.getTextContent();
-          workspace = new CustomWorkspace(language);
-          parser = new Parser(tc, language);
-          workspace.setParser(parser);
         }
         if (node.getNodeName().equals("layout")) {
-          rows = processRows(workspace, tc, node.getChildNodes());
-          vDividers = processVerticalDividers(node.getChildNodes());
-          hDividers = processHorizontalDividers(node.getChildNodes());
+          if (language == null) {
+            language = MISSING_LANGUAGE;
+          }
+
+          return createWorkspaceFromLayoutNode(language, node);
         }
       }
-
-      workspace.setLayout(rows, vDividers, hDividers);
-
-      return workspace;
-
     } catch (Exception e) {
       ExceptionFeedback.throwException(ExceptionType.XML_EXCEPTION,
           "Failed to build workspace from XML file. The file is corrupted or otherwise" +
@@ -131,39 +117,41 @@ public class WorkspaceFactory {
     return null;
   }
 
+  private static CustomWorkspace createWorkspaceFromLayoutNode(String language, Node node) {
+    List<List<GuiElement>> rows;
+    List<Double> vDividers;
+    List<List<Double>> hDividers;
+    TurtleController tc = new TurtleController();
+    CustomWorkspace workspace = createWorkspace(language, tc);
+
+    rows = processRows(workspace, tc, node.getChildNodes());
+    vDividers = processVerticalDividers(node.getChildNodes());
+    hDividers = processHorizontalDividers(node.getChildNodes());
+    workspace.setLayout(rows, vDividers, hDividers);
+    return workspace;
+  }
+
+  private static CustomWorkspace createWorkspace(String language, TurtleController tc) {
+    CustomWorkspace workspace;
+    Parser parser;
+    workspace = new CustomWorkspace(language);
+    parser = new Parser(tc, language);
+    workspace.setParser(parser);
+    return workspace;
+  }
+
   private static List<List<GuiElement>> processRows(CustomWorkspace workspace, TurtleController tc, NodeList nodes) {
 
-    Map<String, Object> parameters = Map.ofEntries(
-        entry("class slogo.controller.TurtleController", tc),
-        entry("class java.util.ResourceBundle", workspace.getResourceBundle()),
-        entry("class slogo.model.Parser", workspace.getParser())
-    );
+    Map<String, Object> parameters = getConstructionParametersForWorkspace(workspace, tc);
 
     List<List<GuiElement>> layout = new ArrayList<>();
     try {
       for (int r = 0; r < nodes.getLength(); r++) {
-        List<GuiElement> rowElements = new ArrayList<>();
         Node row = nodes.item(r);
         if (!row.getNodeName().equals("row"))
           continue;
 
-        for (int e = 0; e < row.getChildNodes().getLength(); e++) {
-          if (row.getChildNodes().item(e).getNodeType() == Node.ELEMENT_NODE) {
-            Element element = (Element) row.getChildNodes().item(e);
-
-            Constructor<?> constructor =
-                Class.forName(DEFAULT_ELEMENTS_PACKAGE + element.getNodeName())
-                    .getDeclaredConstructors()[0];
-
-            Object[] param = new Object[constructor.getParameterCount()];
-            for (int i = 0; i < constructor.getParameterCount(); i++) {
-              param[i] = parameters.get(constructor.getParameterTypes()[i].toString());
-            }
-            GuiElement ge = (GuiElement) constructor.newInstance(param);
-            ge.setContentsFromXMLElement(element);
-            rowElements.add(ge);
-          }
-        }
+        List<GuiElement> rowElements = processRow(parameters, row);
 
         layout.add(rowElements);
       }
@@ -173,6 +161,35 @@ public class WorkspaceFactory {
     }
 
     return layout;
+  }
+
+  private static List<GuiElement> processRow(Map<String, Object> parameters, Node row)
+      throws ClassNotFoundException, InstantiationException, IllegalAccessException, java.lang.reflect.InvocationTargetException {
+    List<GuiElement> rowElements = new ArrayList<>();
+    for (int e = 0; e < row.getChildNodes().getLength(); e++) {
+      if (row.getChildNodes().item(e).getNodeType() == Node.ELEMENT_NODE) {
+        Element element = (Element) row.getChildNodes().item(e);
+
+        GuiElement ge = createGuiElement(parameters, element);
+        rowElements.add(ge);
+      }
+    }
+    return rowElements;
+  }
+
+  private static GuiElement createGuiElement(Map<String, Object> parameters, Element element)
+      throws ClassNotFoundException, InstantiationException, IllegalAccessException, java.lang.reflect.InvocationTargetException {
+    Constructor<?> constructor =
+        Class.forName(DEFAULT_ELEMENTS_PACKAGE + element.getNodeName())
+            .getDeclaredConstructors()[0];
+
+    Object[] param = new Object[constructor.getParameterCount()];
+    for (int i = 0; i < constructor.getParameterCount(); i++) {
+      param[i] = parameters.get(constructor.getParameterTypes()[i].toString());
+    }
+    GuiElement ge = (GuiElement) constructor.newInstance(param);
+    ge.setContentsFromXMLElement(element);
+    return ge;
   }
 
   private static List<List<Double>> processHorizontalDividers(NodeList nodes) {
@@ -211,6 +228,5 @@ public class WorkspaceFactory {
     }
     return dividers;
   }
-
 
 }

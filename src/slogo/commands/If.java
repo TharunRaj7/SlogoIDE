@@ -1,6 +1,5 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 
 import java.util.ArrayList;

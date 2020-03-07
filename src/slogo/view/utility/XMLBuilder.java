@@ -6,6 +6,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -46,23 +47,24 @@ public class XMLBuilder {
         root.appendChild(node);
       }
 
-      TransformerFactory transformerFactory = TransformerFactory.newInstance();
-      Transformer transformer = transformerFactory.newTransformer();
-      transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-      transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-
-      DOMSource domSource = new DOMSource(document);
-      StreamResult streamResult = new StreamResult(new File(filepath));
-      //StreamResult streamResult = new StreamResult(System.out);
-
-      transformer.transform(domSource, streamResult);
-
-      System.out.println("Done creating XML File");
+      transformDocument(filepath);
 
     } catch (Exception e) {
       ExceptionFeedback.throwException(ExceptionType.XML_EXCEPTION,
           "Failed to build XML file. Please close the application and report this error.");
     }
+  }
+
+  private void transformDocument(String filepath) throws TransformerException {
+    TransformerFactory transformerFactory = TransformerFactory.newInstance();
+    Transformer transformer = transformerFactory.newTransformer();
+    transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+    DOMSource domSource = new DOMSource(document);
+    StreamResult streamResult = new StreamResult(new File(filepath));
+
+    transformer.transform(domSource, streamResult);
   }
 
   public Element createElement(String tag) {

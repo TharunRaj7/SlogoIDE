@@ -1,11 +1,8 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 import slogo.utility.MathOps;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ArcTangent implements ICommand{
 
@@ -41,7 +38,7 @@ public class ArcTangent implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-
+        // Shouldn't do anything
     }
 
     /**
@@ -50,7 +47,6 @@ public class ArcTangent implements ICommand{
      */
     public double returnVal () {
         return MathOps.arcTan(arguments.get(0).returnVal());
-
     }
 
     @Override

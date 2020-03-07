@@ -7,6 +7,10 @@ public class Name implements ICommand {
     private TurtleController myTurtle;
     private String myName;
 
+    public Name(TurtleController turtle) {
+
+    }
+
     public Name(TurtleController turtle, String name) {
         myTurtle = turtle;
         myName = name;

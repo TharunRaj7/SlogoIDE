@@ -118,7 +118,7 @@ public class BlockCommand implements ICommand {
             }
         }
 
-        return recent_node.getData().enoughArgs() && recent_node.getParent() == null;
+        return recent_node == null;
 
     }
 

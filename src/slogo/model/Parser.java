@@ -81,9 +81,6 @@ public class Parser implements IParse {
             Name name = new Name(turtle, commandType);
             ToManager toManager = new ToManager(turtle);
 
-            System.out.println(toManager.isInMap(name));
-            System.out.println(!toManager.isOverwrite());
-
             if(toManager.isInMap(name) && !toManager.isOverwrite()) {
                 System.out.println("Got in Name if statement");
                 toManager.execute2(name);

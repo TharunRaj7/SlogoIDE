@@ -25,6 +25,8 @@ public class Turtle implements ITurtle {
     private boolean show;
     private double penSize;
     private Color penColor;
+    private int colorIndex;
+    private int shapeIndex;
     private ImageView image;
 
     public Turtle(int id, Location location, double orientationAngle, String imageFilePath) {
@@ -286,6 +288,18 @@ public class Turtle implements ITurtle {
     }
     public void setPenSize (double penSize) {
         this.penSize = penSize;
+    }
+    public int getColorIndex (){
+        return this.colorIndex;
+    }
+    public int getShapeIndex(){
+        return this.colorIndex;
+    }
+    public void setColorIndex (int index){
+        this.colorIndex = index;
+    }
+    public void setShapeIndex (int index){
+        this.shapeIndex= index;
     }
 
 //    //testing

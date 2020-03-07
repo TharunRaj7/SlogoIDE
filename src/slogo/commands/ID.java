@@ -7,6 +7,10 @@ public class ID implements ICommand {
     private TurtleController myTurtle;
     private int myArgs = 0;
 
+    public ID (TurtleController turtle) {
+        myTurtle = turtle;
+    }
+
     @Override
     public boolean enoughArgs() {
         return true;
@@ -24,7 +28,7 @@ public class ID implements ICommand {
 
     @Override
     public double returnVal() {
-        return 0;
+        return myTurtle.getLastId();
     }
 
     @Override

@@ -142,6 +142,24 @@ public class TurtleController {
         giveTurtleCanvas(this.turtleCanvas);
     }
 
+    public Location getLocation () {
+        return turtles.get(turtles.size() - 1).getLocation();
+    }
+    public double getHeading() {
+        return turtles.get(turtles.size() - 1).getHeading();
+    }
+
+
+    public boolean getPenDown() {
+        return turtles.get(turtles.size() - 1).getPenDown();
+    }
+
+
+    public boolean getShowing() {
+        return turtles.get(turtles.size() - 1).getShowing();
+    }
+
+
     //get all the turtle images
     public List<ImageView> getActiveTurtleImages(){
         List<ImageView> ret = new ArrayList<>();

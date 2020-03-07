@@ -56,11 +56,7 @@ public class WorkspaceFactory {
         List<GuiElement> elementRow = new ArrayList<>();
         for (String element : row) {
           Constructor<?> constructor = Class.forName(element).getDeclaredConstructors()[0];
-          Object[] param = new Object[constructor.getParameterCount()];
-          for (int i = 0; i < constructor.getParameterCount(); i++) {
-            param[i] = parameters.get(constructor.getParameterTypes()[i].toString());
-          }
-          GuiElement ge = (GuiElement) constructor.newInstance(param);
+          GuiElement ge = createGuiElementFromConstructor(parameters, constructor);
           elementRow.add(ge);
         }
         elements.add(elementRow);
@@ -183,13 +179,19 @@ public class WorkspaceFactory {
         Class.forName(DEFAULT_ELEMENTS_PACKAGE + element.getNodeName())
             .getDeclaredConstructors()[0];
 
+    GuiElement ge = createGuiElementFromConstructor(parameters, constructor);
+    ge.setContentsFromXMLElement(element);
+    return ge;
+  }
+
+  private static GuiElement createGuiElementFromConstructor(Map<String, Object> parameters,
+      Constructor<?> constructor)
+      throws InstantiationException, IllegalAccessException, java.lang.reflect.InvocationTargetException {
     Object[] param = new Object[constructor.getParameterCount()];
     for (int i = 0; i < constructor.getParameterCount(); i++) {
       param[i] = parameters.get(constructor.getParameterTypes()[i].toString());
     }
-    GuiElement ge = (GuiElement) constructor.newInstance(param);
-    ge.setContentsFromXMLElement(element);
-    return ge;
+    return (GuiElement) constructor.newInstance(param);
   }
 
   private static List<List<Double>> processHorizontalDividers(NodeList nodes) {
@@ -198,17 +200,23 @@ public class WorkspaceFactory {
     for (int n = 0; n < nodes.getLength(); n++) {
       Node node = nodes.item(n);
       if (node.getNodeName().equals("horizontalDividers")) {
-        for (int r = 0; r < node.getChildNodes().getLength(); r++) {
-          if (node.getChildNodes().item(r).getNodeType() == Node.ELEMENT_NODE) {
-            List<Double> rowDividers = new ArrayList<>();
-            Node row = node.getChildNodes().item(r);
-            for (String divider : row.getTextContent().split("\\s+")) {
-              rowDividers.add(Double.valueOf(divider));
-            }
-            dividers.add(rowDividers);
-          }
-        }
+        dividers = processHorizontalDividersNode(node);
         break;
+      }
+    }
+    return dividers;
+  }
+
+  private static List<List<Double>> processHorizontalDividersNode(Node node) {
+    List<List<Double>> dividers = new ArrayList<>();
+    for (int r = 0; r < node.getChildNodes().getLength(); r++) {
+      if (node.getChildNodes().item(r).getNodeType() == Node.ELEMENT_NODE) {
+        List<Double> rowDividers = new ArrayList<>();
+        Node row = node.getChildNodes().item(r);
+        for (String divider : row.getTextContent().split("\\s+")) {
+          rowDividers.add(Double.valueOf(divider));
+        }
+        dividers.add(rowDividers);
       }
     }
     return dividers;

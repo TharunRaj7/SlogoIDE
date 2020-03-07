@@ -48,6 +48,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   private TurtleController turtleController;
 
   private Map<Turtle, List<Path>> myPaths;
+  private Map<Path, List<Object>> myPathsProperties;
 
 
   public TurtleCanvas(TurtleController turtleController, ResourceBundle resources) {
@@ -69,6 +70,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     myGraphicsContext = myCanvas.getGraphicsContext2D();
 
     myPaths = new HashMap<>();
+    myPathsProperties = new HashMap<>();
   }
 
   private void initializeDefaults() {
@@ -126,12 +128,16 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
   @Override
   public void drawPath(Turtle turtle, Path p) {
-    handlePathDrawing(turtle, p);
     myPaths.putIfAbsent(turtle, new ArrayList<>());
     myPaths.get(turtle).add(p);
+    myPathsProperties.putIfAbsent(p, List.of(turtle.getPenColor(), (int) turtle.getPenSize()));
+    handlePathDrawing(turtle, p);
   }
 
   private void handlePathDrawing(Turtle turtle, Path p) {
+    setPenColor((Color) myPathsProperties.get(p).get(0));
+    setPenThickness((Integer) myPathsProperties.get(p).get(1));
+
     for (PathElement pe : p.getElements()) {
       if (pe instanceof LineTo) {
         drawLine(turtle, pe.isAbsolute(),
@@ -150,9 +156,6 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     if (!absolute) {
       destination = destination.add(turtle.getLocation());
     }
-
-    setPenColor(turtle.getPenColor());
-    setPenThickness((int) turtle.getPenSize());
 
     myGraphicsContext.strokeLine(
         source.getX()      + TRANSLATE_X, source.getY()      + TRANSLATE_Y,
@@ -193,6 +196,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     removeAllTurtleImages();
     clearCanvas();
     myPaths.clear();
+    myPathsProperties.clear();
   }
 
   private void clearCanvas() {

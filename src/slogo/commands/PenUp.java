@@ -1,10 +1,7 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PenUp implements ICommand{
 
@@ -13,7 +10,6 @@ public class PenUp implements ICommand{
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
     public PenUp (TurtleController turtle) {
         myTurtle = turtle;
-
     }
 
 
@@ -32,7 +28,7 @@ public class PenUp implements ICommand{
      * @param arg
      */
     public void setArgument (ICommand arg) {
-
+        // Shouldn't do anything
     }
 
     /**
@@ -55,6 +51,4 @@ public class PenUp implements ICommand{
     public void clearArgs() {
         arguments.clear();
     }
-
-
 }

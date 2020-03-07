@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public class Left implements ICommand{
 
-    TurtleController myTurtle;
-    int myArgs = 1;
-    double myAngle;
+    private TurtleController myTurtle;
+    private int myArgs = 1;
+    private double myAngle;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public Left (TurtleController turtle) {
@@ -27,7 +27,7 @@ public class Left implements ICommand{
      * @return
      */
     public boolean enoughArgs () {
-        return check_arg() == myArgs;
+        return arguments.size() == myArgs;
     }
 
     /**
@@ -44,7 +44,6 @@ public class Left implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-        // TODO: Call on turtle to move it forward the given distance
         arguments.get(0).execute();
         System.out.println("Executed Left");
         myTurtle.rotate(-arguments.get(0).returnVal());
@@ -65,8 +64,5 @@ public class Left implements ICommand{
         arguments.add(arg);
     }
 
-    public int check_arg(){
-        return arguments.size();
-    }
 }
 

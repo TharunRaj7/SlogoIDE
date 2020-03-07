@@ -2,13 +2,14 @@ package slogo.commands;
 
 import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
+import slogo.view.ExceptionFeedback;
 
 import java.util.ArrayList;
 
 public class For extends BlockCommand implements ICommand {
 
     private TurtleController myTurtle;
-    int myArgs = 2;
+    private int myArgs = 2;
     private ArrayList<BlockCommand> arguments = new ArrayList<>();
     private int[] forArgs = new int[3];
     private Variables variable;
@@ -19,7 +20,7 @@ public class For extends BlockCommand implements ICommand {
 
     @Override
     public boolean enoughArgs() {
-        return checkArgs() == myArgs;
+        return arguments.size() == myArgs;
     }
 
     @Override
@@ -29,9 +30,7 @@ public class For extends BlockCommand implements ICommand {
 
     @Override
     public void execute() {
-
-        //TODO
-        if (arguments.get(0) instanceof BlockCommand) {
+        try{
             BlockCommand firstArg = (BlockCommand) arguments.get(0);
             variable = firstArg.getVar(0);
             variable.setVal(0.0);
@@ -44,14 +43,16 @@ public class For extends BlockCommand implements ICommand {
 
             variable.setVal((double) forArgs[0]);
 
-
-            //TODO
-            if(arguments.get(1) instanceof BlockCommand) {
+            try{
                 while (variable.returnVal() <= forArgs[1]) {
                     arguments.get(1).execute();
                     variable.setVal(variable.returnVal() + forArgs[2]);
                 }
+            }catch (Exception e){
+                ExceptionFeedback.throwException(ExceptionFeedback.ExceptionType.INPUT_EXCEPTION,"Wrong input");
             }
+        }catch (Exception e){
+            ExceptionFeedback.throwException(ExceptionFeedback.ExceptionType.INPUT_EXCEPTION,"Wrong input");
         }
     }
 
@@ -65,5 +66,4 @@ public class For extends BlockCommand implements ICommand {
         arguments.clear();
     }
 
-    private int checkArgs() { return arguments.size(); }
 }

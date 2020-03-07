@@ -161,13 +161,23 @@ public class TurtleController {
                 return turtle.getLocation();
             }
         }
-        return new Location(0,0);
+        return Location.ORIGIN;
     }
 
     /**
      * resets the location and heading of all the turtles back to the initial state
      */
     public void resetTurtles() {
+        for (Turtle turtle : turtles){
+            turtle.setLocation(Location.ORIGIN);
+            turtle.setHeading(0);
+        }
+    }
+
+    /**
+     * Resets the location of all turtles back to the origin
+     */
+    public void resetTurtlesLocation() {
         for (Turtle turtle : turtles){
             turtle.setLocation(Location.ORIGIN);
         }

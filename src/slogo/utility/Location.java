@@ -1,8 +1,5 @@
 package slogo.utility;
 
-/**
- * TODO: Implement a utility class that holds a location.
- */
 public class Location {
 
     public static final Location ORIGIN = new Location(0, 0);

@@ -31,6 +31,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import org.w3c.dom.Element;
+import slogo.controller.TurtleController;
 import slogo.utility.ResourceHandler;
 import slogo.view.ExceptionFeedback;
 import slogo.view.ExceptionFeedback.ExceptionType;
@@ -43,9 +44,10 @@ public class ResourcePanel extends GuiElement {
 
   private ResourceBundle myResources;
 
-  public ResourcePanel(ResourceBundle resources) {
+  public ResourcePanel(ResourceBundle resources, TurtleController tc) {
     super();
     myResources = resources;
+
     initializeLayout();
   }
 

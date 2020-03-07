@@ -78,9 +78,10 @@ public class VariableExplorer extends GuiElement {
     variableValues.setCellFactory(TextFieldTableCell.forTableColumn());
     variableValues.setOnEditCommit(event -> {
       TableColumn.CellEditEvent<DataModel, Object> e = (TableColumn.CellEditEvent<DataModel, Object>) event;
+      //System.out.println(e.getNewValue());
       DataModel data = e.getTableView().getItems().get(e.getTablePosition().getRow());
-      data.setVariableValue(e.getNewValue());
-      currentVariableMap.put(data.getVariableName(), Double.parseDouble(data.getVariableValue()));
+      currentVariableMap.put(":" + data.getVariableName(), Double.parseDouble((String)e.getNewValue()));
+      //System.out.println(Double.parseDouble(data.getVariableValue()));
     });
 
     myVariableTable.getColumns().addAll(variableNames, variableValues);
@@ -110,12 +111,6 @@ public class VariableExplorer extends GuiElement {
 
     public SimpleStringProperty variableValueProperty() {
       return variableValue;
-    }
-
-    public void setVariableValue(Object o) {
-      if (o instanceof Double){
-        this.variableValue = new SimpleStringProperty(Double.toString((Double) o));
-      }
     }
   }
 

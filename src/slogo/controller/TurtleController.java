@@ -21,7 +21,7 @@ public class TurtleController {
     private TurtleCanvas turtleCanvas;
     private VariableExplorer variableExplorer;
 
-    //TODO: getters give last active turtle
+    //TODO: getters give last active turtle, implement this
     public TurtleController (){
         turtles = new ArrayList<>();
         activeTurtles = new ArrayList<>();

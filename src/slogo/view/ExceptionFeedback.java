@@ -8,6 +8,8 @@ import javafx.scene.text.Text;
 
 public class ExceptionFeedback {
 
+  public static final int MESSAGE_LINE_LENGTH = 200;
+
   public enum ExceptionType {
     PARSER_EXCEPTION,
     LOGIC_EXCEPTION,
@@ -28,7 +30,7 @@ public class ExceptionFeedback {
     alert.setHeaderText(header);
 
     StringBuilder sb = new StringBuilder(message);
-    for (int i = 0; i < message.length(); i += 200) {
+    for (int i = 0; i < message.length(); i += MESSAGE_LINE_LENGTH) {
       sb.insert(i, "\n");
     }
 

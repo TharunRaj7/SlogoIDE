@@ -49,7 +49,6 @@ public class Sum implements ICommand{
      */
     public double returnVal () {
         return MathOps.sum(arguments.get(0).returnVal(),arguments.get(1).returnVal());
-
     }
 
     @Override

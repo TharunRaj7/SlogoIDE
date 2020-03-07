@@ -9,7 +9,6 @@ public class Manager implements IManager{
     private ArrayList<String> current_variables = new ArrayList<>();
 
     public Manager () {
-        // TODO: Initialize command tree, hold onto it as a private variable
     }
 
     /**
@@ -17,8 +16,7 @@ public class Manager implements IManager{
      * @param command
      */
     public void addCommand(ICommand command) {
-        // TODO: Add a command to the most recent node on the TreeList, check if the command has enough args to run
-        // TODO: Set that command to the current node
+
         Node command_node = new Node(command);
         if (recent_node == null){
             recent_node = command_node;
@@ -32,8 +30,6 @@ public class Manager implements IManager{
             recent_node.getData().setArgument(command);
             recent_node = command_node;
             while (recent_node.getData().enoughArgs() && recent_node.getParent() != null) {
-                //double return_val = runCommand(recent_node.getData());
-                //recent_node.getParent().getData().setArgument(return_val);
                 recent_node = recent_node.getParent();
             }
             if (recent_node.getData().enoughArgs() && recent_node.getParent() == null){

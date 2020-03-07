@@ -60,5 +60,5 @@ public class GreaterThan implements ICommand{
 
     @Override
     public void clearArgs() { arguments.clear(); }
-    
+
 }

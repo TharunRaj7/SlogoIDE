@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class Home implements ICommand{
 
-    TurtleController myTurtle;
-    double distMoved;
+    private TurtleController myTurtle;
+    private double distMoved;
     //private ArrayList<ICommand> arguments = new ArrayList<>();
 
     public Home (TurtleController turtle) { myTurtle = turtle; }

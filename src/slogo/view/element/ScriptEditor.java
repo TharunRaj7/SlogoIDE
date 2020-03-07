@@ -8,7 +8,9 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.w3c.dom.Element;
@@ -88,6 +90,7 @@ public class ScriptEditor extends GuiElement {
     this.setMinWidth(MIN_WIDTH);
 
     this.add(myButtons, 0, 0);
+    GridPane.setVgrow(myButtons, Priority.NEVER);
   }
 
   private void parseInput() {

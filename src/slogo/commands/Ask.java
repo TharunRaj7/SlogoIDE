@@ -50,8 +50,7 @@ public class Ask extends BlockCommand implements ICommand{
 
     @Override
     public double returnVal() {
-        return 0.0;
-
+        return arguments.get(1).returnVal();
     }
 
     @Override

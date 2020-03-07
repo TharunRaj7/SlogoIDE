@@ -74,8 +74,8 @@ public class BlockCommand implements ICommand {
         return myCommands.size();
     }
 
-    protected boolean checkTree(){
 
+    protected boolean checkTree(){
         ArrayList<ICommand> myCommandsCopy = new ArrayList<>();
 
         for (ICommand command : myCommands){
@@ -86,34 +86,36 @@ public class BlockCommand implements ICommand {
             }catch (Exception e){
                 ExceptionFeedback.throwException(ExceptionFeedback.ExceptionType.INPUT_EXCEPTION,"Wrong input");
             }
-
             myCommandsCopy.add(command.copy(command));
         }
 
         for (ICommand command : myCommandsCopy) {
-            Node command_node = new Node(command);
-            if (recent_node == null) {
-                recent_node = command_node;
-                if (recent_node.getData().enoughArgs()) {
-                    recent_node = null;
-                }
-            }
-
-            else {
-                recent_node.addChild(command_node);
-                recent_node.getData().setArgument(command);
-                recent_node = command_node;
-                while (recent_node.getData().enoughArgs() && recent_node.getParent() != null) {
-                    recent_node = recent_node.getParent();
-                }
-                if (recent_node.getData().enoughArgs() && recent_node.getParent() == null) {
-                    recent_node = null;
-                }
-            }
+            tree_traverse(command);
         }
 
         return recent_node == null;
+    }
 
+    private void tree_traverse(ICommand command){
+        Node command_node = new Node(command);
+        if (recent_node == null) {
+            recent_node = command_node;
+            if (recent_node.getData().enoughArgs()) {
+                recent_node = null;
+            }
+        }
+
+        else {
+            recent_node.addChild(command_node);
+            recent_node.getData().setArgument(command);
+            recent_node = command_node;
+            while (recent_node.getData().enoughArgs() && recent_node.getParent() != null) {
+                recent_node = recent_node.getParent();
+            }
+            if (recent_node.getData().enoughArgs() && recent_node.getParent() == null) {
+                recent_node = null;
+            }
+        }
     }
 
 }

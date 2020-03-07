@@ -20,6 +20,7 @@ public class TurtleController {
     private TurtleCanvas turtleCanvas;
     private List<Turtle> turtlesAskHolder;
     private VariableExplorer variableExplorer;
+    private Turtle currentTurtle;
 
     public TurtleController (){
         turtles = new ArrayList<>();
@@ -96,6 +97,7 @@ public class TurtleController {
     public void moveRelative (double distance){
         for (Turtle turtle : activeTurtles){
             turtle.moveRelative(distance);
+            currentTurtle = turtle;
         }
     }
 
@@ -103,48 +105,56 @@ public class TurtleController {
     public void moveTo (Location l){
         for (Turtle turtle : activeTurtles){
             turtle.moveTo(l);
+            currentTurtle = turtle;
         }
     }
 
     public void rotate (double angle){
         for (Turtle turtle : activeTurtles){
             turtle.rotate(angle);
+            currentTurtle = turtle;
         }
     }
 
     public void towards (double x, double y){
         for (Turtle turtle : activeTurtles){
             turtle.towards(x, y);
+            currentTurtle = turtle;
         }
     }
 
     public void setHeading (double angle){
         for (Turtle turtle : activeTurtles){
             turtle.setHeading(angle);
+            currentTurtle = turtle;
         }
     }
 
     public void penUp(){
         for (Turtle turtle : activeTurtles){
             turtle.penUp();
+            currentTurtle = turtle;
         }
     }
 
     public void penDown(){
         for (Turtle turtle : activeTurtles){
             turtle.penDown();
+            currentTurtle = turtle;
         }
     }
 
     public void show(){
         for (Turtle turtle : activeTurtles){
             turtle.show();
+            currentTurtle = turtle;
         }
     }
 
     public void hide(){
         for (Turtle turtle : activeTurtles){
             turtle.hide();
+            currentTurtle = turtle;
         }
     }
 
@@ -221,5 +231,11 @@ public class TurtleController {
 
     public void giveVariableExplorer(VariableExplorer v) {
         this.variableExplorer = v;
+    }
+    public int getLastId () {
+        return currentTurtle.getId();
+    }
+    public int numberOfTurtlesCreated(){
+        return turtles.size();
     }
 }

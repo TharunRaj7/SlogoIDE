@@ -9,8 +9,8 @@ import java.util.Arrays;
 
 public class Random implements ICommand{
 
-    TurtleController myTurtle;
-    int myArgs = 1;
+    private TurtleController myTurtle;
+    private int myArgs = 1;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public Random (TurtleController turtle) {
@@ -24,7 +24,7 @@ public class Random implements ICommand{
      * @return
      */
     public boolean enoughArgs () {
-        return check_arg() == myArgs;
+        return arguments.size() == myArgs;
     }
 
     /**
@@ -56,11 +56,4 @@ public class Random implements ICommand{
     @Override
     public void clearArgs() { arguments.clear(); }
 
-    private void add_arg(ICommand arg){
-        arguments.add(arg);
-    }
-
-    private int check_arg(){
-        return arguments.size();
-    }
 }

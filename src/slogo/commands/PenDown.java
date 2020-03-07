@@ -8,8 +8,8 @@ import java.util.Arrays;
 
 public class PenDown implements ICommand{
 
-    TurtleController myTurtle;
-    int myArgs = 0;
+    private TurtleController myTurtle;
+    private int myArgs = 0;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
     public PenDown (TurtleController turtle) {
         myTurtle = turtle;
@@ -23,7 +23,7 @@ public class PenDown implements ICommand{
      * @return
      */
     public boolean enoughArgs () {
-        return check_arg() == myArgs;
+        return arguments.size() == myArgs;
     }
 
     /**
@@ -40,7 +40,6 @@ public class PenDown implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-        // TODO: Call on turtle to move it forward the given distance
         myTurtle.penDown();
     }
 
@@ -58,7 +57,4 @@ public class PenDown implements ICommand{
     }
 
 
-    public int check_arg(){
-        return arguments.size();
-    }
 }

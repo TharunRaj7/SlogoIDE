@@ -10,9 +10,9 @@ import java.util.Arrays;
 
 public class Right implements ICommand{
 
-    TurtleController myTurtle;
-    int myArgs = 1;
-    double myAngle;
+    private TurtleController myTurtle;
+    private int myArgs = 1;
+    private double myAngle;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public Right (TurtleController turtle) {
@@ -30,7 +30,7 @@ public class Right implements ICommand{
      * @return
      */
     public boolean enoughArgs () {
-        return check_arg() == myArgs;
+        return arguments.size() == myArgs;
     }
 
     /**
@@ -67,8 +67,5 @@ public class Right implements ICommand{
     public void add_arg(ICommand arg){
         arguments.add(arg);
     }
-
-    public int check_arg(){
-        return arguments.size();
-    }
+    
 }

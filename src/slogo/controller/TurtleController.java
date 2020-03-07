@@ -1,11 +1,13 @@
 package slogo.controller;
 
+import java.io.FileInputStream;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import slogo.utility.Location;
 import slogo.view.ExceptionFeedback;
+import slogo.view.ExceptionFeedback.ExceptionType;
 import slogo.view.element.TurtleCanvas;
 import slogo.view.element.VariableExplorer;
 
@@ -288,13 +290,20 @@ public class TurtleController {
 
 
     public void setShape (int index){
-        resource = getResourceBundleFromPath("images");
-        String imageName = Collections.list(resource.getKeys()).get(index);
-        Image image = new Image("data/resources/images/" + imageName);
-        for (Turtle turtle : activeTurtles){
-            turtle.getImage().setImage(image);
-            turtle.setShapeIndex(index);
-            currentTurtle = turtle;
+        try {
+            resource = getResourceBundleFromPath("images");
+            String imageName = resource.getString(
+                Collections.list(resource.getKeys()).get(index % resource.keySet().size()));
+            System.out.println(imageName);
+            Image image = new Image(new FileInputStream(imageName));
+            for (Turtle turtle : activeTurtles) {
+                turtle.getImage().setImage(image);
+                turtle.setShapeIndex(index);
+                currentTurtle = turtle;
+            }
+        } catch (Exception e) {
+            ExceptionFeedback.throwException(ExceptionType.RESOURCE_EXCEPTION,
+                "Could not set Turtle image.");
         }
     }
 

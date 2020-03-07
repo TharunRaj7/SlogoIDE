@@ -1,16 +1,15 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
+
 import slogo.controller.TurtleController;
+import slogo.view.ExceptionFeedback;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+
 
 public class BlockCommand implements ICommand {
 
-    //private Turtle myTurtle;
+
     private ArrayList<ICommand> myCommands = new ArrayList<>();
     private ArrayList<Double> myReturnVals = new ArrayList<>();
     private double returnValue;
@@ -38,22 +37,14 @@ public class BlockCommand implements ICommand {
 
     @Override
     public void execute() {
-        //ArrayList<ICommand> copyCommands = new ArrayList<>();
         Manager blockManager = new Manager();
-        //System.out.println(blockManager.toString());
         for (ICommand command : myCommands) {
-            //System.out.println(command.toString());
-            //System.out.println(blockManager.toString());
             blockManager.addCommand(command);
         }
-        //System.out.println(myCommands.toString());
-        //System.out.println(copyCommands.toString());
         returnValue = myCommands.get(0).returnVal();
         for (ICommand command : myCommands) {
             myReturnVals.add(command.returnVal());
-            //if (!(command instanceof BlockCommand)) {
                 command.clearArgs();
-            //}
         }
     }
 
@@ -68,9 +59,6 @@ public class BlockCommand implements ICommand {
         //yReturnVals.clear();
     }
 
-    protected double getRetVals (int index) {
-        return myReturnVals.get(index);
-    }
 
     public Variables getVar (int index) {
         if (myCommands.get(index) instanceof Variables) {
@@ -78,8 +66,11 @@ public class BlockCommand implements ICommand {
         } else { return null; }
     }
 
+    protected double getRetVals (int index) {
+        return myReturnVals.get(index);
+    }
+
     protected int argSize(){
-        System.out.println(myCommands.toString());
         return myCommands.size();
     }
 
@@ -88,11 +79,14 @@ public class BlockCommand implements ICommand {
         ArrayList<ICommand> myCommandsCopy = new ArrayList<>();
 
         for (ICommand command : myCommands){
-            if (command instanceof BlockCommand){
+            try{
                 if (!((BlockCommand) command).checkTree()){
                     return false;
                 }
+            }catch (Exception e){
+                ExceptionFeedback.throwException(ExceptionFeedback.ExceptionType.INPUT_EXCEPTION,"Wrong input");
             }
+
             myCommandsCopy.add(command.copy(command));
         }
 

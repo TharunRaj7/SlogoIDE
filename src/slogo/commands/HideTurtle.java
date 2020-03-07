@@ -8,8 +8,8 @@ import java.util.Arrays;
 
 public class HideTurtle implements ICommand{
 
-    TurtleController myTurtle;
-    int myArgs = 0;
+    private TurtleController myTurtle;
+    private int myArgs = 0;
     private ArrayList<Double> arguments = new ArrayList<Double>();
 
     public HideTurtle (TurtleController turtle) {
@@ -26,7 +26,7 @@ public class HideTurtle implements ICommand{
      * @return
      */
     public boolean enoughArgs () {
-        return check_arg() == myArgs;
+        return arguments.size() == myArgs;
     }
 
     /**
@@ -61,7 +61,4 @@ public class HideTurtle implements ICommand{
     }
 
 
-    public int check_arg(){
-        return arguments.size();
-    }
 }

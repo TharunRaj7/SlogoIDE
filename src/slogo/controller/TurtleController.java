@@ -90,7 +90,6 @@ public class TurtleController {
             id.add(turtle.getId());
         }
         tellTurtles(id);
-        turtlesAskHolder.clear();
     }
 
 

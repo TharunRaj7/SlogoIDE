@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class IfElse extends BlockCommand implements ICommand {
 
     private TurtleController myTurtle;
-    int myArgs = 3;
-    double retVal = 0.0;
+    private int myArgs = 3;
+    private double retVal = 0.0;
     private ArrayList<ICommand> arguments = new ArrayList<>();
 
     public IfElse (TurtleController turtle) {
@@ -18,7 +18,7 @@ public class IfElse extends BlockCommand implements ICommand {
 
     @Override
     public boolean enoughArgs() {
-        return checkArgs() == myArgs;
+        return arguments.size() == myArgs;
     }
 
     @Override
@@ -48,5 +48,4 @@ public class IfElse extends BlockCommand implements ICommand {
         arguments.clear();
     }
 
-    private int checkArgs() { return arguments.size(); }
 }

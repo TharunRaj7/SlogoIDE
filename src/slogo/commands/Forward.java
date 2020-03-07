@@ -8,9 +8,9 @@ import java.util.Arrays;
 
 public class Forward implements ICommand{
 
-    TurtleController myTurtle;
-    int myArgs = 1;
-    double myDist;
+    private TurtleController myTurtle;
+    private int myArgs = 1;
+    private double myDist;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public Forward (TurtleController turtle) {
@@ -28,7 +28,7 @@ public class Forward implements ICommand{
      * @return
      */
     public boolean enoughArgs () {
-        return check_arg() == myArgs;
+        return arguments.size() == myArgs;
     }
 
     /**
@@ -53,7 +53,6 @@ public class Forward implements ICommand{
         // TODO: Call on turtle to move it forward the given distance
         arguments.get(0).execute();
         System.out.println("Executed Forward");
-        //System.out.println(arguments.get(0).returnVal());
         myTurtle.moveRelative(arguments.get(0).returnVal());
     }
 
@@ -68,11 +67,4 @@ public class Forward implements ICommand{
     @Override
     public void clearArgs() { arguments.clear(); }
 
-    private void add_arg(ICommand arg){
-        arguments.add(arg);
-    }
-
-    private int check_arg(){
-        return arguments.size();
-    }
 }

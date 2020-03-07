@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class Home implements ICommand{
 
-    TurtleController myTurtle;
-    double distMoved;
+    private TurtleController myTurtle;
+    private double distMoved;
     //private ArrayList<ICommand> arguments = new ArrayList<>();
 
     public Home (TurtleController turtle) { myTurtle = turtle; }
@@ -26,7 +26,7 @@ public class Home implements ICommand{
     public void execute() {
         //arguments.get(0).execute();
         //TODO: Make this return the value of the last turtle called for this equation below
-        //distMoved = Math.sqrt(Math.pow(myTurtle.getLocation().getX(), 2.0) + Math.pow(myTurtle.getLocation().getY(), 2.0));
+        distMoved = Math.sqrt(Math.pow(myTurtle.getLocation().getX(), 2.0) + Math.pow(myTurtle.getLocation().getY(), 2.0));
         Location origin = new Location(0, 0);
         myTurtle.moveTo(origin);
         myTurtle.setHeading(0.0);

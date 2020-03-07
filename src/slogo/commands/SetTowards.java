@@ -73,10 +73,6 @@ public class SetTowards implements ICommand{
         arguments.clear();
     }
 
-    private void add_arg(ICommand arg){
-        arguments.add(arg);
-    }
-
     private int check_arg(){
         return arguments.size();
     }

@@ -9,8 +9,8 @@ import java.util.Arrays;
 
 public class Equal implements ICommand{
 
-    TurtleController myTurtle;
-    int myArgs = 2;
+    private TurtleController myTurtle;
+    private int myArgs = 2;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public Equal (TurtleController turtle) {
@@ -24,7 +24,7 @@ public class Equal implements ICommand{
      * @return
      */
     public boolean enoughArgs () {
-        return check_arg() == myArgs;
+        return arguments.size() == myArgs;
     }
 
     /**
@@ -61,11 +61,4 @@ public class Equal implements ICommand{
     @Override
     public void clearArgs() { arguments.clear(); }
 
-    private void add_arg(ICommand arg){
-        arguments.add(arg);
-    }
-
-    private int check_arg(){
-        return arguments.size();
-    }
 }

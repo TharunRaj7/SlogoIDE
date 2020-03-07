@@ -9,8 +9,8 @@ import java.util.Arrays;
 
 public class IsPenDown implements ICommand{
 
-    TurtleController myTurtle;
-    int myArgs = 0;
+    private TurtleController myTurtle;
+    private int myArgs = 0;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public IsPenDown (TurtleController turtle) {
@@ -24,7 +24,7 @@ public class IsPenDown implements ICommand{
      * @return
      */
     public boolean enoughArgs () {
-        return check_arg() == myArgs;
+        return arguments.size() == myArgs;
     }
 
     /**
@@ -49,7 +49,7 @@ public class IsPenDown implements ICommand{
      * @return value designated by type of command
      */
     public double returnVal () {
-        /*
+
         if (myTurtle.getPenDown()){
             return 1.0;
         }
@@ -57,20 +57,10 @@ public class IsPenDown implements ICommand{
             return 0.0;
         }
 
-         */
-        //TODO: Make this functional (the above worked with one turtle)
-        return 0.0;
 
     }
 
     @Override
     public void clearArgs() { arguments.clear(); }
 
-    private void add_arg(ICommand arg){
-        arguments.add(arg);
-    }
-
-    private int check_arg(){
-        return arguments.size();
-    }
 }

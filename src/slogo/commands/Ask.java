@@ -6,15 +6,15 @@ import slogo.view.ExceptionFeedback;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tell extends BlockCommand implements ICommand{
+public class Ask extends BlockCommand implements ICommand{
 
     TurtleController myShell;
-    int myArgs = 1;
+    int myArgs = 2;
     double val;
     private ArrayList<ICommand> arguments = new ArrayList<>();
     private List<Integer> turtles = new ArrayList<>();
 
-    public Tell(TurtleController turtleController){
+    public Ask (TurtleController turtleController){
         myShell = turtleController;
     }
 
@@ -41,12 +41,17 @@ public class Tell extends BlockCommand implements ICommand{
             ExceptionFeedback.throwException(ExceptionFeedback.ExceptionType.INPUT_EXCEPTION,"Wrong input");
         }
 
-        myShell.tellTurtles(turtles);
+        myShell.askTurtles(turtles);
+
+        arguments.get(1).execute();
+
+        myShell.restore();
     }
 
     @Override
     public double returnVal() {
-        return val;
+        return 0.0;
+
     }
 
     @Override

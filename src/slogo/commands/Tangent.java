@@ -4,6 +4,10 @@ import slogo.controller.Turtle;
 import slogo.utility.MathOps;
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Tangent implements ICommand{
 
     Turtle myTurtle;
@@ -48,6 +52,8 @@ public class Tangent implements ICommand{
         return MathOps.tan(arguments.get(0).returnVal());
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
 }

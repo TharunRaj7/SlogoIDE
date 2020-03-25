@@ -3,6 +3,10 @@ package slogo.commands;
 import slogo.controller.TurtleController;
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class SetTowards implements ICommand{
 
     TurtleController myTurtle;
@@ -59,7 +63,9 @@ public class SetTowards implements ICommand{
         return Math.abs(myAngle - myCurrAngle);
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         arguments.clear();
     }

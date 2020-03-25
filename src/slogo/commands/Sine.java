@@ -4,6 +4,10 @@ import slogo.controller.Turtle;
 import slogo.utility.MathOps;
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Sine implements ICommand{
 
     Turtle myTurtle;
@@ -48,7 +52,9 @@ public class Sine implements ICommand{
         return MathOps.sin(arguments.get(0).returnVal());
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
 
     private int check_arg(){

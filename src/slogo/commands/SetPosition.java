@@ -4,6 +4,10 @@ import slogo.controller.TurtleController;
 import slogo.utility.Location;
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class SetPosition implements ICommand {
 
     TurtleController myTurtle;
@@ -15,17 +19,28 @@ public class SetPosition implements ICommand {
         myTurtle = turtle;
     }
 
-    @Override
+    /**
+     * Checks to see if the number of arguments available are sufficient
+     * to run the command
+     * @return
+     */
     public boolean enoughArgs() {
         return check_arg() == myArgs;
     }
 
-    @Override
+    /**
+     * Gives the command an argument
+     * Manager will check if sufficient and run if needed
+     * @param command
+     */
     public void setArgument(ICommand command) {
         arguments.add(command);
     }
 
-    @Override
+    /**
+     * Either uses setters on the turtle or calls other commands with the turtle
+     * and arguments already provided
+     */
     public void execute() {
         arguments.get(0).execute();
         arguments.get(1).execute();
@@ -38,12 +53,17 @@ public class SetPosition implements ICommand {
         myTurtle.moveTo(future);
     }
 
-    @Override
+    /**
+     * Is the output value that has to be present for every command
+     * @return value designated by type of command
+     */
     public double returnVal() {
         return myDist;
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         arguments.clear();
     }

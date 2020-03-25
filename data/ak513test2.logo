@@ -1,0 +1,15 @@
+to triangle [ :length ] 
+[
+repeat 3 [
+	rt 30 repeat 2 [ fd :length ]
+	rt 120 repeat 3 [ fd :length ]
+	lt 60 fd :length
+	lt 120 repeat 5 [ fd :length ]
+	lt 120 repeat 4 [ fd :length ]
+	lt 120 fd :length
+	lt 60 fd :length
+	rt 90
+]
+]
+
+triangle 50

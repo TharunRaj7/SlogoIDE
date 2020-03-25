@@ -1,0 +1,22 @@
+tell [ 1 ] # first turtle
+setpc 5
+pu left 90 fd 300
+pd right 120 fd 200
+right 120 fd 200
+bk 100
+right 120 fd 100
+# I'm putting this comment here so that it is ignored
+tell [ 2 ] # second turtle
+setpc 3
+right 90 # this one too
+back 30 fd 30
+repeat 45 [ fd 3 left 4 ]
+repeat 45 [ fd 3 right 4 ] fd 30
+tell [ 3 ] # third turtle
+pu rt 90 fd 100
+pd left 90 fd 170 # hey here's another!
+back 85 right 45 fd 120
+back 100 right 90 fd 140
+# me too!
+tell [ 1 2 3 ]
+pu seth 180

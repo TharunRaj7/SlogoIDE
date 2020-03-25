@@ -11,6 +11,8 @@ public abstract class Command {
     protected double returnVal;
     protected ArrayList<Command> arguments = new ArrayList<>();
 
+    public Command () {}
+
     public Command (TurtleController turtle) { myTurtle = turtle; }
 
     public boolean enoughArgs () { return arguments.size() == myArgs; }

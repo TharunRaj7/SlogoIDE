@@ -1,0 +1,11 @@
+crear :x 1
+
+repetir 4
+[
+	si :x
+	[
+		repetir 360 [ ava 2 der 1 ]
+		der 90
+		crear :x 0
+	]
+]

@@ -3,6 +3,10 @@ package slogo.commands;
 import slogo.controller.TurtleController;
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Heading implements ICommand{
 
     private TurtleController myTurtle;
@@ -45,7 +49,9 @@ public class Heading implements ICommand{
      */
     public double returnVal () { return myTurtle.getHeading(); }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
 
 }

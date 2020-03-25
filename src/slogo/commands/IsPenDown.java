@@ -4,6 +4,10 @@ import slogo.controller.TurtleController;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class IsPenDown implements ICommand{
 
     private TurtleController myTurtle;
@@ -13,7 +17,6 @@ public class IsPenDown implements ICommand{
     public IsPenDown (TurtleController turtle) {
         myTurtle = turtle;
     }
-
 
     /**
      * Checks to see if the number of arguments available are sufficient
@@ -54,7 +57,9 @@ public class IsPenDown implements ICommand{
         }
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
 
 }

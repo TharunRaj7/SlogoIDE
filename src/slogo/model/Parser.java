@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Takes string given by front end, removes comments, then decides what to do with all the other text
+ * Sends commands with turtles to the manager
+ * @author Andrew Krier
+ */
 public class Parser implements IParse {
 
     public static final String WHITESPACE = "\\s+";
@@ -27,9 +32,8 @@ public class Parser implements IParse {
     /**
      * Sets input to a private local string to be able to manage regex and
      * other aspects from there
+     * Removes comments in the for loop
      * @param input
-     * @throws syntaxException
-     * @throws ParserException
      */
     public void parse(String input) {
 
@@ -55,15 +59,24 @@ public class Parser implements IParse {
     }
 
     /**
-     * Passes the instance of the turtle to the parser to then send to the commands
+     * Passes the instance of the turtle controller to the parser to then send to the commands
      * @param turtle
      */
     public void giveTurtle(TurtleController turtle) { myTurtle = turtle; }
 
+    /**
+     * Changes language to given language
+     * @param language
+     */
     public void updateLanguage(String language) {
         myLanguage = language;
     }
 
+    /**
+     * Makes decisions on the text given in lines according to what language they are in
+     * @param lang
+     * @param lines
+     */
     private void parseText (ProgramParser lang, List<String> lines) {
         for (String line : lines) {
             if (line.trim().length() > 0) {
@@ -85,7 +98,10 @@ public class Parser implements IParse {
 
     /**
      * Instantiates command to send to send to the manager
+     * Command should be empty aside from a turtle
+     * Behavior changes if a block command is in effect
      * @param turtle
+     * @param commandType
      */
     public void makeCommand(TurtleController turtle, String commandType) {
         try {

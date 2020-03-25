@@ -3,6 +3,10 @@ package slogo.commands;
 import slogo.controller.TurtleController;
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class PenDown implements ICommand{
 
     private TurtleController myTurtle;
@@ -46,7 +50,9 @@ public class PenDown implements ICommand{
         return 1.0;
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         arguments.clear();
     }

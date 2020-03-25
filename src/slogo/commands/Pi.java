@@ -4,6 +4,10 @@ import slogo.controller.TurtleController;
 import slogo.utility.MathOps;
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Pi implements ICommand{
 
     private TurtleController myTurtle;
@@ -48,6 +52,8 @@ public class Pi implements ICommand{
         return MathOps.getPI();
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
 }

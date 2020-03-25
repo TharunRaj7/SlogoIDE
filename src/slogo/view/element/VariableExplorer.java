@@ -139,6 +139,10 @@ public class VariableExplorer extends GuiElement {
     myVariableValues.setText(myResources.getString("value"));
   }
 
+  /**
+   * Creates an XML element representing this GuiElement.
+   * @return new XML Element node
+   */
   @Override
   public Element toXMLElement() {
     XMLBuilder xmlBuilder = XMLBuilder.newInstance();
@@ -146,6 +150,10 @@ public class VariableExplorer extends GuiElement {
     return xmlBuilder.createElement(this.getClass().getSimpleName());
   }
 
+  /**
+   * Sets the contents of this GuiElement from an XML element.
+   * @param element XML Element node
+   */
   @Override
   public void setContentsFromXMLElement(Element element) {
     // do nothing

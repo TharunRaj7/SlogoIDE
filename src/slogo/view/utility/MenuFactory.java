@@ -19,6 +19,11 @@ public class MenuFactory {
       "Italian", "Portuguese", "Russian", "Urdu"
   );
 
+  /**
+   * Makes a default SlogoFrame MenuBar.
+   * @param frame the frame
+   * @return new MenuBar
+   */
   public static MenuBar makeSlogoMenu(SLogoFrame frame) {
     MenuBar menuBar = new MenuBar();
 

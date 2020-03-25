@@ -31,6 +31,13 @@ public class CustomWorkspace extends Workspace {
     // layout must be set using setLayout after initialization
   }
 
+  /**
+   * Sets the workspace's parser.
+   *
+   * Completes initialization of the workspace's parser, since no parser is initialized
+   * at construction of a CustomWorkspace.
+   * @param p the new Parser
+   */
   public void setParser(Parser p) {
     myParser = p;
   }

@@ -20,6 +20,10 @@ public abstract class Workspace extends Tab {
   Parser myParser;
   ResourceBundle myResources;
 
+  /**
+   * Initializes resources and layout for a new workspace with a provided language.
+   * @param language frame language
+   */
   public Workspace(String language) {
     initializeResources(language);
     initializeLayoutPane();
@@ -42,6 +46,10 @@ public abstract class Workspace extends Tab {
     }
   }
 
+  /**
+   * Sets the workspace's language, updating component GuiElements.
+   * @param language the new language
+   */
   public void setLanguage(String language) {
     initializeResources(language);
     myParser.updateLanguage(language);
@@ -50,6 +58,12 @@ public abstract class Workspace extends Tab {
     }
   }
 
+  /**
+   * Populates an XML file with information describing this workspace.
+   *
+   * Used to store a workspace in an XML for importing/exporting.
+   * @param filepath the XML file to write to
+   */
   public void sendToXML(String filepath) {
     XMLBuilder xmlBuilder = XMLBuilder.newInstance();
     List<Element> elements = new ArrayList<>();
@@ -66,6 +80,14 @@ public abstract class Workspace extends Tab {
 
   protected abstract Element generateLayoutXMLElement();
 
+  /**
+   * Sets this workspace's parser's language independent of its GUI elements' language.
+   *
+   * Used when GUI resources do not exist for a language, but parsing should still happen in that
+   * language. e.g., German GUI labels do not exist, so English is displayed by default, but
+   * parsing still happens in German.
+   * @param language the new language
+   */
   public void setParserLanguage(String language) {
     myParser.updateLanguage(language);
   }

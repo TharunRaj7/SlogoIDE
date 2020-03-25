@@ -43,6 +43,11 @@ public class WorkspaceFactory {
   private static final String MISSING_LANGUAGE = "MissingLanguage";
 
 
+  /**
+   * Builds a default workspace using declared constant specifications.
+   * @param language the frame language
+   * @return new Workspace
+   */
   public static Workspace defaultWorkspace(String language) {
     CustomWorkspace workspace = new CustomWorkspace(language);
     TurtleController tc = new TurtleController();
@@ -81,6 +86,14 @@ public class WorkspaceFactory {
     );
   }
 
+  /**
+   * Builds a workspace from an XML file.
+   *
+   * Reads XML element node names, then uses reflection to create the appropriate GuiElement for
+   * each node and set its contents.
+   * @param filepath the XML file
+   * @return new Workspace
+   */
   public static Workspace fromXML(String filepath) {
     try {
       File file = new File(filepath);

@@ -44,6 +44,11 @@ public class ResourcePanel extends GuiElement {
 
   private ResourceBundle myResources;
 
+  /**
+   * Initializes a ResourcePanel.
+   * @param resources language ResourceBundle
+   * @param tc TurtleController
+   */
   public ResourcePanel(ResourceBundle resources, TurtleController tc) {
     super();
     myResources = resources;
@@ -163,11 +168,19 @@ public class ResourcePanel extends GuiElement {
     initializeLayout();
   }
 
+  /**
+   * Creates an XML element representing this GuiElement.
+   * @return new XML Element node
+   */
   @Override
   public Element toXMLElement() {
     return XMLBuilder.newInstance().createElement(this.getClass().getSimpleName());
   }
 
+  /**
+   * Sets the contents of this GuiElement from an XML element.
+   * @param element XML Element node
+   */
   @Override
   public void setContentsFromXMLElement(Element element) {
     // do nothing

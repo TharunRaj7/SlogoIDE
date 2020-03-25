@@ -50,7 +50,11 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   private Map<Turtle, List<Path>> myPaths;
   private Map<Path, List<Object>> myPathsProperties;
 
-
+  /**
+   * Initializes a TurtleCanvas.
+   * @param turtleController TurtleController to use
+   * @param resources language ResourceBundle
+   */
   public TurtleCanvas(TurtleController turtleController, ResourceBundle resources) {
     this.turtleController = turtleController;
     initializeCanvas();
@@ -110,6 +114,9 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     return menu;
   }
 
+  /**
+   * Adds all turtle images to the canvas.
+   */
   public void addAllTurtleImages (){
     myCanvasHolder.getChildren().addAll(turtleController.getAllTurtleImages());
   }
@@ -118,6 +125,9 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     myCanvasHolder.getChildren().removeAll(turtleController.getAllTurtleImages());
   }
 
+  /**
+   * Adds active turtle images to the canvas, from the TurtleController.
+   */
   public void addActiveTurtleImages() {
     for (ImageView image : turtleController.getActiveTurtleImages()){
       if (!myCanvasHolder.getChildren().contains(image)){
@@ -126,6 +136,11 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     }
   }
 
+  /**
+   * Draws a new path with the provided Turtle.
+   * @param turtle the Turtle with which to draw
+   * @param p the Path to draw
+   */
   @Override
   public void drawPath(Turtle turtle, Path p) {
     myPaths.putIfAbsent(turtle, new ArrayList<>());
@@ -174,16 +189,28 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     }
   }
 
+  /**
+   * Sets the pen color.
+   * @param c the new Color
+   */
   @Override
   public void setPenColor(Color c) {
     myGraphicsContext.setStroke(c);
   }
 
+  /**
+   * Sets the pen thickness.
+   * @param thickness the new thickness, in pixels
+   */
   @Override
   public void setPenThickness(int thickness) {
     myGraphicsContext.setLineWidth(thickness);
   }
 
+  /**
+   * Sets the canvas background color.
+   * @param c the new background Color
+   */
   @Override
   public void setBackgroundColor(Color c) {
     BackgroundFill backgroundFill = new BackgroundFill(c, null, null);
@@ -191,6 +218,9 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     myCanvasHolder.setBackground(background);
   }
 
+  /**
+   * Clears the canvas and removes recorded paths.
+   */
   @Override
   public void clear() {
     removeAllTurtleImages();
@@ -203,11 +233,20 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     myGraphicsContext.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
   }
 
+  /**
+   * Overrides bounds checking to use layout bounds.
+   * @return this.getLayoutBounds()
+   */
   @Override
   public Bounds getBounds() {
     return this.getLayoutBounds();
   }
 
+  /**
+   * Updates coordinate translation and redraws paths on each resize.
+   * @param width the new width
+   * @param height the new height
+   */
   @Override
   public void resize(double width, double height) {
     TRANSLATE_X = width / 2.0 - PADDING;
@@ -231,10 +270,18 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     }
   }
 
+  /**
+   * Gets the canvas' X-coordinate translation.
+   * @return TRANSLATE_X
+   */
   public double getTRANSLATE_X() {
     return TRANSLATE_X;
   }
 
+  /**
+   * Gets the canvas' Y-coordinate translation.
+   * @return TRANSLATE_Y
+   */
   public double getTRANSLATE_Y() {
     return TRANSLATE_Y;
   }
@@ -248,6 +295,10 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     initializeLayoutPane(resources);
   }
 
+  /**
+   * Creates an XML element representing this GuiElement.
+   * @return new XML Element node
+   */
   @Override
   public Element toXMLElement() {
     XMLBuilder xmlBuilder = XMLBuilder.newInstance();
@@ -259,6 +310,10 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     return root;
   }
 
+  /**
+   * Sets the contents of this GuiElement from an XML element.
+   * @param element XML Element node
+   */
   @Override
   public void setContentsFromXMLElement(Element element) {
     setBackgroundColor(Color.valueOf(element.getAttributes().item(0).getNodeValue()));

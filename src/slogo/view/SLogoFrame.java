@@ -40,6 +40,10 @@ public class SLogoFrame extends Application implements IFrame {
     super();
   }
 
+  /**
+   * Starts the application, opening the window.
+   * @param primaryStage a stage, provided by Application.launch()
+   */
   @Override
   public void start(Stage primaryStage) {
     myPrimaryStage = primaryStage;
@@ -73,6 +77,9 @@ public class SLogoFrame extends Application implements IFrame {
     addWorkspace();
   }
 
+  /**
+   * Adds a new workspace to the workspaces tab of this frame.
+   */
   public void addWorkspace() {
     addWorkspace(WorkspaceFactory.defaultWorkspace(getResourceLanguage(myResources)));
   }
@@ -83,6 +90,9 @@ public class SLogoFrame extends Application implements IFrame {
     myWorkspaces.setTabClosingPolicy(TabClosingPolicy.ALL_TABS);
   }
 
+  /**
+   * Saves the current workspace to an XML file for exporting/importing.
+   */
   public void saveCurrentWorkspace() {
     FileChooser fc = new FileChooser();
     String dataPath = System.getProperty("user.dir") + "/data";
@@ -105,6 +115,9 @@ public class SLogoFrame extends Application implements IFrame {
     }
   }
 
+  /**
+   * Opens a workspace from an XML file.
+   */
   public void openWorkspace() {
     FileChooser fc = new FileChooser();
     String dataPath = System.getProperty("user.dir") + "/data";
@@ -125,10 +138,17 @@ public class SLogoFrame extends Application implements IFrame {
     myPrimaryStage.setScene(primaryScene);
   }
 
+  /**
+   * Closes the window.
+   */
   public void close() {
     myPrimaryStage.close();
   }
 
+  /**
+   * Sets the language of the window and all GUI components.
+   * @param language the new language
+   */
   public void setLanguage(String language) {
     initializeResources(language);
     for (Tab w : myWorkspaces.getTabs()) {
@@ -147,10 +167,19 @@ public class SLogoFrame extends Application implements IFrame {
     myPrimaryStage.setTitle(myResources.getString("title"));
   }
 
+  /**
+   * Gets this window's language resources.
+   * @return myResources
+   */
   public ResourceBundle getResources() {
     return myResources;
   }
 
+  /**
+   * Gets the language that corresponds to this a language resource bundle.
+   * @param resources ResourceBundle to check
+   * @return String language
+   */
   public static String getResourceLanguage(ResourceBundle resources) {
     return resources.getBaseBundleName().substring(
         resources.getBaseBundleName().lastIndexOf('.')+1

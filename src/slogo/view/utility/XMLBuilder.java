@@ -32,10 +32,25 @@ public class XMLBuilder {
     }
   }
 
+  /**
+   * Instantiates a new XMLBuilder.
+   * @return new XMLBuilder
+   */
   public static XMLBuilder newInstance() {
     return new XMLBuilder();
   }
 
+  /**
+   * Generates an XML with a given filepath, root tag, root attribute, and elements.
+   *
+   * Creates a new XML file at the given filepath. Creates a root node for the XML file with the
+   * provided name and "type" attribute, then adds all items in the provided list of elements
+   * to the root node's children.
+   * @param filepath the filepath to write to
+   * @param rootTag the tag for the file's root node
+   * @param rootAttr "type" attribute for the file's root node
+   * @param elements XML elements to add to root node
+   */
   public void buildXML(String filepath, String rootTag, String rootAttr, List<Element> elements) {
     try {
       Element root = document.createElement(rootTag);
@@ -67,20 +82,42 @@ public class XMLBuilder {
     transformer.transform(domSource, streamResult);
   }
 
+  /**
+   * Creates an Element node with a provided tag.
+   * @param tag the tag
+   * @return new Element
+   */
   public Element createElement(String tag) {
     return document.createElement(tag);
   }
 
+  /**
+   * Creates a Text node with the provided text.
+   * @param text the text
+   * @return new Text
+   */
   public Text createTextNode(String text) {
     return document.createTextNode(text);
   }
 
+  /**
+   * Creates an Attr node with a provided tag and value.
+   * @param tag the tag
+   * @param value the value
+   * @return new Attr
+   */
   public Attr createAttribute(String tag, String value) {
     Attr attr = document.createAttribute(tag);
     attr.setValue(value);
     return attr;
   }
 
+  /**
+   * Imports a Node from another document
+   * @param s the node to import
+   * @param deepcopy if true, imports all children of the node, too
+   * @return imported Node
+   */
   public Node importNode(Node s, boolean deepcopy) {
     return document.importNode(s, deepcopy);
   }

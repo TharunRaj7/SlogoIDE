@@ -17,6 +17,11 @@ public class ExceptionFeedback {
     INPUT_EXCEPTION
   }
 
+  /**
+   * Throws an exception dialog to the user with a given type and message.
+   * @param e ExceptionType value
+   * @param message message to include
+   */
   public static void throwException(ExceptionType e, String message) {
     Alert alert = createAlert(e.toString(), message);
 

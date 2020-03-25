@@ -1,5 +1,6 @@
 package slogo.view.element;
 
+import java.lang.annotation.Inherited;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.TextArea;
@@ -124,6 +125,10 @@ public class Console extends GuiElement {
     myHistoryArea.appendText(CARET + " " + text + "\n");
   }
 
+  /**
+   * Creates an XML element representing this GuiElement.
+   * @return new XML Element node
+   */
   @Override
   public Element toXMLElement() {
     XMLBuilder xmlBuilder = XMLBuilder.newInstance();
@@ -142,6 +147,10 @@ public class Console extends GuiElement {
     return root;
   }
 
+  /**
+   * Sets the contents of this GuiElement from an XML element.
+   * @param element XML Element node
+   */
   @Override
   public void setContentsFromXMLElement(Element element) {
     for (int n = 0; n < element.getChildNodes().getLength(); n++) {

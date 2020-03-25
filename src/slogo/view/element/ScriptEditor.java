@@ -33,7 +33,12 @@ public class ScriptEditor extends GuiElement {
 
   private String myFilePath;
 
-
+  /**
+   * Initializes a ScriptEditor.
+   * @param parser Parser to send input to
+   * @param turtleController TurtleController to use
+   * @param resources language ResourceBundle
+   */
   public ScriptEditor(Parser parser, TurtleController turtleController, ResourceBundle resources) {
     myParser = parser;
     this.turtleController = turtleController;
@@ -174,6 +179,10 @@ public class ScriptEditor extends GuiElement {
     initializeLayout();
   }
 
+  /**
+   * Creates an XML element representing this GuiElement.
+   * @return new XML Element node
+   */
   @Override
   public Element toXMLElement() {
     XMLBuilder xmlBuilder = XMLBuilder.newInstance();
@@ -186,6 +195,10 @@ public class ScriptEditor extends GuiElement {
     return root;
   }
 
+  /**
+   * Sets the contents of this GuiElement from an XML element.
+   * @param element XML Element node
+   */
   @Override
   public void setContentsFromXMLElement(Element element) {
     for (int n = 0; n < element.getChildNodes().getLength(); n++) {

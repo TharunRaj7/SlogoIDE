@@ -2,6 +2,10 @@ package slogo.commands;
 
 import slogo.controller.TurtleController;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class ClearScreen implements ICommand {
 
     private TurtleController myTurtle;

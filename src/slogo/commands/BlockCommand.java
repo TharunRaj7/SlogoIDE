@@ -6,7 +6,10 @@ import slogo.view.ExceptionFeedback;
 
 import java.util.ArrayList;
 
-
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class BlockCommand implements ICommand {
 
     private ArrayList<ICommand> myCommands = new ArrayList<>();

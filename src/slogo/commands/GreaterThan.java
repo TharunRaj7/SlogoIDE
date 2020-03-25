@@ -3,6 +3,10 @@ package slogo.commands;
 import slogo.controller.TurtleController;
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class GreaterThan implements ICommand{
 
     private TurtleController myTurtle;
@@ -12,7 +16,6 @@ public class GreaterThan implements ICommand{
     public GreaterThan(TurtleController turtle) {
         myTurtle = turtle;
     }
-
 
     /**
      * Checks to see if the number of arguments available are sufficient

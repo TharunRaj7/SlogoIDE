@@ -3,6 +3,10 @@ package slogo.commands;
 import slogo.controller.TurtleController;
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Forward implements ICommand{
 
     private TurtleController myTurtle;

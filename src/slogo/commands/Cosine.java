@@ -4,6 +4,10 @@ import slogo.controller.TurtleController;
 import slogo.utility.MathOps;
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Cosine implements ICommand{
 
     private TurtleController myTurtle;

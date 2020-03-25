@@ -2,6 +2,10 @@ package slogo.commands;
 
 import slogo.controller.TurtleController;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Argument implements ICommand {
 
     private double myArgument;

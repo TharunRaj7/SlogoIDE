@@ -5,6 +5,10 @@ import slogo.view.ExceptionFeedback;
 
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class DoTimes extends BlockCommand implements ICommand {
 
     private TurtleController myTurtle;

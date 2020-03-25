@@ -46,7 +46,9 @@ public class Cosine implements ICommand{
      */
     public double returnVal () { return MathOps.cos(arguments.get(0).returnVal()); }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
 
 }

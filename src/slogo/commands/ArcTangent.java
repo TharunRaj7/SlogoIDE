@@ -14,7 +14,6 @@ public class ArcTangent implements ICommand{
         myTurtle = turtle;
     }
 
-
     /**
      * Checks to see if the number of arguments available are sufficient
      * to run the command
@@ -49,7 +48,9 @@ public class ArcTangent implements ICommand{
         return MathOps.arcTan(arguments.get(0).returnVal());
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
 
 }

@@ -53,7 +53,7 @@ public class XMLBuilder {
    */
   public void buildXML(String filepath, String rootTag, String rootAttr, List<Element> elements) {
     try {
-      Element root = document.createElement(rootTag);
+      Element root = createElement(rootTag);
       root.setAttribute("type", rootAttr);
       document.appendChild(root);
 
@@ -64,7 +64,7 @@ public class XMLBuilder {
 
       transformDocument(filepath);
 
-    } catch (Exception e) {
+    } catch (TransformerException e) {
       ExceptionFeedback.throwException(ExceptionType.XML_EXCEPTION,
           "Failed to build XML file. Please close the application and report this error.");
     }
@@ -115,11 +115,11 @@ public class XMLBuilder {
   /**
    * Imports a Node from another document
    * @param s the node to import
-   * @param deepcopy if true, imports all children of the node, too
+   * @param deep if true, imports all children of the node, too
    * @return imported Node
    */
-  public Node importNode(Node s, boolean deepcopy) {
-    return document.importNode(s, deepcopy);
+  public Node importNode(Node s, boolean deep) {
+    return document.importNode(s, deep);
   }
 
 }

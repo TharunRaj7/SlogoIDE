@@ -3,13 +3,12 @@ package slogo.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * @author Vineet Alaparthi
+ */
 public class Node {
-
     private slogo.commands.ICommand data;
-
     private List<Node> children = new ArrayList<>();
-
     private Node parent = null;
 
     public Node(ICommand data) {

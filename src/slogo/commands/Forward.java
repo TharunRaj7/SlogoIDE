@@ -46,7 +46,9 @@ public class Forward implements ICommand{
         return arguments.get(0).returnVal();
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
 
 }

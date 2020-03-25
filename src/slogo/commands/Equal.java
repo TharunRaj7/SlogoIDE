@@ -13,7 +13,6 @@ public class Equal implements ICommand{
         myTurtle = turtle;
     }
 
-
     /**
      * Checks to see if the number of arguments available are sufficient
      * to run the command
@@ -54,7 +53,9 @@ public class Equal implements ICommand{
 
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
 
 }

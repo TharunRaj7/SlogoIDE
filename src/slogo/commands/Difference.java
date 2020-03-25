@@ -49,7 +49,9 @@ public class Difference implements ICommand{
         return MathOps.difference(arguments.get(0).returnVal(),arguments.get(1).returnVal());
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
 
 }

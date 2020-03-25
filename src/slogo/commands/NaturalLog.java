@@ -4,6 +4,10 @@ import slogo.controller.TurtleController;
 import slogo.utility.MathOps;
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class NaturalLog implements ICommand{
 
     private TurtleController myTurtle;
@@ -13,7 +17,6 @@ public class NaturalLog implements ICommand{
     public NaturalLog(TurtleController turtle) {
         myTurtle = turtle;
     }
-
 
     /**
      * Checks to see if the number of arguments available are sufficient
@@ -50,7 +53,9 @@ public class NaturalLog implements ICommand{
 
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
 
 }

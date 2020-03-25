@@ -4,6 +4,10 @@ import slogo.controller.TurtleController;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class MakeUserInstruction extends BlockCommand implements ICommand {
 
     private TurtleController myTurtle;
@@ -22,19 +26,31 @@ public class MakeUserInstruction extends BlockCommand implements ICommand {
         myTurtle = turtle;
     }
 
-    @Override
+    /**
+     * Checks to see if the number of arguments available are sufficient
+     * to run the command
+     * @return
+     */
     public boolean enoughArgs() {
-        return checkArgs() == myArgs;
+        return arguments.size() == myArgs;
     }
 
-    @Override
+    /**
+     * Gives the command an argument
+     * Manager will check if sufficient and run if needed
+     * Sets overwriting to false
+     * @param command
+     */
     public void setArgument(ICommand command) {
         //System.out.println("Setting overwrite to false");
         overwrite = false;
         arguments.add(command);
     }
 
-    @Override
+    /**
+     * If the commands in its block make up a valid tree, add the block
+     * to the hashmap of user instructions
+     */
     public void execute() {
         if(returnVal() == 1) {
             ArrayList<BlockCommand> user_command_args = new ArrayList<>();
@@ -47,7 +63,10 @@ public class MakeUserInstruction extends BlockCommand implements ICommand {
         }
     }
 
-    @Override
+    /**
+     * Is the output value that has to be present for every command
+     * @return value designated by type of command
+     */
     public double returnVal() {
         try{
             if (((BlockCommand)arguments.get(2)).checkTree()){
@@ -57,10 +76,10 @@ public class MakeUserInstruction extends BlockCommand implements ICommand {
         return 0.0;
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         arguments.clear();
     }
-
-    private int checkArgs() { return arguments.size(); }
 }

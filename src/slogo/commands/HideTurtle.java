@@ -2,6 +2,10 @@ package slogo.commands;
 
 import slogo.controller.TurtleController;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class HideTurtle implements ICommand{
 
     private TurtleController myTurtle;
@@ -44,7 +48,9 @@ public class HideTurtle implements ICommand{
         return 0.0;
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         // Should do nothing
     }

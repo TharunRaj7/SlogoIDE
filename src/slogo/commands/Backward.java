@@ -3,6 +3,10 @@ package slogo.commands;
 import slogo.controller.TurtleController;
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Backward implements ICommand{
 
     private TurtleController myTurtle;
@@ -54,7 +58,9 @@ public class Backward implements ICommand{
         return arguments.get(0).returnVal();
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         arguments.clear();
     }

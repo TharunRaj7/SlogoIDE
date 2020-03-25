@@ -3,6 +3,10 @@ package slogo.commands;
 import slogo.controller.Turtle;
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class YCoordinate implements ICommand{
 
     private Turtle myTurtle;
@@ -46,6 +50,8 @@ public class YCoordinate implements ICommand{
         return myTurtle.getLocation().getY();
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
 }

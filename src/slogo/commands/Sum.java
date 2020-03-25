@@ -4,6 +4,10 @@ import slogo.controller.TurtleController;
 import slogo.utility.MathOps;
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Sum implements ICommand{
 
     TurtleController myTurtle;
@@ -46,6 +50,8 @@ public class Sum implements ICommand{
         return MathOps.sum(arguments.get(0).returnVal(),arguments.get(1).returnVal());
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
 }

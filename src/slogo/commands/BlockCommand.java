@@ -6,7 +6,10 @@ import slogo.view.ExceptionFeedback;
 
 import java.util.ArrayList;
 
-
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class BlockCommand implements ICommand {
 
     private ArrayList<ICommand> myCommands = new ArrayList<>();
@@ -22,17 +25,25 @@ public class BlockCommand implements ICommand {
         // Shouldn't do anything
     }
 
-    @Override
+    /**
+     * Should always return true because block commands will never have arguments
+     * @return
+     */
     public boolean enoughArgs() {
         return true;
     }
 
-    @Override
+    /**
+     * Sets command as within the block command
+     * @param command
+     */
     public void setArgument(ICommand command) {
         myCommands.add(command);
     }
 
-    @Override
+    /**
+     * Gives the commands it's holding to the manager in order to be executed
+     */
     public void execute() {
         Manager blockManager = new Manager();
         for (ICommand command : myCommands) {
@@ -45,17 +56,27 @@ public class BlockCommand implements ICommand {
         }
     }
 
-    @Override
+    /**
+     * Is the output value that has to be present for every command
+     * @return value designated by type of command
+     */
     public double returnVal() {
         return returnValue;
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         // Shouldn't do anything
     }
 
-
+    /**
+     * Returns the value of a variable in the given index if that index
+     * command holds a variable
+     * @param index
+     * @return
+     */
     public Variables getVar (int index) {
         if (myCommands.get(index) instanceof Variables) {
             return (Variables) myCommands.get(index);

@@ -1,5 +1,9 @@
 package slogo.commands;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Manager implements IManager {
 
     private Node recent_node = null;

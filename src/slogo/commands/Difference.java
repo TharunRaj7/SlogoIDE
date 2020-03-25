@@ -5,6 +5,10 @@ import slogo.utility.MathOps;
 
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Difference implements ICommand{
 
     private TurtleController myTurtle;
@@ -49,7 +53,9 @@ public class Difference implements ICommand{
         return MathOps.difference(arguments.get(0).returnVal(),arguments.get(1).returnVal());
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
 
 }

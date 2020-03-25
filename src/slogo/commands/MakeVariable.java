@@ -4,6 +4,10 @@ import slogo.controller.TurtleController;
 import slogo.view.ExceptionFeedback;
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class MakeVariable implements ICommand{
 
     TurtleController myTurtle;
@@ -24,7 +28,7 @@ public class MakeVariable implements ICommand{
      * @return
      */
     public boolean enoughArgs () {
-        return check_arg() == myArgs;
+        return arguments.size() == myArgs;
     }
 
     /**
@@ -33,7 +37,7 @@ public class MakeVariable implements ICommand{
      * @param arg
      */
     public void setArgument (ICommand arg) {
-        add_arg(arg);
+        arguments.add(arg);
     }
 
     /**
@@ -58,17 +62,11 @@ public class MakeVariable implements ICommand{
         return arguments.get(1).returnVal();
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         arguments.clear();
-    }
-
-    public void add_arg(ICommand arg){
-        arguments.add(arg);
-    }
-
-    public int check_arg(){
-        return arguments.size();
     }
 }
 

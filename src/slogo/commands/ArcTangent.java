@@ -4,6 +4,10 @@ import slogo.controller.TurtleController;
 import slogo.utility.MathOps;
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class ArcTangent implements ICommand{
 
     private TurtleController myTurtle;
@@ -13,7 +17,6 @@ public class ArcTangent implements ICommand{
     public ArcTangent(TurtleController turtle) {
         myTurtle = turtle;
     }
-
 
     /**
      * Checks to see if the number of arguments available are sufficient
@@ -49,7 +52,9 @@ public class ArcTangent implements ICommand{
         return MathOps.arcTan(arguments.get(0).returnVal());
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
 
 }

@@ -4,6 +4,10 @@ import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Left implements ICommand{
 
     private TurtleController myTurtle;
@@ -29,7 +33,7 @@ public class Left implements ICommand{
      * @param arg
      */
     public void setArgument (ICommand arg) {
-        add_arg(arg);
+        arguments.add(arg);
     }
 
     /**
@@ -47,14 +51,11 @@ public class Left implements ICommand{
      */
     public double returnVal () { return arguments.get(0).returnVal(); }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         arguments.clear();
     }
-
-    public void add_arg(ICommand arg){
-        arguments.add(arg);
-    }
-
 }
 

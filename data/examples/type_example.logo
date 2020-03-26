@@ -1,0 +1,18 @@
+tell [ 1 ]
+setsh 1
+fd 10
+tell [ 2 ]
+setsh 2
+bk 100
+tell [ 3 ]
+fd 125
+tell [ 1 2 3 ]
+setpc 0
+repeat 18 [
+  forward 50
+  right 150
+  forward 60
+  right 100
+  forward 30
+  right 90
+]

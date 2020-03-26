@@ -1,0 +1,18 @@
+make :distance 15
+make :k 10
+make :increment 5
+
+repeat 5
+[
+make :angle :k
+make :k + :k :increment
+repeat quotient 360 :angle
+[
+    repeat quotient 360 :angle
+    [
+        fd :distance
+        rt :angle
+    ]
+    rt :angle
+]
+]

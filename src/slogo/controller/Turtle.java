@@ -14,6 +14,9 @@ import slogo.view.ExceptionFeedback;
 import slogo.view.ExceptionFeedback.ExceptionType;
 import slogo.view.element.TurtleCanvas;
 
+/**
+ * Class that handles all turtle operations
+ */
 public class Turtle implements ITurtle {
     private static final int TURTLE_SIZE = 15;
 
@@ -46,6 +49,10 @@ public class Turtle implements ITurtle {
         penColor = Color.WHITE;
     }
 
+    /**
+     * Method to provide the turtle class with the associated TurtleController
+     * @param tc
+     */
     void giveTurtleCanvas(TurtleCanvas tc) {
         this.tc = tc;
         image.setX(location.getX() + tc.getTRANSLATE_X());
@@ -54,7 +61,6 @@ public class Turtle implements ITurtle {
 
     @Override
     public void moveRelative(double distance) {
-        //System.out.println("start" + currentAngle);
         boolean backward = false;
         if (distance < 0) {
             backward = true;
@@ -62,11 +68,9 @@ public class Turtle implements ITurtle {
         }
         QuadrantHelper quadrant = findQuadrant();
         double referenceAngle = referenceAngle(quadrant);
-        //System.out.println(normalizedAngle);
         double xTranslate = MathOps.sin(referenceAngle) * distance;
         double yTranslate = MathOps.cos(referenceAngle) * distance;
 
-        //System.out.println(""+ xTranslate + "  " +  yTranslate);
         // modifying the signs of the translations based on the quadrant the turtle is on.
         if (quadrant == QuadrantHelper.QUADRANT1) {
             yTranslate = -yTranslate;
@@ -84,7 +88,6 @@ public class Turtle implements ITurtle {
 
 
         //call to internal API drawPath
-        //System.out.println("End" + currentAngle);
         drawOnCanvas(false, xTranslate, yTranslate);
     }
 
@@ -121,7 +124,6 @@ public class Turtle implements ITurtle {
     }
 
     private void drawOnCanvas(boolean absolute, double x, double y) {
-        //System.out.println("start" + currentAngle);
         Path p = new Path();
         PathElement move = new MoveTo(location.getX(), location.getY());
         p.getElements().add(move);
@@ -139,7 +141,6 @@ public class Turtle implements ITurtle {
         if (tc != null) {
             tc.drawPath(this, p);
         }
-        //System.out.println("end" + currentAngle);
 
     }
 

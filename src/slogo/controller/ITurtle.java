@@ -3,6 +3,9 @@ package slogo.controller;
 import javafx.scene.image.ImageView;
 import slogo.utility.Location;
 
+/**
+ * Turtle API as the controller
+ */
 public interface ITurtle {
 
   /**

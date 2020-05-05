@@ -31,6 +31,7 @@ public class TurtleController {
         activeTurtles = new ArrayList<>();
     }
 
+
     public void giveTurtleCanvas (TurtleCanvas tc){
         this.turtleCanvas = tc;
         // make one turtle initially
@@ -149,6 +150,9 @@ public class TurtleController {
         }
     }
 
+    /**
+     * Show all turtles on screen
+     */
     public void show(){
         for (Turtle turtle : activeTurtles){
             turtle.show();

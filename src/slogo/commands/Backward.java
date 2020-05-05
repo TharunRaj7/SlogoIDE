@@ -1,11 +1,12 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Backward implements ICommand{
 
     private TurtleController myTurtle;
@@ -37,11 +38,6 @@ public class Backward implements ICommand{
      * @param arg
      */
     public void setArgument (ICommand arg) {
-        /*
-        myDist = arg.returnVal();
-        add_arg(arg);
-
-         */
         arguments.add(arg);
     }
 
@@ -50,7 +46,6 @@ public class Backward implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-        // TODO: Call on turtle to move it forward the given distance
         arguments.get(0).execute();
         myTurtle.moveRelative(-arguments.get(0).returnVal());
     }
@@ -63,7 +58,9 @@ public class Backward implements ICommand{
         return arguments.get(0).returnVal();
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         arguments.clear();
     }

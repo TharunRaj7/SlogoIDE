@@ -1,12 +1,12 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
-import slogo.utility.MathOps;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class SetTowards implements ICommand{
 
     TurtleController myTurtle;
@@ -50,14 +50,9 @@ public class SetTowards implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-
-        //TODO: Fix this please
-
         arguments.get(0).execute();
         arguments.get(1).execute();
-        //myCurrAngle = myTurtle.getHeading();
         myTurtle.towards(arguments.get(0).returnVal(), arguments.get(1).returnVal());
-        //myAngle = myTurtle.getHeading();
     }
 
     /**
@@ -68,7 +63,9 @@ public class SetTowards implements ICommand{
         return Math.abs(myAngle - myCurrAngle);
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         arguments.clear();
     }

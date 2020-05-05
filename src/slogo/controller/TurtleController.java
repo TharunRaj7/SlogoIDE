@@ -1,10 +1,13 @@
 package slogo.controller;
 
+import java.io.FileInputStream;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import slogo.utility.Location;
 import slogo.view.ExceptionFeedback;
+import slogo.view.ExceptionFeedback.ExceptionType;
 import slogo.view.element.TurtleCanvas;
 import slogo.view.element.VariableExplorer;
 
@@ -39,6 +42,7 @@ public class TurtleController {
         turtle.giveTurtleCanvas(this.turtleCanvas);
         turtles.add(turtle);
         activeTurtles.add(turtle);
+        currentTurtle = turtle;
         turtleCanvas.addAllTurtleImages();
     }
 
@@ -368,10 +372,11 @@ public class TurtleController {
      */
     public void setPenColor (int index){
         resource = getResourceBundleFromPath("Colors");
-        String colorString = Collections.list(resource.getKeys()).get(index);
+        String colorString = resource.getString(Collections.list(resource.getKeys()).get(index % resource.keySet().size()));
         Color color = Color.valueOf(colorString);
         for (Turtle turtle : activeTurtles){
             turtle.setPenColor(color);
+            turtle.setColorIndex(index);
             currentTurtle = turtle;
         }
     }
@@ -392,7 +397,29 @@ public class TurtleController {
      * @param index
      */
     public void setShape (int index){
-        resource = getResourceBundleFromPath("images");
-        String imageName = Collections.list(resource.getKeys()).get(index);
+        try {
+            resource = getResourceBundleFromPath("images");
+            String imageName = resource.getString(
+                Collections.list(resource.getKeys()).get(index % resource.keySet().size()));
+            System.out.println(imageName);
+            Image image = new Image(new FileInputStream(imageName));
+            for (Turtle turtle : activeTurtles) {
+                turtle.getImage().setImage(image);
+                turtle.setShapeIndex(index);
+                currentTurtle = turtle;
+            }
+        } catch (Exception e) {
+            ExceptionFeedback.throwException(ExceptionType.RESOURCE_EXCEPTION,
+                "Could not set Turtle image.");
+        }
     }
+
+    public int getPenColorIndex (){
+        return currentTurtle.getColorIndex();
+    }
+
+    public int getShapeIndex () {
+        return currentTurtle.getShapeIndex();
+    }
+
 }

@@ -1,12 +1,13 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
-import slogo.view.element.VariableExplorer;
-
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Variables implements ICommand{
 
     private TurtleController myTurtle;
@@ -20,18 +21,16 @@ public class Variables implements ICommand{
         myVarName = varName;
         variables = allVariables.get(turtle);
     }
-    /*
-    public Variables(String varName) { // , Map<String, Double> varList
-        //variables = varList;
-        myVarName = varName;
+
+    public Variables(TurtleController turtle){
+        myTurtle = turtle;
     }
 
+
+    /**
+     * Sets the value of the variable
+     * @param val
      */
-
-    public Variables(TurtleController turtleController){
-
-    }
-
     public void setVal(Double val) {
         variables = allVariables.get(myTurtle);
         if(variables == null) { variables = new HashMap<>(); }
@@ -39,33 +38,51 @@ public class Variables implements ICommand{
         allVariables.put(myTurtle, variables);
     }
 
-    @Override
+    /**
+     * Checks to see if the number of arguments available are sufficient
+     * to run the command
+     * @return
+     */
     public boolean enoughArgs() {
         return true;
     }
 
-    @Override
+    /**
+     * Gives the command an argument
+     * Manager will check if sufficient and run if needed
+     * @param command
+     */
     public void setArgument(ICommand command) {
-
+        // Should be empty
     }
 
-    @Override
+    /**
+     * Either uses setters on the turtle or calls other commands with the turtle
+     * and arguments already provided
+     */
     public void execute() {
         // Should be empty
     }
 
-    @Override
+    /**
+     * Is the output value that has to be present for every command
+     * @return value designated by type of command
+     */
     public double returnVal() {
-        //System.out.println(variables.get(myVarName) + "VarCall");
-        System.out.println(allVariables.get(myTurtle).toString());
         return (double) allVariables.get(myTurtle).get(myVarName);
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         // shouldn't do anything
     }
 
+    /**
+     * Returns a copy of the map of the variable names and their values
+     * @return
+     */
     public Map<String, Double> getMap () {
         return allVariables.get(myTurtle);
     }

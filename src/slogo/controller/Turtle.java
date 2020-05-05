@@ -18,7 +18,10 @@ import slogo.view.element.TurtleCanvas;
  * Class that handles all turtle operations
  */
 public class Turtle implements ITurtle {
+
     private static final int TURTLE_SIZE = 15;
+    public static final double DEFAULT_PEN_SIZE = 1.0;
+    public static final Color DEFAULT_PEN_COLOR = Color.WHITE;
 
     private int id;
     private TurtleCanvas tc;
@@ -28,6 +31,8 @@ public class Turtle implements ITurtle {
     private boolean show;
     private double penSize;
     private Color penColor;
+    private int colorIndex;
+    private int shapeIndex;
     private ImageView image;
 
     public Turtle(int id, Location location, double orientationAngle, String imageFilePath) {
@@ -45,8 +50,8 @@ public class Turtle implements ITurtle {
         image.setRotate(this.currentAngle);
         image.setFitHeight(TURTLE_SIZE);
         image.setFitWidth(TURTLE_SIZE);
-        penSize = 1.0;
-        penColor = Color.WHITE;
+        penSize = DEFAULT_PEN_SIZE;
+        penColor = DEFAULT_PEN_COLOR;
     }
 
     /**
@@ -287,6 +292,18 @@ public class Turtle implements ITurtle {
     }
     public void setPenSize (double penSize) {
         this.penSize = penSize;
+    }
+    public int getColorIndex (){
+        return this.colorIndex;
+    }
+    public int getShapeIndex(){
+        return this.colorIndex;
+    }
+    public void setColorIndex (int index){
+        this.colorIndex = index;
+    }
+    public void setShapeIndex (int index){
+        this.shapeIndex= index;
     }
 
 //    //testing

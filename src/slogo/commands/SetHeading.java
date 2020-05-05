@@ -1,10 +1,12 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
-
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class SetHeading implements ICommand{
 
     TurtleController myTurtle;
@@ -44,7 +46,6 @@ public class SetHeading implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-        // TODO: Call on turtle to move it forward the given distance
         arguments.get(0).returnVal();
         myTurtle.setHeading(arguments.get(0).returnVal());
     }
@@ -57,13 +58,11 @@ public class SetHeading implements ICommand{
         return myAngle;
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         arguments.clear();
-    }
-
-    public void add_arg(ICommand arg){
-        arguments.add(arg);
     }
 
     public int check_arg(){

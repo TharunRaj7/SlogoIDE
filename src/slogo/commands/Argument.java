@@ -2,6 +2,10 @@ package slogo.commands;
 
 import slogo.controller.TurtleController;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Argument implements ICommand {
 
     private double myArgument;
@@ -11,7 +15,7 @@ public class Argument implements ICommand {
     }
 
     public Argument (TurtleController turtleController){
-
+        // Shouldn't do anything
     }
 
     /**
@@ -19,7 +23,6 @@ public class Argument implements ICommand {
      * to run the command
      * @return
      */
-    @Override
     public boolean enoughArgs() {
         return true;
     }
@@ -30,7 +33,7 @@ public class Argument implements ICommand {
      * @param arg
      */
     public void setArgument (ICommand arg) {
-
+        // Shouldn't do anything
     }
 
     /**
@@ -49,7 +52,9 @@ public class Argument implements ICommand {
         return myArgument;
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         // Shouldn't do anything
     }

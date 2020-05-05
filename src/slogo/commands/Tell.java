@@ -2,10 +2,13 @@ package slogo.commands;
 
 import slogo.controller.TurtleController;
 import slogo.view.ExceptionFeedback;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Tell extends BlockCommand implements ICommand{
 
     TurtleController myShell;
@@ -18,17 +21,28 @@ public class Tell extends BlockCommand implements ICommand{
         myShell = turtleController;
     }
 
-    @Override
+    /**
+     * Checks to see if the number of arguments available are sufficient
+     * to run the command
+     * @return
+     */
     public boolean enoughArgs() {
         return arguments.size() == myArgs;
     }
 
-    @Override
+    /**
+     * Gives the command an argument
+     * Manager will check if sufficient and run if needed
+     * @param command
+     */
     public void setArgument(ICommand command) {
         arguments.add(command);
     }
 
-    @Override
+    /**
+     * Either uses setters on the turtle or calls other commands with the turtle
+     * and arguments already provided
+     */
     public void execute() {
         arguments.get(0).execute();
 
@@ -37,21 +51,24 @@ public class Tell extends BlockCommand implements ICommand{
                 turtles.add((int) ((BlockCommand) arguments.get(0)).getRetVals(i));
                 val = (int) ((BlockCommand) arguments.get(0)).getRetVals(i);
             }
-        }catch (Exception e){
+        } catch (Exception e){
             ExceptionFeedback.throwException(ExceptionFeedback.ExceptionType.INPUT_EXCEPTION,"Wrong input");
         }
-
         myShell.tellTurtles(turtles);
     }
 
-    @Override
+    /**
+     * Is the output value that has to be present for every command
+     * @return value designated by type of command
+     */
     public double returnVal() {
         return val;
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         arguments.clear();
-
     }
 }

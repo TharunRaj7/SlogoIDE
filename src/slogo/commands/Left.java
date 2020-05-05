@@ -1,24 +1,21 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
 
 import java.util.ArrayList;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Left implements ICommand{
 
     private TurtleController myTurtle;
     private int myArgs = 1;
-    private double myAngle;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public Left (TurtleController turtle) {
         myTurtle = turtle;
-    }
-
-    public Left (TurtleController turtle, double angle) {
-        this(turtle);
-        myAngle = angle;
     }
 
     /**
@@ -36,7 +33,7 @@ public class Left implements ICommand{
      * @param arg
      */
     public void setArgument (ICommand arg) {
-        add_arg(arg);
+        arguments.add(arg);
     }
 
     /**
@@ -45,7 +42,6 @@ public class Left implements ICommand{
      */
     public void execute () {
         arguments.get(0).execute();
-        System.out.println("Executed Left");
         myTurtle.rotate(-arguments.get(0).returnVal());
     }
 
@@ -55,14 +51,11 @@ public class Left implements ICommand{
      */
     public double returnVal () { return arguments.get(0).returnVal(); }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         arguments.clear();
     }
-
-    public void add_arg(ICommand arg){
-        arguments.add(arg);
-    }
-
 }
 

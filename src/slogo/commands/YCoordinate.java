@@ -1,21 +1,20 @@
 package slogo.commands;
 
 import slogo.controller.Turtle;
-import slogo.utility.MathOps;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class YCoordinate implements ICommand{
 
-    Turtle myTurtle;
-    int myArgs = 0;
+    private Turtle myTurtle;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
     public YCoordinate (Turtle turtle) {
         myTurtle = turtle;
     }
-
 
     /**
      * Checks to see if the number of arguments available are sufficient
@@ -23,7 +22,7 @@ public class YCoordinate implements ICommand{
      * @return
      */
     public boolean enoughArgs () {
-        return check_arg() == myArgs;
+        return true;
     }
 
     /**
@@ -40,7 +39,7 @@ public class YCoordinate implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-
+        // Shouldn't do anything
     }
 
     /**
@@ -49,18 +48,10 @@ public class YCoordinate implements ICommand{
      */
     public double returnVal () {
         return myTurtle.getLocation().getY();
-
-
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
-
-    private void add_arg(ICommand arg){
-        arguments.add(arg);
-    }
-
-    private int check_arg(){
-        return arguments.size();
-    }
 }

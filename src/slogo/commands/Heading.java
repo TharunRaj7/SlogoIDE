@@ -1,12 +1,12 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
-import slogo.utility.MathOps;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Heading implements ICommand{
 
     private TurtleController myTurtle;
@@ -16,7 +16,6 @@ public class Heading implements ICommand{
     public Heading (TurtleController turtle) {
         myTurtle = turtle;
     }
-
 
     /**
      * Checks to see if the number of arguments available are sufficient
@@ -41,21 +40,18 @@ public class Heading implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-
+        // Shouldn't do anything
     }
 
     /**
      * Is the output value that has to be present for every command
      * @return value designated by type of command
      */
-    public double returnVal () {
-        //TODO: Make this return where the latest turtle is heading
-        //return myTurtle.getHeading();
-        return 0.0;
+    public double returnVal () { return myTurtle.getHeading(); }
 
-    }
-
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
 
 }

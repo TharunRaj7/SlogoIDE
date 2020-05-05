@@ -1,13 +1,12 @@
 package slogo.commands;
 
-
-
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Right implements ICommand{
 
     private TurtleController myTurtle;
@@ -47,9 +46,7 @@ public class Right implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-        // TODO: Call on turtle to move it forward the given distance
         arguments.get(0).execute();
-        System.out.println("Executed Right");
         myTurtle.rotate(arguments.get(0).returnVal());
     }
 
@@ -59,7 +56,9 @@ public class Right implements ICommand{
      */
     public double returnVal () { return arguments.get(0).returnVal(); }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         arguments.clear();
     }
@@ -67,5 +66,4 @@ public class Right implements ICommand{
     public void add_arg(ICommand arg){
         arguments.add(arg);
     }
-
 }

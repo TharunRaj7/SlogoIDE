@@ -6,9 +6,11 @@ import slogo.view.ExceptionFeedback;
 
 import java.util.ArrayList;
 
-
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class BlockCommand implements ICommand {
-
 
     private ArrayList<ICommand> myCommands = new ArrayList<>();
     private ArrayList<Double> myReturnVals = new ArrayList<>();
@@ -16,26 +18,32 @@ public class BlockCommand implements ICommand {
     private Node recent_node = null;
 
     public BlockCommand(){
-
+        // Shouldn't do anything
     }
 
     public BlockCommand(TurtleController turtleController) {
-
+        // Shouldn't do anything
     }
 
-    @Override
+    /**
+     * Should always return true because block commands will never have arguments
+     * @return
+     */
     public boolean enoughArgs() {
         return true;
     }
 
-    @Override
+    /**
+     * Sets command as within the block command
+     * @param command
+     */
     public void setArgument(ICommand command) {
-        // Blocks should not have arguments, therefore this should be used to add commands
-        // to the command list
         myCommands.add(command);
     }
 
-    @Override
+    /**
+     * Gives the commands it's holding to the manager in order to be executed
+     */
     public void execute() {
         Manager blockManager = new Manager();
         for (ICommand command : myCommands) {
@@ -48,18 +56,27 @@ public class BlockCommand implements ICommand {
         }
     }
 
-    @Override
+    /**
+     * Is the output value that has to be present for every command
+     * @return value designated by type of command
+     */
     public double returnVal() {
         return returnValue;
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
-        // Should be empty
-        //yReturnVals.clear();
+        // Shouldn't do anything
     }
 
-
+    /**
+     * Returns the value of a variable in the given index if that index
+     * command holds a variable
+     * @param index
+     * @return
+     */
     public Variables getVar (int index) {
         if (myCommands.get(index) instanceof Variables) {
             return (Variables) myCommands.get(index);
@@ -74,8 +91,8 @@ public class BlockCommand implements ICommand {
         return myCommands.size();
     }
 
-    protected boolean checkTree(){
 
+    protected boolean checkTree(){
         ArrayList<ICommand> myCommandsCopy = new ArrayList<>();
 
         for (ICommand command : myCommands){
@@ -84,36 +101,38 @@ public class BlockCommand implements ICommand {
                     return false;
                 }
             }catch (Exception e){
-                ExceptionFeedback.throwException(ExceptionFeedback.ExceptionType.INPUT_EXCEPTION,"Wrong input");
+                //ExceptionFeedback.throwException(ExceptionFeedback.ExceptionType.INPUT_EXCEPTION,"Wrong input");
             }
-
             myCommandsCopy.add(command.copy(command));
         }
 
         for (ICommand command : myCommandsCopy) {
-            Node command_node = new Node(command);
-            if (recent_node == null) {
-                recent_node = command_node;
-                if (recent_node.getData().enoughArgs()) {
-                    recent_node = null;
-                }
-            }
-
-            else {
-                recent_node.addChild(command_node);
-                recent_node.getData().setArgument(command);
-                recent_node = command_node;
-                while (recent_node.getData().enoughArgs() && recent_node.getParent() != null) {
-                    recent_node = recent_node.getParent();
-                }
-                if (recent_node.getData().enoughArgs() && recent_node.getParent() == null) {
-                    recent_node = null;
-                }
-            }
+            tree_traverse(command);
         }
 
         return recent_node == null;
+    }
 
+    private void tree_traverse(ICommand command){
+        Node command_node = new Node(command);
+        if (recent_node == null) {
+            recent_node = command_node;
+            if (recent_node.getData().enoughArgs()) {
+                recent_node = null;
+            }
+        }
+
+        else {
+            recent_node.addChild(command_node);
+            recent_node.getData().setArgument(command);
+            recent_node = command_node;
+            while (recent_node.getData().enoughArgs() && recent_node.getParent() != null) {
+                recent_node = recent_node.getParent();
+            }
+            if (recent_node.getData().enoughArgs() && recent_node.getParent() == null) {
+                recent_node = null;
+            }
+        }
     }
 
 }

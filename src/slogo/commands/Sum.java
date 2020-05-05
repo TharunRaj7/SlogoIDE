@@ -1,30 +1,29 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
+import slogo.controller.TurtleController;
 import slogo.utility.MathOps;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class Sum implements ICommand{
 
-    Turtle myTurtle;
+    TurtleController myTurtle;
     int myArgs = 2;
     private ArrayList<ICommand> arguments = new ArrayList<ICommand>();
 
-    public Sum (Turtle turtle) {
+    public Sum (TurtleController turtle) {
         myTurtle = turtle;
     }
-
 
     /**
      * Checks to see if the number of arguments available are sufficient
      * to run the command
      * @return
      */
-    public boolean enoughArgs () {
-        return check_arg() == myArgs;
-    }
+    public boolean enoughArgs () { return arguments.size() == myArgs; }
 
     /**
      * Gives the command an argument
@@ -40,7 +39,7 @@ public class Sum implements ICommand{
      * and arguments already provided
      */
     public void execute () {
-
+        // Shouldn't do anything
     }
 
     /**
@@ -49,17 +48,10 @@ public class Sum implements ICommand{
      */
     public double returnVal () {
         return MathOps.sum(arguments.get(0).returnVal(),arguments.get(1).returnVal());
-
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() { arguments.clear(); }
-
-    private void add_arg(ICommand arg){
-        arguments.add(arg);
-    }
-
-    private int check_arg(){
-        return arguments.size();
-    }
 }

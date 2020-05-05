@@ -1,11 +1,13 @@
 package slogo.commands;
 
-import slogo.controller.Turtle;
 import slogo.controller.TurtleController;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author Andrew Krier
+ * @author Vineet Alaparthi
+ */
 public class MakeUserInstruction extends BlockCommand implements ICommand {
 
     private TurtleController myTurtle;
@@ -19,53 +21,65 @@ public class MakeUserInstruction extends BlockCommand implements ICommand {
     }
 
     public MakeUserInstruction (TurtleController turtle) {
-        System.out.println("Setting overwrite to true");
+        //System.out.println("Setting overwrite to true");
         overwrite = true;
         myTurtle = turtle;
     }
 
-    @Override
+    /**
+     * Checks to see if the number of arguments available are sufficient
+     * to run the command
+     * @return
+     */
     public boolean enoughArgs() {
-        return checkArgs() == myArgs;
+        return arguments.size() == myArgs;
     }
 
-    @Override
+    /**
+     * Gives the command an argument
+     * Manager will check if sufficient and run if needed
+     * Sets overwriting to false
+     * @param command
+     */
     public void setArgument(ICommand command) {
-        System.out.println("Setting overwrite to false");
+        //System.out.println("Setting overwrite to false");
         overwrite = false;
         arguments.add(command);
     }
 
-    @Override
+    /**
+     * If the commands in its block make up a valid tree, add the block
+     * to the hashmap of user instructions
+     */
     public void execute() {
         if(returnVal() == 1) {
             ArrayList<BlockCommand> user_command_args = new ArrayList<>();
             user_command_args.add((BlockCommand) arguments.get(1));
             for (int i = 0; i < user_command_args.get(0).argSize(); i++) {
-                System.out.println("Setting " + user_command_args.get(0).getVar(i).toString() + " to 0");
                 user_command_args.get(0).getVar(i).setVal(0.0);
             }
             user_command_args.add((BlockCommand) arguments.get(2));
-            //to_parameters.put(arguments.get(0), user_command_args);
             to_parameters.put((Name) arguments.get(0), user_command_args);
         }
-        // TODO: Throw an error corresponding with incorrect tree format
     }
 
-    @Override
+    /**
+     * Is the output value that has to be present for every command
+     * @return value designated by type of command
+     */
     public double returnVal() {
         try{
             if (((BlockCommand)arguments.get(2)).checkTree()){
                 return 1.0;
             }
-        }catch (Exception e){}
+        } catch (Exception e) {}
         return 0.0;
     }
 
-    @Override
+    /**
+     * Clears all the arguments that may be below this command
+     */
     public void clearArgs() {
         arguments.clear();
     }
-
-    private int checkArgs() { return arguments.size(); }
 }

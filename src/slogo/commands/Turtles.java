@@ -6,11 +6,11 @@ import slogo.controller.TurtleController;
  * @author Andrew Krier
  * @author Vineet Alaparthi
  */
-public class HideTurtle implements ICommand{
+public class Turtles implements ICommand {
 
     private TurtleController myTurtle;
 
-    public HideTurtle (TurtleController turtle) {
+    public Turtles (TurtleController turtle) {
         myTurtle = turtle;
     }
 
@@ -19,41 +19,39 @@ public class HideTurtle implements ICommand{
      * to run the command
      * @return
      */
-    public boolean enoughArgs () {
+    public boolean enoughArgs() {
         return true;
     }
 
     /**
      * Gives the command an argument
      * Manager will check if sufficient and run if needed
-     * @param arg
+     * @param command
      */
-    public void setArgument (ICommand arg) {
-        // Shouldn't do anything
+    public void setArgument(ICommand command) {
+        // Should be empty
     }
 
     /**
      * Either uses setters on the turtle or calls other commands with the turtle
      * and arguments already provided
      */
-    public void execute () {
-        myTurtle.hide();
+    public void execute() {
+        // Should be empty
     }
 
     /**
      * Is the output value that has to be present for every command
      * @return value designated by type of command
      */
-    public double returnVal () {
-        return 0.0;
+    public double returnVal() {
+        return myTurtle.numberOfTurtlesCreated();
     }
 
     /**
      * Clears all the arguments that may be below this command
      */
     public void clearArgs() {
-        // Should do nothing
+        // Should be empty
     }
-
-
 }

@@ -1,16 +1,19 @@
 package slogo.commands;
 
 import slogo.controller.TurtleController;
+import java.util.ArrayList;
 
 /**
  * @author Andrew Krier
  * @author Vineet Alaparthi
  */
-public class HideTurtle implements ICommand{
+public class SetShape implements ICommand {
 
     private TurtleController myTurtle;
+    private int myArgs = 1;
+    private ArrayList<ICommand> arguments = new ArrayList<>();
 
-    public HideTurtle (TurtleController turtle) {
+    public SetShape(TurtleController turtle) {
         myTurtle = turtle;
     }
 
@@ -19,41 +22,32 @@ public class HideTurtle implements ICommand{
      * to run the command
      * @return
      */
-    public boolean enoughArgs () {
-        return true;
-    }
+    public boolean enoughArgs() { return arguments.size() == myArgs; }
 
     /**
      * Gives the command an argument
      * Manager will check if sufficient and run if needed
-     * @param arg
+     * @param command
      */
-    public void setArgument (ICommand arg) {
-        // Shouldn't do anything
-    }
+    public void setArgument(ICommand command) { arguments.add(command); }
 
     /**
      * Either uses setters on the turtle or calls other commands with the turtle
      * and arguments already provided
      */
-    public void execute () {
-        myTurtle.hide();
+    public void execute() {
+        arguments.get(0).execute();
+        myTurtle.setShape((int) arguments.get(0).returnVal());
     }
 
     /**
      * Is the output value that has to be present for every command
      * @return value designated by type of command
      */
-    public double returnVal () {
-        return 0.0;
-    }
+    public double returnVal() { return arguments.get(0).returnVal(); }
 
     /**
      * Clears all the arguments that may be below this command
      */
-    public void clearArgs() {
-        // Should do nothing
-    }
-
-
+    public void clearArgs() { arguments.clear(); }
 }

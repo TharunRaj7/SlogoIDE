@@ -1,7 +1,10 @@
 package slogo.view.element;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -25,7 +28,6 @@ import slogo.view.utility.ButtonFactory;
 import slogo.view.utility.XMLBuilder;
 
 public class TurtleCanvas extends GuiElement implements IVisualize {
-//TODO: change implementation to add turtle images based on turtle controller
   private static final double MIN_CANVAS_WIDTH = 200;
   private static final double MIN_CANVAS_HEIGHT = 200;
   private static final double MAX_CANVAS_WIDTH = 1600;
@@ -46,6 +48,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   private TurtleController turtleController;
 
   private Map<Turtle, List<Path>> myPaths;
+  private Map<Path, List<Object>> myPathsProperties;
 
 
   public TurtleCanvas(TurtleController turtleController, ResourceBundle resources) {
@@ -67,6 +70,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     myGraphicsContext = myCanvas.getGraphicsContext2D();
 
     myPaths = new HashMap<>();
+    myPathsProperties = new HashMap<>();
   }
 
   private void initializeDefaults() {
@@ -95,9 +99,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
     menu.getChildren().add(colorPicker);
 
-    Button clearButton = ButtonFactory.button(resources.getString("clear"), e -> {
-      turtleController.clear();
-    });
+    Button clearButton = ButtonFactory.button(resources.getString("clear"), e -> turtleController.clear());
     menu.getChildren().add(clearButton);
 
     menu.setMinHeight(MENU_HEIGHT);
@@ -112,7 +114,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     myCanvasHolder.getChildren().addAll(turtleController.getAllTurtleImages());
   }
 
-  public void removeAllTurtleImages(){
+  private void removeAllTurtleImages(){
     myCanvasHolder.getChildren().removeAll(turtleController.getAllTurtleImages());
   }
 
@@ -126,12 +128,16 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
 
   @Override
   public void drawPath(Turtle turtle, Path p) {
-    handlePathDrawing(turtle, p);
     myPaths.putIfAbsent(turtle, new ArrayList<>());
     myPaths.get(turtle).add(p);
+    myPathsProperties.putIfAbsent(p, List.of(turtle.getPenColor(), (int) turtle.getPenSize()));
+    handlePathDrawing(turtle, p);
   }
 
   private void handlePathDrawing(Turtle turtle, Path p) {
+    setPenColor((Color) myPathsProperties.get(p).get(0));
+    setPenThickness((Integer) myPathsProperties.get(p).get(1));
+
     for (PathElement pe : p.getElements()) {
       if (pe instanceof LineTo) {
         drawLine(turtle, pe.isAbsolute(),
@@ -190,6 +196,7 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
     removeAllTurtleImages();
     clearCanvas();
     myPaths.clear();
+    myPathsProperties.clear();
   }
 
   private void clearCanvas() {
@@ -202,7 +209,6 @@ public class TurtleCanvas extends GuiElement implements IVisualize {
   }
 
   @Override
-  //TODO: need to debug this
   public void resize(double width, double height) {
     TRANSLATE_X = width / 2.0 - PADDING;
     TRANSLATE_Y = (height - MENU_HEIGHT - GAP) / 2.0 - PADDING;

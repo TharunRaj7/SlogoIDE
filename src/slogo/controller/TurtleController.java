@@ -86,11 +86,18 @@ public class TurtleController {
         }
     }
 
+    /**
+     * Method to start the ask command
+     * @param id
+     */
     public void askTurtles (List<Integer>id){
         this.turtlesAskHolder = List.copyOf(activeTurtles);
         tellTurtles(id);
     }
 
+    /**
+     * Method to end the ask command
+     */
     public void restore (){
         List<Integer> id = new ArrayList<>();
         for (Turtle turtle : turtlesAskHolder){
@@ -100,6 +107,10 @@ public class TurtleController {
     }
 
 
+    /**
+     * Method to move all the active turtles relatively
+     * @param distance
+     */
     public void moveRelative (double distance){
         for (Turtle turtle : activeTurtles){
             turtle.moveRelative(distance);
@@ -108,6 +119,10 @@ public class TurtleController {
     }
 
 
+    /**
+     * Method to move all the active turtles absolutely
+     * @param l
+     */
     public void moveTo (Location l){
         for (Turtle turtle : activeTurtles){
             turtle.moveTo(l);
@@ -115,6 +130,10 @@ public class TurtleController {
         }
     }
 
+    /**
+     * Rotates all the active turtles
+     * @param angle
+     */
     public void rotate (double angle){
         for (Turtle turtle : activeTurtles){
             turtle.rotate(angle);
@@ -122,6 +141,11 @@ public class TurtleController {
         }
     }
 
+    /**
+     * sets heading of all the active turtles to a specific coordinate
+     * @param x
+     * @param y
+     */
     public void towards (double x, double y){
         for (Turtle turtle : activeTurtles){
             turtle.towards(x, y);
@@ -129,6 +153,10 @@ public class TurtleController {
         }
     }
 
+    /**
+     * sets the heading of all the active turtles
+     * @param angle
+     */
     public void setHeading (double angle){
         for (Turtle turtle : activeTurtles){
             turtle.setHeading(angle);
@@ -136,6 +164,9 @@ public class TurtleController {
         }
     }
 
+    /**
+     * Retracts the pen for all the active turtles
+     */
     public void penUp(){
         for (Turtle turtle : activeTurtles){
             turtle.penUp();
@@ -143,6 +174,9 @@ public class TurtleController {
         }
     }
 
+    /**
+     * engages the pen for all the active turtles
+     */
     public void penDown(){
         for (Turtle turtle : activeTurtles){
             turtle.penDown();
@@ -151,7 +185,7 @@ public class TurtleController {
     }
 
     /**
-     * Show all turtles on screen
+     * Show all active turtles on screen
      */
     public void show(){
         for (Turtle turtle : activeTurtles){
@@ -160,6 +194,9 @@ public class TurtleController {
         }
     }
 
+    /**
+     * Hides all the active turtles
+     */
     public void hide(){
         for (Turtle turtle : activeTurtles){
             turtle.hide();
@@ -167,6 +204,9 @@ public class TurtleController {
         }
     }
 
+    /**
+     * clears the screen and resets all the turtles
+     */
     public void clear (){
         turtleCanvas.clear();
         turtles.clear();
@@ -174,25 +214,43 @@ public class TurtleController {
         giveTurtleCanvas(this.turtleCanvas);
     }
 
+    /**
+     * Getter for the location of the most recent turtle
+     * @return
+     */
     public Location getLocation () {
         return turtles.get(turtles.size() - 1).getLocation();
     }
+    /**
+     * Getter for the heading of the most recent turtle
+     * @return
+     */
     public double getHeading() {
         return turtles.get(turtles.size() - 1).getHeading();
     }
 
-
+    /**
+     * Getter for the pen status of the most recent turtle
+     * @return
+     */
     public boolean getPenDown() {
         return turtles.get(turtles.size() - 1).getPenDown();
     }
 
 
+    /**
+     * Getter for the showing state of the most recent turtle
+     * @return
+     */
     public boolean getShowing() {
         return turtles.get(turtles.size() - 1).getShowing();
     }
 
 
-    //get all the turtle images
+    /**
+     * Getter for the active turtle images
+     * @return
+     */
     public List<ImageView> getActiveTurtleImages(){
         List<ImageView> ret = new ArrayList<>();
         for (Turtle turtle : activeTurtles){
@@ -201,6 +259,10 @@ public class TurtleController {
         return ret;
     }
 
+    /**
+     * Getter for all the turtle images
+     * @return
+     */
     public List<ImageView> getAllTurtleImages(){
         List<ImageView> ret = new ArrayList<>();
         for (Turtle turtle : turtles){
@@ -208,7 +270,12 @@ public class TurtleController {
         }
         return ret;
     }
-    // get the location for a specific turtle
+
+    /**
+     * Getter for the location of a specific turtle
+     * @param id
+     * @return
+     */
     public Location getLocation(int id){
         for (Turtle turtle : turtles){
             if (turtle.getId() == id){
@@ -237,16 +304,35 @@ public class TurtleController {
         }
     }
 
+
+    /**
+     * Calls the relevant method to update the variable table data in the view
+     * @param map
+     */
     public void addTableData(Map<String, Double> map) {
         variableExplorer.addTableData(map);
     }
 
+    /**
+     * Gives the varible Explorer instance to the turtle
+     * @param v
+     */
     public void giveVariableExplorer(VariableExplorer v) {
         this.variableExplorer = v;
     }
+
+    /**
+     * returns the id of the turtle currently being used to draw commands
+     * @return
+     */
     public int getLastId () {
         return currentTurtle.getId();
     }
+
+    /**
+     * returns the total number of turtles already created
+     * @return
+     */
     public int numberOfTurtlesCreated(){
         return turtles.size();
     }
@@ -265,12 +351,21 @@ public class TurtleController {
         return null;
     }
 
+    /**
+     * Setter method for the background.
+     * @param index
+     */
     public void setBackground (int index){
         resource = getResourceBundleFromPath("Colors");
         String colorString = Collections.list(resource.getKeys()).get(index);
         Color color = Color.valueOf(colorString);
         turtleCanvas.setBackgroundColor(color);
     }
+
+    /**
+     * Setter method for the pen color
+     * @param index
+     */
     public void setPenColor (int index){
         resource = getResourceBundleFromPath("Colors");
         String colorString = Collections.list(resource.getKeys()).get(index);
@@ -280,6 +375,11 @@ public class TurtleController {
             currentTurtle = turtle;
         }
     }
+
+    /**
+     * Setter method for the pen size
+     * @param penSize
+     */
     public void setPenSize (int penSize){
         for (Turtle turtle : activeTurtles){
             turtle.setPenSize(penSize);
@@ -287,6 +387,10 @@ public class TurtleController {
         }
     }
 
+    /**
+     * Setter method for the image of the turtle
+     * @param index
+     */
     public void setShape (int index){
         resource = getResourceBundleFromPath("images");
         String imageName = Collections.list(resource.getKeys()).get(index);
